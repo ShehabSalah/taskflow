@@ -1265,6 +1265,91 @@
         </div>
     </section>
 
+    <!-- Global Adoption — live stats from GitHub Releases -->
+    <section id="adoption" class="py-20 relative overflow-hidden border-b border-zinc-900 bg-zinc-950/20">
+        <div class="absolute inset-0 bg-gradient-to-b from-purple-950/5 via-transparent to-transparent pointer-events-none"></div>
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+                <div class="lg:col-span-5 space-y-6">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">Global Adoption</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mt-1">
+                            Trusted by professionals worldwide
+                        </h2>
+                    </div>
+                    <p class="text-zinc-400 text-sm leading-relaxed">
+                        TaskFlow is built for modern, privacy-focused workspaces. Download totals sync from GitHub Releases — no telemetry, just public installer stats.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                        <div class="p-4 rounded-xl border border-zinc-800 bg-zinc-900/25 hover:border-zinc-700 transition-all">
+                            <div class="flex items-center gap-2 mb-2">
+                                <i class="fa-solid fa-shield-halved text-emerald-400 text-sm"></i>
+                                <span class="font-bold text-xs text-white">SHA256 Signed</span>
+                            </div>
+                            <p class="text-[11px] text-zinc-500 leading-relaxed">Every public release is cryptographically hash-verified for integrity.</p>
+                        </div>
+                        <div class="p-4 rounded-xl border border-zinc-800 bg-zinc-900/25 hover:border-zinc-700 transition-all">
+                            <div class="flex items-center gap-2 mb-2">
+                                <i class="fa-solid fa-user-shield text-purple-400 text-sm"></i>
+                                <span class="font-bold text-xs text-white">Zero Telemetry</span>
+                            </div>
+                            <p class="text-[11px] text-zinc-500 leading-relaxed">Local-first engineering — no usage reporting or background tracking in the app.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7">
+                    <div class="p-6 rounded-2xl border border-zinc-800/80 bg-zinc-900/40 grad-border">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span id="adoption-live-dot" class="h-2 w-2 rounded-full bg-purple-500 animate-ping inline-block flex-shrink-0 hidden"></span>
+                            <span class="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Total verified downloads</span>
+                        </div>
+
+                        <div class="flex items-baseline gap-2 mb-1">
+                            <span id="live-counter" class="text-4xl sm:text-5xl font-mono font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-200 to-zinc-400" aria-live="polite">—</span>
+                            <span id="adoption-live-badge" class="text-xs font-bold text-zinc-500 flex items-center gap-1 bg-zinc-800/80 px-2 py-0.5 rounded-full">
+                                <i class="fa-solid fa-rotate"></i> SYNC
+                            </span>
+                        </div>
+                        <p id="adoption-sync-meta" class="text-[10px] text-zinc-600 mb-4">Syncing from GitHub…</p>
+
+                        <div class="mt-6 space-y-3 pt-4 border-t border-zinc-800/60" id="adoption-platform-bars">
+                            <div>
+                                <div class="flex justify-between text-xs text-zinc-400 mb-1">
+                                    <span class="flex items-center gap-1.5"><i class="fa-brands fa-windows text-blue-400"></i> Windows (.exe)</span>
+                                    <span class="font-semibold text-zinc-300" id="adoption-pct-windows">—</span>
+                                </div>
+                                <div class="w-full bg-zinc-950 rounded-full h-1">
+                                    <div id="adoption-bar-windows" class="bg-gradient-to-r from-blue-500 to-indigo-500 h-1 rounded-full transition-all duration-700" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs text-zinc-400 mb-1">
+                                    <span class="flex items-center gap-1.5"><i class="fa-brands fa-apple text-zinc-400"></i> macOS Intel (.dmg)</span>
+                                    <span class="font-semibold text-zinc-300" id="adoption-pct-mac-intel">—</span>
+                                </div>
+                                <div class="w-full bg-zinc-950 rounded-full h-1">
+                                    <div id="adoption-bar-mac-intel" class="bg-gradient-to-r from-zinc-400 to-zinc-500 h-1 rounded-full transition-all duration-700" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs text-zinc-400 mb-1">
+                                    <span class="flex items-center gap-1.5"><i class="fa-brands fa-apple text-zinc-300"></i> macOS M-series (.dmg)</span>
+                                    <span class="font-semibold text-zinc-300" id="adoption-pct-mac-arm">—</span>
+                                </div>
+                                <div class="w-full bg-zinc-950 rounded-full h-1">
+                                    <div id="adoption-bar-mac-arm" class="bg-gradient-to-r from-purple-500 to-pink-500 h-1 rounded-full transition-all duration-700" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <!-- Download Area Section -->
     <section id="download" class="py-24 relative overflow-hidden bg-gradient-to-b from-[#09090b] to-[#0c0c10]">
         <div class="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-purple-950/5 to-transparent pointer-events-none"></div>
@@ -1289,9 +1374,9 @@
                         <h3 class="text-xl font-bold text-white mb-2">Windows</h3>
                         <p class="text-xs text-zinc-400 mb-6">Optimized installer setup designed for Windows 10 & 11.</p>
                     </div>
-                    <button onclick="simulateDownload('Windows')" class="w-full bg-white hover:bg-zinc-200 text-black text-xs font-bold py-3 rounded-xl transition-colors inline-flex justify-center items-center gap-2">
-                        <i class="fa-solid fa-arrow-down"></i> Download (.exe)
-                    </button>
+                    <a href="https://github.com/ShehabSalah/taskflow/releases/download/v1.0.0/TaskFlow_1.0.0_x64-setup.exe" target="_blank" rel="noopener noreferrer" class="w-full bg-white hover:bg-zinc-200 text-black text-xs font-bold py-3 rounded-xl transition-colors inline-flex justify-center items-center gap-2">
+                        <i class="fa-solid fa-arrow-down"></i> Download (.exe) · 77.6 MB
+                    </a>
                 </div>
 
                 <!-- macOS Intel -->
@@ -1304,9 +1389,9 @@
                         <h3 class="text-xl font-bold text-white mb-2">macOS Intel</h3>
                         <p class="text-xs text-zinc-400 mb-6">For Intel-based Mac devices (x64).</p>
                     </div>
-                    <button onclick="simulateDownload('macOS-Intel')" class="w-full bg-white hover:bg-zinc-200 text-black text-xs font-bold py-3 rounded-xl transition-colors inline-flex justify-center items-center gap-2">
-                        <i class="fa-solid fa-arrow-down"></i> Download (.dmg)
-                    </button>
+                    <a href="https://github.com/ShehabSalah/taskflow/releases/download/v1.0.0/TaskFlow_1.0.0_x64.dmg" target="_blank" rel="noopener noreferrer" class="w-full bg-white hover:bg-zinc-200 text-black text-xs font-bold py-3 rounded-xl transition-colors inline-flex justify-center items-center gap-2">
+                        <i class="fa-solid fa-arrow-down"></i> Download (.dmg) · 168.5 MB
+                    </a>
                 </div>
 
                 <!-- macOS Apple Silicon -->
@@ -1317,11 +1402,11 @@
                     <div>
                         <i class="fa-brands fa-apple text-zinc-300 text-4xl mb-4 block group-hover:scale-110 transition-transform"></i>
                         <h3 class="text-xl font-bold text-white mb-2">macOS M-series</h3>
-                        <p class="text-xs text-zinc-400 mb-6">For Apple Silicon devices (M1/M2/M3).</p>
+                        <p class="text-xs text-zinc-400 mb-6">For Apple Silicon devices (M1/M2/M3/M4).</p>
                     </div>
-                    <button onclick="simulateDownload('macOS-M-series')" class="w-full bg-white hover:bg-zinc-200 text-black text-xs font-bold py-3 rounded-xl transition-colors inline-flex justify-center items-center gap-2">
-                        <i class="fa-solid fa-arrow-down"></i> Download (.dmg)
-                    </button>
+                    <a href="https://github.com/ShehabSalah/taskflow/releases/download/v1.0.0/TaskFlow_1.0.0_aarch64.dmg" target="_blank" rel="noopener noreferrer" class="w-full bg-white hover:bg-zinc-200 text-black text-xs font-bold py-3 rounded-xl transition-colors inline-flex justify-center items-center gap-2">
+                        <i class="fa-solid fa-arrow-down"></i> Download (.dmg) · 168.3 MB
+                    </a>
                 </div>
             </div>
             <p class="text-center text-xs text-zinc-500 -mt-10 mb-12">Not sure which Mac chip you have? Check Apple menu → About This Mac.</p>
@@ -1331,12 +1416,12 @@
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-4 border-b border-zinc-800">
                     <div>
                         <div class="text-xs font-semibold text-zinc-500">LATEST STABLE RELEASE</div>
-                        <div class="text-lg font-bold text-white mt-1">v1.0.0 <span class="text-xs text-indigo-400 font-normal ml-2">(July 2026 Build)</span></div>
+                        <div class="text-lg font-bold text-white mt-1">v1.0.0 <span class="text-xs text-indigo-400 font-normal ml-2">(July 3, 2026)</span></div>
                     </div>
                     <div class="flex flex-wrap gap-2">
-                        <button onclick="copySHA()" class="text-[10px] bg-zinc-900 hover:bg-zinc-850 text-zinc-400 border border-zinc-800 px-3 py-1.5 rounded transition-all inline-flex items-center gap-1.5">
-                            <i class="fa-solid fa-fingerprint"></i> SHA256 Hash
-                        </button>
+                        <a href="https://github.com/ShehabSalah/taskflow/releases/tag/v1.0.0" target="_blank" rel="noopener noreferrer" class="text-[10px] bg-zinc-900 hover:bg-zinc-850 text-zinc-400 border border-zinc-800 px-3 py-1.5 rounded transition-all inline-flex items-center gap-1.5">
+                            <i class="fa-brands fa-github"></i> View on GitHub
+                        </a>
                         <a href="#releases" class="text-[10px] bg-zinc-900 hover:bg-zinc-850 text-zinc-400 border border-zinc-800 px-3 py-1.5 rounded transition-all inline-flex items-center gap-1.5">
                             <i class="fa-solid fa-note-sticky"></i> Release Notes
                         </a>
@@ -1346,7 +1431,7 @@
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-4 pb-4 border-b border-zinc-800">
                         <div>
                             <span class="text-zinc-500 block">Release Date</span>
-                            <span class="text-zinc-300 font-semibold mt-0.5 block">July 2, 2026</span>
+                            <span class="text-zinc-300 font-semibold mt-0.5 block">July 3, 2026</span>
                         </div>
                         <div>
                             <span class="text-zinc-500 block">Platforms</span>
@@ -1370,17 +1455,32 @@
                                 <tr class="border-t border-zinc-800/80">
                                     <td class="py-2.5 pr-4 font-semibold text-white">Windows</td>
                                     <td class="py-2.5 pr-4">Windows 10/11 (x64)</td>
-                                    <td class="py-2.5 text-right font-semibold">54.2 MB (.exe)</td>
+                                    <td class="py-2.5 text-right font-semibold">
+                                        77.6 MB (.exe)
+                                        <button type="button" onclick="copyBuildSHA('windows')" class="ml-2 text-zinc-500 hover:text-indigo-400 transition-colors" title="Copy SHA-256">
+                                            <i class="fa-solid fa-fingerprint"></i>
+                                        </button>
+                                    </td>
                                 </tr>
                                 <tr class="border-t border-zinc-800/80">
                                     <td class="py-2.5 pr-4 font-semibold text-white">macOS Intel</td>
                                     <td class="py-2.5 pr-4">macOS 11+ (Intel x64)</td>
-                                    <td class="py-2.5 text-right font-semibold">52.1 MB (.dmg)</td>
+                                    <td class="py-2.5 text-right font-semibold">
+                                        168.5 MB (.dmg)
+                                        <button type="button" onclick="copyBuildSHA('macIntel')" class="ml-2 text-zinc-500 hover:text-indigo-400 transition-colors" title="Copy SHA-256">
+                                            <i class="fa-solid fa-fingerprint"></i>
+                                        </button>
+                                    </td>
                                 </tr>
                                 <tr class="border-t border-zinc-800/80">
                                     <td class="py-2.5 pr-4 font-semibold text-white">macOS M-series</td>
                                     <td class="py-2.5 pr-4">macOS 11+ (Apple Silicon)</td>
-                                    <td class="py-2.5 text-right font-semibold">47.8 MB (.dmg)</td>
+                                    <td class="py-2.5 text-right font-semibold">
+                                        168.3 MB (.dmg)
+                                        <button type="button" onclick="copyBuildSHA('macArm')" class="ml-2 text-zinc-500 hover:text-indigo-400 transition-colors" title="Copy SHA-256">
+                                            <i class="fa-solid fa-fingerprint"></i>
+                                        </button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1414,11 +1514,11 @@
                     <tbody class="divide-y divide-zinc-800">
                         <tr class="hover:bg-zinc-900/10">
                             <td class="p-4 font-bold text-white whitespace-nowrap">v1.0.0</td>
-                            <td class="p-4 text-zinc-500 whitespace-nowrap">Jul 2, 2026</td>
+                            <td class="p-4 text-zinc-500 whitespace-nowrap">Jul 3, 2026</td>
                             <td class="p-4 whitespace-nowrap">
                                 <span class="bg-indigo-500/10 text-indigo-400 text-[10px] font-bold px-2 py-0.5 rounded-full">LATEST STABLE</span>
                             </td>
-                            <td class="p-4 text-zinc-300 whitespace-nowrap max-w-xs truncate">First public release of TaskFlow</td>
+                            <td class="p-4 text-zinc-300 whitespace-nowrap max-w-xs truncate">Local-first work management for professionals</td>
                             <td class="p-4 text-right whitespace-nowrap">
                                 <button onclick="openReleaseModal('1.0.0')" class="text-white hover:text-indigo-400 font-bold transition-all">View</button>
                             </td>
@@ -1723,9 +1823,6 @@
                     <ul class="space-y-2">
                         <li><a href="https://github.com/ShehabSalah" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">GitHub Profile</a></li>
                         <li><a href="https://www.linkedin.com/in/shehabsalah/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">LinkedIn Profile</a></li>
-                        <li><a href="https://github.com/ShehabSalah/taskflow-dashboard" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Dashboard Repo</a></li>
-                        <li><a href="https://github.com/ShehabSalah/taskflow-backend" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Backend Repo</a></li>
-                        <li><a href="https://github.com/ShehabSalah/taskflow-desktop" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Desktop Repo</a></li>
                     </ul>
                 </div>
             </div>
@@ -1755,20 +1852,121 @@
     <div id="release-modal" class="fixed inset-0 z-[60] hidden" aria-hidden="true">
         <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeReleaseModal()"></div>
         <div class="relative flex min-h-full items-center justify-center p-4">
-            <div class="w-full max-w-2xl rounded-2xl border border-zinc-800 bg-[#101014] shadow-2xl overflow-hidden" role="dialog" aria-modal="true" aria-labelledby="release-modal-title">
+            <div class="w-full max-w-3xl rounded-2xl border border-zinc-800 bg-[#101014] shadow-2xl overflow-hidden" role="dialog" aria-modal="true" aria-labelledby="release-modal-title">
                 <div class="flex items-start justify-between gap-4 border-b border-zinc-800 px-6 py-5">
                     <div>
                         <div class="text-[10px] font-bold uppercase tracking-wider text-indigo-400" id="release-modal-version">v1.0.0</div>
-                        <h3 class="text-xl font-bold text-white mt-1" id="release-modal-title">Release Notes</h3>
-                        <p class="text-xs text-zinc-500 mt-1" id="release-modal-meta">Jul 2, 2026 · LATEST STABLE</p>
+                        <h3 class="text-xl font-bold text-white mt-1" id="release-modal-title">TaskFlow v1.0.0 — First public release</h3>
+                        <p class="text-xs text-zinc-500 mt-1" id="release-modal-meta">Jul 3, 2026 · LATEST STABLE</p>
                     </div>
                     <button type="button" onclick="closeReleaseModal()" class="w-8 h-8 rounded-lg border border-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-900 transition-colors" aria-label="Close">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
-                <div class="px-6 py-5 max-h-[70vh] overflow-y-auto">
-                    <p class="text-sm text-zinc-300 mb-4" id="release-modal-summary"></p>
-                    <ul class="list-disc list-inside space-y-2 text-sm text-zinc-400" id="release-modal-list"></ul>
+                <div class="px-6 py-5 max-h-[70vh] overflow-y-auto text-sm text-zinc-300 release-notes-body" id="release-modal-body">
+                    <p class="text-zinc-300 mb-6"><strong class="text-white">Local-first work management for professionals</strong> — track time, earnings, projects, and tasks in one desktop app. Your data stays on your machine.</p>
+
+                    <h4 class="text-base font-bold text-white mt-6 mb-3">Downloads</h4>
+                    <div class="overflow-x-auto rounded-lg border border-zinc-800 mb-4">
+                        <table class="w-full text-left text-xs border-collapse">
+                            <thead class="bg-zinc-900/60 text-zinc-400 uppercase tracking-wider text-[10px]">
+                                <tr>
+                                    <th class="p-3 border-b border-zinc-800 font-semibold">Platform</th>
+                                    <th class="p-3 border-b border-zinc-800 font-semibold">File</th>
+                                    <th class="p-3 border-b border-zinc-800 font-semibold">Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-zinc-300 divide-y divide-zinc-800">
+                                <tr>
+                                    <td class="p-3 font-semibold text-white">Windows (64-bit)</td>
+                                    <td class="p-3 font-mono text-[11px]">TaskFlow_1.0.0_x64-setup.exe</td>
+                                    <td class="p-3">Recommended installer (NSIS)</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-semibold text-white">macOS (Apple Silicon)</td>
+                                    <td class="p-3 font-mono text-[11px]">TaskFlow_1.0.0_aarch64.dmg</td>
+                                    <td class="p-3">M1 / M2 / M3 / M4 Macs</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-semibold text-white">macOS (Intel)</td>
+                                    <td class="p-3 font-mono text-[11px]">TaskFlow_1.0.0_x64.dmg</td>
+                                    <td class="p-3">Intel-based Macs</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-xs text-zinc-500 border-l-2 border-zinc-700 pl-3 mb-6">Optional on Windows: <code class="text-zinc-400">TaskFlow_1.0.0_x64_en-US.msi</code> (MSI installer).</p>
+
+                    <h4 class="text-base font-bold text-white mt-6 mb-3">What’s included</h4>
+                    <p class="font-semibold text-white mt-4 mb-2">Time &amp; money</p>
+                    <ul class="list-disc list-inside space-y-1.5 text-zinc-400 mb-4">
+                        <li>Workspaces (full-time, part-time, freelance, project-based)</li>
+                        <li>Start/stop timers at workspace, project, or task level</li>
+                        <li>Real-time earnings from salary and recorded seconds</li>
+                        <li>Daily, weekly, and monthly progress and overtime views</li>
+                        <li>Work logs with filters and exports</li>
+                    </ul>
+                    <p class="font-semibold text-white mt-4 mb-2">Projects &amp; tasks (Trello-style)</p>
+                    <ul class="list-disc list-inside space-y-1.5 text-zinc-400 mb-4">
+                        <li>Dynamic Kanban lists per project</li>
+                        <li>Labels, start/end dates, checklists, custom fields</li>
+                        <li>Rich-text descriptions, comments, and activity feed</li>
+                        <li>Attachments and mark-complete checkbox</li>
+                        <li>Start a timer directly from a task card</li>
+                    </ul>
+                    <p class="font-semibold text-white mt-4 mb-2">Reports &amp; insights</p>
+                    <ul class="list-disc list-inside space-y-1.5 text-zinc-400 mb-4">
+                        <li>Report builder with date ranges, preview, and scope filters</li>
+                        <li>Excel / CSV exports (timesheets, attendance, overtime)</li>
+                        <li>Work insights — time allocation and period comparison</li>
+                    </ul>
+                    <p class="font-semibold text-white mt-4 mb-2">Desktop &amp; privacy</p>
+                    <ul class="list-disc list-inside space-y-1.5 text-zinc-400 mb-4">
+                        <li>Native installers — no separate Node, npm, or PostgreSQL setup required</li>
+                        <li><strong class="text-zinc-300">Easy mode:</strong> bundled PostgreSQL on first run</li>
+                        <li><strong class="text-zinc-300">Advanced mode:</strong> connect your own PostgreSQL</li>
+                        <li>App lock with username/password, lock screen, and auto-lock</li>
+                        <li>In-app help (<code class="text-zinc-400">/help</code>)</li>
+                        <li>Optional launch at login (Settings → Desktop)</li>
+                    </ul>
+                    <p class="text-zinc-400 mb-6"><strong class="text-zinc-300">Local-first:</strong> core features work offline. No cloud account required.</p>
+
+                    <h4 class="text-base font-bold text-white mt-6 mb-3">First-time setup</h4>
+                    <ol class="list-decimal list-inside space-y-1.5 text-zinc-400 mb-6">
+                        <li>Download and run the installer for your platform.</li>
+                        <li>Complete the setup wizard (choose Easy or Advanced database mode).</li>
+                        <li>Create your local account (username + password).</li>
+                        <li>Add a workspace and start tracking.</li>
+                    </ol>
+
+                    <h4 class="text-base font-bold text-white mt-6 mb-3">System requirements</h4>
+                    <ul class="list-disc list-inside space-y-1.5 text-zinc-400 mb-6">
+                        <li><strong class="text-zinc-300">Windows:</strong> Windows 10 or later (64-bit)</li>
+                        <li><strong class="text-zinc-300">macOS:</strong> macOS 11 (Big Sur) or later</li>
+                        <li>Disk space for app + database (Easy mode downloads PostgreSQL on first run)</li>
+                    </ul>
+
+                    <h4 class="text-base font-bold text-white mt-6 mb-3">Upgrading</h4>
+                    <p class="text-zinc-400 mb-6">Install the new version over an existing install. Your database and settings are preserved; migrations run automatically on launch.</p>
+
+                    <h4 class="text-base font-bold text-white mt-6 mb-3">Known limitations (v1.0.0)</h4>
+                    <ul class="list-disc list-inside space-y-1.5 text-zinc-400 mb-6">
+                        <li>Single user per install (local auth)</li>
+                        <li>No calendar, Slack, email, or cloud integrations yet (planned for future releases)</li>
+                        <li>macOS builds may show Gatekeeper warnings</li>
+                        <li>Windows may show SmartScreen for installers</li>
+                    </ul>
+
+                    <h4 class="text-base font-bold text-white mt-6 mb-3">Links</h4>
+                    <ul class="list-disc list-inside space-y-1.5 text-zinc-400 mb-6">
+                        <li><a href="https://shehabsalah.github.io/taskflow/" class="text-indigo-400 hover:text-indigo-300 transition-colors">Website</a></li>
+                        <li><a href="https://shehabsalah.github.io/taskflow/docs.html" class="text-indigo-400 hover:text-indigo-300 transition-colors">User guide</a></li>
+                    </ul>
+
+                    <h4 class="text-base font-bold text-white mt-6 mb-3">Support</h4>
+                    <p class="text-zinc-400 mb-6">Questions, bug reports, or feedback? Contact <strong class="text-zinc-300">Shehab Salah</strong> on <a href="https://www.linkedin.com/in/shehabsalah/" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:text-indigo-300 transition-colors">LinkedIn</a>.</p>
+
+                    <p class="text-zinc-500 text-xs pt-4 border-t border-zinc-800"><strong class="text-zinc-400">TaskFlow v1.0.0</strong> — Track time. Manage work. Measure progress.</p>
                 </div>
                 <div class="border-t border-zinc-800 px-6 py-4 flex justify-end">
                     <button type="button" onclick="closeReleaseModal()" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 text-xs px-4 py-2 rounded-xl font-bold transition-colors">
@@ -2135,23 +2333,13 @@
             });
         }
 
-        // Release notes modal
+        // Release notes modal (static copy from GitHub release v1.0.0 — update manually on new releases)
         const releaseNotes = {
             "1.0.0": {
                 version: "v1.0.0",
-                date: "Jul 2, 2026",
-                status: "LATEST STABLE",
-                summary: "First public release of TaskFlow: local-first, context-aware work management for professionals.",
-                items: [
-                    "Workspaces for clients, employers, and contracts with salary, currency, and overtime settings",
-                    "Projects, dynamic Kanban tasks, labels, schedule dates, checklists, custom fields, rich-text descriptions, comments, activity feed, and mark complete",
-                    "Time tracking at workspace, project, or task level; work logs with filters and live active sessions",
-                    "Real-time earnings plus weekly and monthly dashboard progress",
-                    "Reports and exports (Excel/CSV), work insights, and dedicated overtime management",
-                    "Workspace resources, project files, and task attachments on local storage",
-                    "Native desktop app for Windows and macOS (Intel and Apple Silicon) with bundled or bring-your-own PostgreSQL",
-                    "App lock with local authentication, settings, themes, and in-app help"
-                ]
+                title: "TaskFlow v1.0.0 — First public release",
+                date: "Jul 3, 2026",
+                status: "LATEST STABLE"
             }
         };
 
@@ -2160,12 +2348,8 @@
             if (!data) return;
 
             document.getElementById("release-modal-version").textContent = data.version;
-            document.getElementById("release-modal-title").textContent = "Release Notes";
+            document.getElementById("release-modal-title").textContent = data.title;
             document.getElementById("release-modal-meta").textContent = `${data.date} · ${data.status}`;
-            document.getElementById("release-modal-summary").textContent = data.summary;
-            document.getElementById("release-modal-list").innerHTML = data.items
-                .map((item) => `<li>${item}</li>`)
-                .join("");
 
             const modal = document.getElementById("release-modal");
             modal.classList.remove("hidden");
@@ -2201,28 +2385,178 @@
             }, 4000);
         }
 
-        // Clipboard Copy Action
-        function copySHA() {
-            // Simulated action
-            const shaCode = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
+        const RELEASE_DOWNLOADS = {
+            windows: {
+                label: "Windows (.exe)",
+                sha256: "a6b592de3b038d5fa77a02786aab9d00dafffd297a8d52119b9fcf9c420665d8"
+            },
+            macIntel: {
+                label: "macOS Intel (.dmg)",
+                sha256: "4f734a2b5be9acff28f11d9a5ef3b63481cf09711079da18ee78041999ebfa38"
+            },
+            macArm: {
+                label: "macOS M-series (.dmg)",
+                sha256: "805c4d137ed89ce8eda6aa44f898760126129914e1447f2cb1ea79eef205acfa"
+            }
+        };
+
+        function copyTextToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                return navigator.clipboard.writeText(text);
+            }
             const tempInput = document.createElement("input");
-            tempInput.value = shaCode;
+            tempInput.value = text;
             document.body.appendChild(tempInput);
             tempInput.select();
             document.execCommand("copy");
             document.body.removeChild(tempInput);
-            
-            showNotification("SHA-256 Checksum copied to your local clipboard!", "Clipboard Success");
+            return Promise.resolve();
         }
 
-        // Simulation Downloads
-        function simulateDownload(os) {
-            const ext = os === 'Windows' ? 'exe' : 'dmg';
-            showNotification(`Preparing TaskFlow for ${os}. Initiating installer package pipeline...`, "Download Request");
-            setTimeout(() => {
-                showNotification(`TaskFlow_${os}_v1.0.0_stable.${ext} download completed.`, "Download Success");
-            }, 2500);
+        function copyBuildSHA(buildKey) {
+            const build = RELEASE_DOWNLOADS[buildKey];
+            if (!build) return;
+            copyTextToClipboard(build.sha256).then(() => {
+                showNotification(`${build.label} SHA-256 copied to clipboard.`, "Clipboard Success");
+            });
         }
+
+        // Global Adoption — GitHub Releases download stats
+        const ADOPTION_REPO = "ShehabSalah/taskflow";
+        const ADOPTION_RELEASE_TAG = "v1.0.0";
+        const ADOPTION_CACHE_KEY = "taskflow-adoption-stats-v1";
+        const ADOPTION_CACHE_TTL_MS = 60 * 60 * 1000;
+
+        const ADOPTION_ASSET_PATTERNS = {
+            windows: /x64-setup\.exe$/i,
+            macArm: /aarch64\.dmg$/i,
+            macIntel: /_x64\.dmg$/i
+        };
+
+        function readAdoptionCache() {
+            try {
+                const raw = localStorage.getItem(ADOPTION_CACHE_KEY);
+                if (!raw) return null;
+                const parsed = JSON.parse(raw);
+                if (!parsed || Date.now() - parsed.fetchedAt > ADOPTION_CACHE_TTL_MS) return null;
+                return parsed.stats;
+            } catch {
+                return null;
+            }
+        }
+
+        function writeAdoptionCache(stats) {
+            try {
+                localStorage.setItem(ADOPTION_CACHE_KEY, JSON.stringify({ fetchedAt: Date.now(), stats }));
+            } catch {
+                /* ignore quota / private mode */
+            }
+        }
+
+        async function fetchAdoptionStats() {
+            const cached = readAdoptionCache();
+            if (cached) return { ...cached, fromCache: true };
+
+            const releaseRes = await fetch(
+                `https://api.github.com/repos/${ADOPTION_REPO}/releases/tags/${ADOPTION_RELEASE_TAG}`,
+                { headers: { Accept: "application/vnd.github+json" } }
+            );
+            if (!releaseRes.ok) throw new Error(`Release fetch failed (${releaseRes.status})`);
+
+            const release = await releaseRes.json();
+            const counts = { windows: 0, macIntel: 0, macArm: 0, total: 0 };
+
+            for (const asset of release.assets || []) {
+                const n = asset.download_count || 0;
+                const name = asset.name || "";
+                if (ADOPTION_ASSET_PATTERNS.windows.test(name)) counts.windows = n;
+                else if (ADOPTION_ASSET_PATTERNS.macArm.test(name)) counts.macArm = n;
+                else if (ADOPTION_ASSET_PATTERNS.macIntel.test(name)) counts.macIntel = n;
+            }
+
+            counts.total = counts.windows + counts.macIntel + counts.macArm;
+            writeAdoptionCache(counts);
+            return { ...counts, fromCache: false };
+        }
+
+        function animateAdoptionCounter(element, target, durationMs = 1400) {
+            const start = performance.now();
+            const from = 0;
+            function frame(now) {
+                const t = Math.min((now - start) / durationMs, 1);
+                const eased = 1 - Math.pow(1 - t, 3);
+                const value = Math.round(from + (target - from) * eased);
+                element.textContent = value.toLocaleString();
+                if (t < 1) requestAnimationFrame(frame);
+            }
+            requestAnimationFrame(frame);
+        }
+
+        function setAdoptionPlatformBar(pctId, barId, count, total) {
+            const pctEl = document.getElementById(pctId);
+            const barEl = document.getElementById(barId);
+            if (!pctEl || !barEl) return;
+
+            if (total <= 0) {
+                pctEl.textContent = count > 0 ? `${count.toLocaleString()} dl` : "0%";
+                barEl.style.width = "0%";
+                return;
+            }
+
+            const pct = Math.round((count / total) * 100);
+            pctEl.textContent = `${pct}%`;
+            barEl.style.width = `${pct}%`;
+        }
+
+        function renderAdoptionStats(stats, fromCache) {
+            const counterEl = document.getElementById("live-counter");
+            const metaEl = document.getElementById("adoption-sync-meta");
+            const badgeEl = document.getElementById("adoption-live-badge");
+            const dotEl = document.getElementById("adoption-live-dot");
+
+            if (!counterEl) return;
+
+            animateAdoptionCounter(counterEl, stats.total);
+
+            setAdoptionPlatformBar("adoption-pct-windows", "adoption-bar-windows", stats.windows, stats.total);
+            setAdoptionPlatformBar("adoption-pct-mac-intel", "adoption-bar-mac-intel", stats.macIntel, stats.total);
+            setAdoptionPlatformBar("adoption-pct-mac-arm", "adoption-bar-mac-arm", stats.macArm, stats.total);
+
+            if (metaEl) {
+                const cacheNote = fromCache ? " · cached 1h" : "";
+                metaEl.textContent = `v1.0.0 installers via GitHub Releases${cacheNote}`;
+            }
+
+            if (badgeEl) {
+                badgeEl.className = "text-xs font-bold text-emerald-400 flex items-center gap-1 bg-emerald-500/10 px-2 py-0.5 rounded-full";
+                badgeEl.innerHTML = '<i class="fa-solid fa-arrow-trend-up"></i> LIVE';
+            }
+            if (dotEl) dotEl.classList.remove("hidden");
+        }
+
+        function renderAdoptionError() {
+            const counterEl = document.getElementById("live-counter");
+            const metaEl = document.getElementById("adoption-sync-meta");
+            const badgeEl = document.getElementById("adoption-live-badge");
+            const dotEl = document.getElementById("adoption-live-dot");
+
+            if (counterEl) counterEl.textContent = "—";
+            if (metaEl) metaEl.textContent = "Could not load stats from GitHub. Try again later.";
+            if (badgeEl) {
+                badgeEl.className = "text-xs font-bold text-zinc-500 flex items-center gap-1 bg-zinc-800/80 px-2 py-0.5 rounded-full";
+                badgeEl.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> OFFLINE';
+            }
+            if (dotEl) dotEl.classList.add("hidden");
+        }
+
+        (async function initAdoptionStats() {
+            try {
+                const stats = await fetchAdoptionStats();
+                renderAdoptionStats(stats, stats.fromCache);
+            } catch {
+                renderAdoptionError();
+            }
+        })();
 
         // Accordion Toggle
         const FAQ_COUNT = 11;

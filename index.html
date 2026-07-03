@@ -1,0 +1,2249 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow — Local-first work management for professionals</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#09090b',
+                        darkCard: '#131316',
+                        darkBorder: '#222226',
+                        accentPurple: '#8b5cf6',
+                        accentBlue: '#3b82f6',
+                        accentGreen: '#10b981',
+                        accentOrange: '#f97316'
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Devicon (Zustand brand icon) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+            background-color: #09090b;
+            color: #f4f4f5;
+            overflow-x: hidden;
+        }
+        /* Custom scrollbar for premium feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #09090b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3f3f46;
+        }
+        /* Subtle glow effects */
+        .glow-indigo {
+            box-shadow: 0 0 50px -10px rgba(99, 102, 241, 0.15);
+        }
+        .glow-purple {
+            box-shadow: 0 0 50px -10px rgba(139, 92, 246, 0.15);
+        }
+        /* Gradient border card effect */
+        .grad-border {
+            position: relative;
+        }
+        .grad-border::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(to bottom right, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .grad-border-hover:hover::after {
+            background: linear-gradient(to bottom right, rgba(139, 92, 246, 0.4), rgba(59, 130, 246, 0.4));
+        }
+        /* Horizontal flow line */
+        .timeline-line {
+            background: linear-gradient(90deg, rgba(139, 92, 246, 0) 0%, rgba(139, 92, 246, 1) 50%, rgba(59, 130, 246, 0) 100%);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-purple-500/30 selection:text-purple-200">
+
+    <!-- Sticky Navigation Bar -->
+    <header class="sticky top-0 z-50 w-full border-b border-darkBorder bg-darkBg/80 backdrop-blur-md transition-all duration-300">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <!-- Logo & Brand Name -->
+                <div class="flex items-center gap-3">
+                    <a href="#" class="flex items-center gap-2.5">
+                        <img src="brand/mark.svg" alt="" class="h-9 w-9" width="36" height="36" />
+                        <div class="flex flex-col">
+                            <span class="text-base font-bold tracking-tight text-white">TaskFlow</span>
+                            <span class="text-[9px] font-semibold uppercase tracking-widest text-zinc-500">Context-Aware · Local-First</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-400">
+                    <a href="#why-taskflow" class="hover:text-white transition-colors">Why TaskFlow</a>
+                    <a href="#features" class="hover:text-white transition-colors">Features</a>
+                    <a href="#built-for" class="hover:text-white transition-colors">For Professionals</a>
+                    <a href="#releases" class="hover:text-white transition-colors">Releases</a>
+                    <a href="#roadmap" class="hover:text-white transition-colors">Roadmap</a>
+                    <a href="docs.html" class="hover:text-white transition-colors">Docs</a>
+                    <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+                </nav>
+
+                <!-- Action Buttons -->
+                <div class="flex items-center gap-4">
+                    <a href="#releases" class="hidden sm:inline-flex text-xs font-semibold text-zinc-400 hover:text-white transition-colors py-2 px-3">
+                        View Releases
+                    </a>
+                    <a href="#download" class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-xs font-bold text-black hover:bg-zinc-200 transition-all shadow-lg hover:shadow-white/5">
+                        <i class="fa-solid fa-arrow-down"></i>
+                        Download Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-12 pb-24 lg:pt-20 lg:pb-32 overflow-hidden">
+        <!-- Glow accents in background -->
+        <div class="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-purple-900/10 blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/3 right-1/4 translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-blue-900/10 blur-3xl pointer-events-none"></div>
+
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                
+                <!-- Left Content Area -->
+                <div class="lg:col-span-5 flex flex-col justify-center text-center lg:text-left">
+                    <div class="inline-flex self-center lg:self-start items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-3 py-1 text-xs font-semibold text-purple-300 mb-6">
+                        <span class="flex h-2 w-2 rounded-full bg-purple-400 animate-pulse"></span>
+                        Version 1.0.0 is live · Context-Aware + Local-First
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight mb-6">
+                        Your Work.<br/>
+                        Your Data.<br/>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-indigo-400 to-blue-400">Your Flow.</span>
+                    </h1>
+                    
+                    <p class="text-base sm:text-lg text-zinc-400 leading-relaxed mb-8 max-w-lg mx-auto lg:mx-0">
+                        TaskFlow organizes work by real-world context — client, project, task, time, and resources — in one local-first desktop app. Switch workspace to focus on one client, employer, or personal project at a time. Less noise, more focus: instantly find the right files and data, with full control on your machine.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-8">
+                        <a href="#download" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 px-6 py-3 text-sm font-semibold text-white hover:from-purple-500 hover:to-indigo-500 transition-all shadow-lg shadow-purple-500/10">
+                            <i class="fa-solid fa-download"></i>
+                            Download TaskFlow
+                        </a>
+                        <a href="#releases" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 px-6 py-3 text-sm font-semibold text-zinc-300 hover:text-white transition-all">
+                            <i class="fa-solid fa-list"></i>
+                            View All Builds
+                        </a>
+                    </div>
+
+                    <!-- Trust indicators -->
+                    <div class="flex flex-wrap justify-center lg:justify-start items-center gap-6 text-xs text-zinc-500 font-medium">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-shield-halved text-emerald-500"></i>
+                            100% Offline
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-layer-group text-purple-500"></i>
+                            One Workspace, Less Noise
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-hard-drive text-blue-500"></i>
+                            No Mandatory Cloud
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Beautiful Interactive Application Mockup -->
+                <div class="lg:col-span-7">
+                    <div class="relative rounded-2xl border border-zinc-800 bg-[#0c0c0e] shadow-2xl shadow-black/80 overflow-hidden grad-border">
+                        <!-- Simulated App Title Bar -->
+                        <div class="flex items-center justify-between px-4 py-3 border-b border-zinc-800 bg-zinc-900/50">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+                                <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+                                <span class="text-xs text-zinc-500 font-semibold ml-4">TaskFlow Desktop (Context-Aware · Local-First)</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                            <!-- Workspace Switcher in App Bar -->
+                            <div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-zinc-800 border border-zinc-700/60 cursor-pointer text-xs" onclick="toggleSimulatedWorkspace()">
+                                <span class="w-2 h-2 rounded bg-purple-500"></span>
+                                <span class="font-medium text-zinc-300" id="simulated-workspace-name">Acme Agency</span>
+                                <i class="fa-solid fa-chevron-down text-[8px] text-zinc-500 ml-1"></i>
+                            </div>
+                            <!-- Header Timer Pill (dashboard-style, no avatar) -->
+                            <div class="flex items-center gap-2 px-2 py-1.5 rounded-lg border border-zinc-700/60 bg-zinc-800/80">
+                                <span class="relative flex h-2 w-2 flex-shrink-0">
+                                    <span id="mock-timer-ping" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-70"></span>
+                                    <span id="mock-timer-dot" class="relative inline-flex rounded-full h-2 w-2 bg-purple-400"></span>
+                                </span>
+                                <div class="leading-tight min-w-0">
+                                    <div class="text-[11px] font-mono font-semibold text-white tabular-nums" id="simulated-time">02:14:45</div>
+                                    <div class="text-[9px] text-emerald-400" id="simulated-timer-earnings">+$428.50</div>
+                                </div>
+                                <button type="button" onclick="toggleMockTimerState()" id="mock-timer-btn-header" class="w-7 h-7 flex items-center justify-center rounded-full bg-zinc-700 hover:bg-zinc-600 text-zinc-300 flex-shrink-0 transition-colors" aria-label="Pause timer">
+                                    <i class="fa-solid fa-pause text-[10px]"></i>
+                                </button>
+                            </div>
+                            </div>
+                        </div>
+
+                        <!-- Main App Mockup Layout -->
+                        <div class="grid grid-cols-12 h-[450px] text-sm text-zinc-300 overflow-hidden">
+                            <!-- Simulated Sidebar -->
+                            <div class="col-span-3 border-r border-zinc-800/80 bg-zinc-900/30 p-3 flex flex-col">
+                                <div class="space-y-4">
+                                    <!-- Sidebar Quick Nav -->
+                                    <div class="space-y-1">
+                                        <button onclick="switchMockupTab('dashboard')" id="mock-tab-dashboard-btn" class="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium bg-zinc-800/80 text-white transition-all">
+                                            <i class="fa-solid fa-chart-pie text-zinc-400"></i>
+                                            Dashboard
+                                        </button>
+                                        <button onclick="switchMockupTab('workspaces')" id="mock-tab-workspaces-btn" class="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium text-zinc-400 hover:bg-zinc-800/40 hover:text-white transition-all">
+                                            <i class="fa-solid fa-cubes text-zinc-400"></i>
+                                            Workspaces
+                                        </button>
+                                        <button onclick="switchMockupTab('projects')" id="mock-tab-projects-btn" class="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium text-zinc-400 hover:bg-zinc-800/40 hover:text-white transition-all">
+                                            <i class="fa-solid fa-diagram-project text-zinc-400"></i>
+                                            Projects
+                                        </button>
+                                        <button onclick="switchMockupTab('kanban')" id="mock-tab-kanban-btn" class="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium text-zinc-400 hover:bg-zinc-800/40 hover:text-white transition-all">
+                                            <i class="fa-solid fa-table-columns text-zinc-400"></i>
+                                            Tasks
+                                        </button>
+                                        <button onclick="switchMockupTab('time')" id="mock-tab-time-btn" class="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium text-zinc-400 hover:bg-zinc-800/40 hover:text-white transition-all">
+                                            <i class="fa-solid fa-clock text-zinc-400"></i>
+                                            Work Logs
+                                        </button>
+                                        <button onclick="switchMockupTab('resources')" id="mock-tab-resources-btn" class="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium text-zinc-400 hover:bg-zinc-800/40 hover:text-white transition-all">
+                                            <i class="fa-solid fa-folder-open text-zinc-400"></i>
+                                            Resources
+                                        </button>
+                                        <button onclick="switchMockupTab('reports')" id="mock-tab-reports-btn" class="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium text-zinc-400 hover:bg-zinc-800/40 hover:text-white transition-all">
+                                            <i class="fa-solid fa-file-invoice text-zinc-400"></i>
+                                            Reports
+                                        </button>
+                                        <button onclick="switchMockupTab('overtime')" id="mock-tab-overtime-btn" class="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium text-zinc-400 hover:bg-zinc-800/40 hover:text-white transition-all">
+                                            <i class="fa-solid fa-bolt text-zinc-400"></i>
+                                            Overtime
+                                        </button>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Simulated Main App Content Area -->
+                            <div class="col-span-9 p-4 overflow-y-auto" id="mock-tab-content">
+                                <!-- Dashboard View (Default) -->
+                                <div id="mock-tab-dashboard" class="space-y-4">
+                                    <!-- Mini Top Row Stats -->
+                                    <div class="grid grid-cols-3 gap-3">
+                                        <div class="p-3 rounded-lg border border-zinc-800/80 bg-zinc-900/40">
+                                            <span class="text-[10px] text-zinc-400 uppercase tracking-wider">Today's Earnings</span>
+                                            <div class="text-base font-bold text-emerald-400 mt-1" id="simulated-earnings">$428.50</div>
+                                        </div>
+                                        <div class="p-3 rounded-lg border border-zinc-800/80 bg-zinc-900/40">
+                                            <span class="text-[10px] text-zinc-400 uppercase tracking-wider">Overtime (Week)</span>
+                                            <div class="text-base font-bold text-indigo-400 mt-1">4.2 hours</div>
+                                        </div>
+                                        <div class="p-3 rounded-lg border border-zinc-800/80 bg-zinc-900/40">
+                                            <span class="text-[10px] text-zinc-400 uppercase tracking-wider">Daily Goal</span>
+                                            <div class="text-base font-bold text-white mt-1">85% Completed</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Live Mini Charts and Logs -->
+                                    <div class="border border-zinc-800/80 bg-zinc-900/40 rounded-lg p-3">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <span class="text-xs font-semibold text-white">Weekly Productivity Visualizer</span>
+                                            <span class="text-[10px] text-emerald-400"><i class="fa-solid fa-arrow-trend-up"></i> +12.4% vs last week</span>
+                                        </div>
+                                        <div class="flex items-end justify-between h-20 pt-4">
+                                            <div class="w-8 bg-zinc-800 hover:bg-zinc-700 rounded-t h-1/2 cursor-pointer transition-all relative group">
+                                                <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[9px] bg-zinc-800 px-1 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Mon</span>
+                                            </div>
+                                            <div class="w-8 bg-zinc-800 hover:bg-zinc-700 rounded-t h-[65%] cursor-pointer transition-all relative group"></div>
+                                            <div class="w-8 bg-purple-500/80 hover:bg-purple-400 rounded-t h-[85%] cursor-pointer transition-all relative group"></div>
+                                            <div class="w-8 bg-zinc-800 hover:bg-zinc-700 rounded-t h-[40%] cursor-pointer transition-all relative group"></div>
+                                            <div class="w-8 bg-zinc-800 hover:bg-zinc-700 rounded-t h-[75%] cursor-pointer transition-all relative group"></div>
+                                            <div class="w-8 bg-indigo-500/80 hover:bg-indigo-400 rounded-t h-[95%] cursor-pointer transition-all relative group"></div>
+                                            <div class="w-8 bg-zinc-800/50 hover:bg-zinc-700 rounded-t h-[20%] cursor-pointer transition-all relative group"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Workspace Overview (Dashboard-style) -->
+                                    <div class="space-y-2">
+                                        <span class="text-xs font-semibold text-white">Workspaces</span>
+                                        <div class="grid grid-cols-2 gap-3">
+                                            <div class="p-2.5 rounded-md bg-zinc-900/60 border border-zinc-800/60 text-xs space-y-2">
+                                                <div class="flex items-center justify-between">
+                                                    <span class="flex items-center gap-1.5 text-white font-medium">
+                                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                                        Workspace A
+                                                    </span>
+                                                    <span class="text-[10px] text-zinc-500">Active</span>
+                                                </div>
+                                                <div class="flex justify-between text-zinc-400">
+                                                    <span>Hours (W)</span>
+                                                    <span class="font-mono text-zinc-300">32.5h</span>
+                                                </div>
+                                                <div class="flex justify-between text-zinc-400">
+                                                    <span>Earnings</span>
+                                                    <span class="font-mono text-emerald-400">$1,240</span>
+                                                </div>
+                                            </div>
+                                            <div class="p-2.5 rounded-md bg-zinc-900/60 border border-zinc-800/60 text-xs space-y-2">
+                                                <div class="flex items-center justify-between">
+                                                    <span class="flex items-center gap-1.5 text-white font-medium">
+                                                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
+                                                        Workspace B
+                                                    </span>
+                                                </div>
+                                                <div class="flex justify-between text-zinc-400">
+                                                    <span>Hours (W)</span>
+                                                    <span class="font-mono text-zinc-300">18.0h</span>
+                                                </div>
+                                                <div class="flex justify-between text-zinc-400">
+                                                    <span>Earnings</span>
+                                                    <span class="font-mono text-emerald-400">$740</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Workspaces View (Hidden by default) -->
+                                <div id="mock-tab-workspaces" class="hidden space-y-4">
+                                    <div class="flex items-start justify-between border-b border-zinc-800 pb-2">
+                                        <div>
+                                            <span class="text-xs font-semibold text-white">Workspaces</span>
+                                            <div class="text-[10px] text-zinc-500 mt-0.5">Manage all your work engagements in one place</div>
+                                        </div>
+                                        <button class="text-[11px] bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1.5 rounded font-semibold transition-colors">
+                                            <i class="fa-solid fa-plus mr-1"></i> New workspace
+                                        </button>
+                                    </div>
+
+                                    <div class="rounded-lg border border-zinc-800/70 bg-zinc-900/40 p-2.5 space-y-2">
+                                        <div class="flex items-center gap-2">
+                                            <div class="flex-1 flex items-center gap-1.5 px-2 py-1.5 rounded bg-zinc-800/70 border border-zinc-700/70 text-[11px] text-zinc-500">
+                                                <i class="fa-solid fa-magnifying-glass text-[10px]"></i>
+                                                Search workspaces...
+                                            </div>
+                                            <span class="text-[10px] text-zinc-500">2 workspaces found</span>
+                                        </div>
+                                        <div class="flex items-center gap-1.5 text-[10px]">
+                                            <span class="px-2 py-1 rounded bg-zinc-800 text-zinc-300">All</span>
+                                            <span class="px-2 py-1 rounded bg-indigo-500/15 text-indigo-300 border border-indigo-500/20">Active</span>
+                                            <span class="px-2 py-1 rounded bg-zinc-800 text-zinc-500">Inactive</span>
+                                            <span class="px-2 py-1 rounded bg-zinc-800 text-zinc-500 ml-1">Freelance</span>
+                                            <span class="px-2 py-1 rounded bg-zinc-800 text-zinc-500">Part-Time</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <div class="rounded-lg border border-zinc-800/80 bg-zinc-900/40 overflow-hidden">
+                                            <div class="flex items-center gap-2 p-2.5 border-b border-zinc-800/80">
+                                                <div class="w-7 h-7 rounded-full bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-300 text-[10px] font-bold">A</div>
+                                                <div class="min-w-0 flex-1">
+                                                    <div class="text-xs font-semibold text-white truncate">Workspace A</div>
+                                                    <span class="inline-flex mt-1 px-1.5 py-0.5 rounded text-[9px] font-medium bg-indigo-500/10 text-indigo-300">Freelance</span>
+                                                </div>
+                                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500" title="Active"></span>
+                                            </div>
+                                            <div class="grid grid-cols-4 gap-1.5 p-2 text-center border-b border-zinc-800/80">
+                                                <div><div class="text-[11px] font-semibold text-white">32.5h</div><div class="text-[9px] text-zinc-500">Worked</div></div>
+                                                <div><div class="text-[11px] font-semibold text-white">$42</div><div class="text-[9px] text-zinc-500">Rate/h</div></div>
+                                                <div><div class="text-[11px] font-semibold text-white">14</div><div class="text-[9px] text-zinc-500">Tasks</div></div>
+                                                <div><div class="text-[11px] font-semibold text-indigo-300">18</div><div class="text-[9px] text-zinc-500">Files</div></div>
+                                            </div>
+                                            <div class="p-2 text-[10px] text-zinc-400">2 projects active · Browse resources</div>
+                                        </div>
+
+                                        <div class="rounded-lg border border-zinc-800/80 bg-zinc-900/40 overflow-hidden">
+                                            <div class="flex items-center gap-2 p-2.5 border-b border-zinc-800/80">
+                                                <div class="w-7 h-7 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-300 text-[10px] font-bold">B</div>
+                                                <div class="min-w-0 flex-1">
+                                                    <div class="text-xs font-semibold text-white truncate">Workspace B</div>
+                                                    <span class="inline-flex mt-1 px-1.5 py-0.5 rounded text-[9px] font-medium bg-purple-500/10 text-purple-300">Part-Time</span>
+                                                </div>
+                                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500" title="Active"></span>
+                                            </div>
+                                            <div class="grid grid-cols-4 gap-1.5 p-2 text-center border-b border-zinc-800/80">
+                                                <div><div class="text-[11px] font-semibold text-white">18.0h</div><div class="text-[9px] text-zinc-500">Worked</div></div>
+                                                <div><div class="text-[11px] font-semibold text-white">$35</div><div class="text-[9px] text-zinc-500">Rate/h</div></div>
+                                                <div><div class="text-[11px] font-semibold text-white">9</div><div class="text-[9px] text-zinc-500">Tasks</div></div>
+                                                <div><div class="text-[11px] font-semibold text-indigo-300">11</div><div class="text-[9px] text-zinc-500">Files</div></div>
+                                            </div>
+                                            <div class="p-2 text-[10px] text-zinc-400">1 project active · Browse resources</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Projects View (Hidden by default) -->
+                                <div id="mock-tab-projects" class="hidden space-y-4">
+                                    <div class="flex items-start justify-between border-b border-zinc-800 pb-2">
+                                        <div>
+                                            <span class="text-xs font-semibold text-white">Projects</span>
+                                            <div class="text-[10px] text-zinc-500 mt-0.5">Track goals, progress, and linked tasks by workspace</div>
+                                        </div>
+                                        <button class="text-[11px] bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1.5 rounded font-semibold transition-colors">
+                                            <i class="fa-solid fa-plus mr-1"></i> New project
+                                        </button>
+                                    </div>
+
+                                    <div class="rounded-lg border border-zinc-800/70 bg-zinc-900/40 p-2.5 space-y-2">
+                                        <div class="flex items-center gap-2">
+                                            <div class="flex-1 flex items-center gap-1.5 px-2 py-1.5 rounded bg-zinc-800/70 border border-zinc-700/70 text-[11px] text-zinc-500">
+                                                <i class="fa-solid fa-magnifying-glass text-[10px]"></i>
+                                                Search projects...
+                                            </div>
+                                            <span class="text-[10px] text-zinc-500"><span id="mock-projects-count">2</span> projects found</span>
+                                        </div>
+                                        <div class="flex items-center gap-1.5 text-[10px]">
+                                            <span class="px-2 py-1 rounded bg-zinc-800 text-zinc-300">All</span>
+                                            <span class="px-2 py-1 rounded bg-indigo-500/15 text-indigo-300 border border-indigo-500/20">In Progress</span>
+                                            <span class="px-2 py-1 rounded bg-zinc-800 text-zinc-500">Done</span>
+                                            <span class="px-2 py-1 rounded bg-zinc-800 text-zinc-400 ml-1" id="mock-projects-active-workspace">Acme Agency</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <div class="rounded-lg border border-zinc-800/80 bg-zinc-900/40 overflow-hidden">
+                                            <div class="flex items-center justify-between p-2.5 border-b border-zinc-800/80">
+                                                <div class="min-w-0">
+                                                    <div class="text-xs font-semibold text-white truncate" id="mock-project-1-title">Client Portal Revamp</div>
+                                                    <div class="text-[10px] text-zinc-500 mt-0.5" id="mock-project-1-workspace">Acme Agency</div>
+                                                </div>
+                                                <span id="mock-project-1-status" class="px-1.5 py-0.5 rounded text-[9px] bg-indigo-500/10 text-indigo-300">In Progress</span>
+                                            </div>
+                                            <div class="p-2.5 space-y-2 text-[10px]">
+                                                <div class="flex justify-between text-zinc-400"><span>Progress</span><span class="text-zinc-300" id="mock-project-1-progress-label">68%</span></div>
+                                                <div class="h-1.5 rounded-full bg-zinc-800 overflow-hidden"><div id="mock-project-1-progress-bar" class="h-full bg-indigo-500" style="width: 68%"></div></div>
+                                                <div class="grid grid-cols-3 gap-2 text-center">
+                                                    <div><div class="text-[11px] font-semibold text-white" id="mock-project-1-tasks">12</div><div class="text-zinc-500">Tasks</div></div>
+                                                    <div><div class="text-[11px] font-semibold text-white" id="mock-project-1-done">4</div><div class="text-zinc-500">Done</div></div>
+                                                    <div><div class="text-[11px] font-semibold text-emerald-400" id="mock-project-1-earned">$820</div><div class="text-zinc-500">Earned</div></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="rounded-lg border border-zinc-800/80 bg-zinc-900/40 overflow-hidden">
+                                            <div class="flex items-center justify-between p-2.5 border-b border-zinc-800/80">
+                                                <div class="min-w-0">
+                                                    <div class="text-xs font-semibold text-white truncate" id="mock-project-2-title">Internal Admin Tooling</div>
+                                                    <div class="text-[10px] text-zinc-500 mt-0.5" id="mock-project-2-workspace">Acme Agency</div>
+                                                </div>
+                                                <span id="mock-project-2-status" class="px-1.5 py-0.5 rounded text-[9px] bg-amber-500/10 text-amber-300">Review</span>
+                                            </div>
+                                            <div class="p-2.5 space-y-2 text-[10px]">
+                                                <div class="flex justify-between text-zinc-400"><span>Progress</span><span class="text-zinc-300" id="mock-project-2-progress-label">82%</span></div>
+                                                <div class="h-1.5 rounded-full bg-zinc-800 overflow-hidden"><div id="mock-project-2-progress-bar" class="h-full bg-amber-500" style="width: 82%"></div></div>
+                                                <div class="grid grid-cols-3 gap-2 text-center">
+                                                    <div><div class="text-[11px] font-semibold text-white" id="mock-project-2-tasks">9</div><div class="text-zinc-500">Tasks</div></div>
+                                                    <div><div class="text-[11px] font-semibold text-white" id="mock-project-2-done">7</div><div class="text-zinc-500">Done</div></div>
+                                                    <div><div class="text-[11px] font-semibold text-emerald-400" id="mock-project-2-earned">$540</div><div class="text-zinc-500">Earned</div></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Kanban View (Hidden by default) -->
+                                <div id="mock-tab-kanban" class="hidden space-y-4">
+                                    <div class="flex items-center justify-between border-b border-zinc-800 pb-2">
+                                        <span class="text-xs font-semibold text-white">Interactive Kanban Board</span>
+                                        <button class="text-[11px] text-zinc-400 bg-zinc-800 px-2 py-1 rounded hover:text-white transition-colors">+ Add List</button>
+                                    </div>
+                                    <div class="rounded-lg border border-zinc-800/70 bg-zinc-900/40 p-2.5">
+                                        <div class="flex items-center justify-between gap-3">
+                                            <span class="text-[10px] uppercase tracking-wider text-zinc-500 font-semibold">Project Selection</span>
+                                            <div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded bg-zinc-800 border border-zinc-700/60 text-xs min-w-[220px] justify-between">
+                                                <span class="text-zinc-300 truncate" id="mock-tasks-project-name">Client Portal Revamp</span>
+                                                <i class="fa-solid fa-chevron-down text-[9px] text-zinc-500"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-3 gap-3">
+                                        <!-- Column 1: Backlog -->
+                                        <div class="bg-zinc-900/40 border border-zinc-800/60 p-2 rounded-lg space-y-2">
+                                            <div class="flex justify-between items-center text-xs font-medium px-1">
+                                                <span>Backlog</span>
+                                                <span id="mock-task-count-backlog" class="bg-zinc-800 px-1.5 py-0.5 rounded text-[10px] text-zinc-500">2</span>
+                                            </div>
+                                            <div class="bg-zinc-800/50 border border-zinc-800 p-2 rounded text-xs space-y-1">
+                                                <div class="font-medium text-zinc-300" id="mock-task-backlog-1-title">Audit database migrations</div>
+                                                <div class="text-[10px] text-zinc-500 flex justify-between">
+                                                    <span id="mock-task-backlog-1-id">#TSK-89</span>
+                                                    <span id="mock-task-backlog-1-tag">DB</span>
+                                                </div>
+                                            </div>
+                                            <div class="bg-zinc-800/50 border border-zinc-800 p-2 rounded text-xs space-y-1">
+                                                <div class="font-medium text-zinc-300" id="mock-task-backlog-2-title">Translate documentation</div>
+                                                <div class="text-[10px] text-zinc-500 flex justify-between">
+                                                    <span id="mock-task-backlog-2-id">#TSK-42</span>
+                                                    <span id="mock-task-backlog-2-tag">Docs</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Column 2: In Progress -->
+                                        <div class="bg-zinc-900/40 border border-zinc-800/60 p-2 rounded-lg space-y-2">
+                                            <div class="flex justify-between items-center text-xs font-medium px-1">
+                                                <span>In Progress</span>
+                                                <span id="mock-task-count-progress" class="bg-indigo-500/10 text-indigo-400 px-1.5 py-0.5 rounded text-[10px]">1</span>
+                                            </div>
+                                            <div class="bg-indigo-500/5 border border-purple-500/20 p-2 rounded text-xs space-y-1">
+                                                <div class="font-medium text-white" id="mock-task-progress-title">Design main landing hero mockup flow</div>
+                                                <div class="text-[10px] text-purple-400 flex justify-between">
+                                                    <span id="mock-task-progress-id">#TSK-95</span>
+                                                    <span id="mock-task-progress-tag">Active</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Column 3: Done -->
+                                        <div class="bg-zinc-900/40 border border-zinc-800/60 p-2 rounded-lg space-y-2">
+                                            <div class="flex justify-between items-center text-xs font-medium px-1">
+                                                <span>Done</span>
+                                                <span id="mock-task-count-done" class="bg-emerald-500/10 text-emerald-400 px-1.5 py-0.5 rounded text-[10px]">2</span>
+                                            </div>
+                                            <div class="bg-zinc-800/50 border border-zinc-800/40 p-2 rounded text-xs space-y-1 line-through text-zinc-500">
+                                                <div class="font-medium" id="mock-task-done-1-title">Setup local PostgreSQL container</div>
+                                            </div>
+                                            <div class="bg-zinc-800/50 border border-zinc-800/40 p-2 rounded text-xs space-y-1 line-through text-zinc-500">
+                                                <div class="font-medium" id="mock-task-done-2-title">Design system styleguide</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Time Tracker View (Hidden by default) -->
+                                <div id="mock-tab-time" class="hidden space-y-4">
+                                    <div class="flex items-center justify-between border-b border-zinc-800 pb-2">
+                                        <span class="text-xs font-semibold text-white">Native Time Tracker</span>
+                                        <span class="text-xs text-zinc-500">Local Time: <span id="mock-local-time">--:-- --</span></span>
+                                    </div>
+                                    <!-- Dynamic Time Tracker Control Panel -->
+                                    <div class="bg-zinc-900/50 border border-zinc-800 p-4 rounded-xl text-center space-y-3">
+                                        <span class="text-xs font-medium text-zinc-400">CURRENT RUNNING SESSION</span>
+                                        <div class="text-3xl font-mono font-bold text-white tracking-wider" id="simulated-time-large">02:14:45</div>
+                                        <div class="text-xs text-zinc-500">Workspace: <span class="text-purple-400">Acme Agency</span> | Task: Designing UI components</div>
+                                        <div class="flex justify-center gap-3">
+                                            <button onclick="toggleMockTimerState()" id="mock-timer-btn" class="bg-red-500 hover:bg-red-600 text-white text-xs px-4 py-1.5 rounded-lg font-bold transition-colors">
+                                                <i class="fa-solid fa-stop mr-1"></i> Stop Timer
+                                            </button>
+                                            <button class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs px-4 py-1.5 rounded-lg font-medium transition-colors">
+                                                <i class="fa-solid fa-pause mr-1"></i> Pause
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- Work Logs Filters + Table -->
+                                    <div class="space-y-2">
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-xs font-semibold text-white">Work Logs</span>
+                                            <button class="text-[10px] bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-2 py-1 rounded transition-colors">
+                                                <i class="fa-solid fa-download mr-1"></i> Export
+                                            </button>
+                                        </div>
+                                        <div class="rounded-lg border border-zinc-800/70 bg-zinc-900/40 p-2 space-y-2">
+                                            <div class="overflow-hidden rounded border border-zinc-800/70">
+                                                <table class="w-full text-[10px]">
+                                                    <thead class="bg-zinc-900/80 text-zinc-400 uppercase">
+                                                        <tr>
+                                                            <th class="px-2 py-1.5 text-left">When</th>
+                                                            <th class="px-2 py-1.5 text-left">Time</th>
+                                                            <th class="px-2 py-1.5 text-right">Duration</th>
+                                                            <th class="px-2 py-1.5 text-right">Earnings</th>
+                                                            <th class="px-2 py-1.5 text-left">Project</th>
+                                                            <th class="px-2 py-1.5 text-left">Task</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="divide-y divide-zinc-800/60 text-zinc-300">
+                                                        <tr class="hover:bg-zinc-900/50">
+                                                            <td class="px-2 py-1.5" id="mock-log-1-date">Jul 01</td>
+                                                            <td class="px-2 py-1.5" id="mock-log-1-time">09:00 - 11:30</td>
+                                                            <td class="px-2 py-1.5 text-right font-mono" id="mock-log-1-duration">2h 30m</td>
+                                                            <td class="px-2 py-1.5 text-right font-mono text-emerald-400" id="mock-log-1-earnings">$315</td>
+                                                            <td class="px-2 py-1.5 truncate" id="mock-log-1-project">Client Portal Revamp</td>
+                                                            <td class="px-2 py-1.5 truncate" id="mock-log-1-task">Switch flow</td>
+                                                        </tr>
+                                                        <tr class="hover:bg-zinc-900/50">
+                                                            <td class="px-2 py-1.5" id="mock-log-2-date">Jul 01</td>
+                                                            <td class="px-2 py-1.5" id="mock-log-2-time">12:15 - 14:00</td>
+                                                            <td class="px-2 py-1.5 text-right font-mono" id="mock-log-2-duration">1h 45m</td>
+                                                            <td class="px-2 py-1.5 text-right font-mono text-emerald-400" id="mock-log-2-earnings">$220</td>
+                                                            <td class="px-2 py-1.5 truncate" id="mock-log-2-project">Client Portal Revamp</td>
+                                                            <td class="px-2 py-1.5 truncate" id="mock-log-2-task">Validation schema</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Resources View (Hidden by default) -->
+                                <div id="mock-tab-resources" class="hidden space-y-4">
+                                    <div class="flex items-start justify-between border-b border-zinc-800 pb-2">
+                                        <div>
+                                            <span class="text-xs font-semibold text-white">Resources</span>
+                                            <div class="text-[10px] text-zinc-500 mt-0.5">Files and folders scoped to the active workspace</div>
+                                        </div>
+                                        <div class="flex gap-2">
+                                            <button class="text-[10px] bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-2 py-1 rounded transition-colors">
+                                                <i class="fa-solid fa-folder-plus mr-1"></i> New Folder
+                                            </button>
+                                            <button class="text-[10px] bg-indigo-600 hover:bg-indigo-500 text-white px-2 py-1 rounded transition-colors">
+                                                <i class="fa-solid fa-upload mr-1"></i> Upload
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="rounded-lg border border-zinc-800/70 bg-zinc-900/40 p-2.5 space-y-2">
+                                        <div class="flex items-center justify-between text-[10px] text-zinc-500">
+                                            <span>Active workspace: <span id="mock-resources-workspace" class="text-zinc-300">Acme Agency</span></span>
+                                            <span><span id="mock-resources-count">6</span> items</span>
+                                        </div>
+                                        <div class="overflow-hidden rounded border border-zinc-800/70">
+                                            <table class="w-full text-[10px]">
+                                                <thead class="bg-zinc-900/80 text-zinc-400 uppercase">
+                                                    <tr>
+                                                        <th class="px-2 py-1.5 text-left">Name</th>
+                                                        <th class="px-2 py-1.5 text-left">Type</th>
+                                                        <th class="px-2 py-1.5 text-left">Modified</th>
+                                                        <th class="px-2 py-1.5 text-right">Size</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="divide-y divide-zinc-800/60 text-zinc-300">
+                                                    <tr class="hover:bg-zinc-900/50">
+                                                        <td class="px-2 py-1.5"><i class="fa-regular fa-folder text-amber-400 mr-1.5"></i><span id="mock-resource-1-name">Contracts</span></td>
+                                                        <td class="px-2 py-1.5" id="mock-resource-1-type">Folder</td>
+                                                        <td class="px-2 py-1.5" id="mock-resource-1-modified">Jul 01, 2026</td>
+                                                        <td class="px-2 py-1.5 text-right" id="mock-resource-1-size">—</td>
+                                                    </tr>
+                                                    <tr class="hover:bg-zinc-900/50">
+                                                        <td class="px-2 py-1.5"><i class="fa-regular fa-folder text-amber-400 mr-1.5"></i><span id="mock-resource-2-name">API Docs</span></td>
+                                                        <td class="px-2 py-1.5" id="mock-resource-2-type">Folder</td>
+                                                        <td class="px-2 py-1.5" id="mock-resource-2-modified">Jun 29, 2026</td>
+                                                        <td class="px-2 py-1.5 text-right" id="mock-resource-2-size">—</td>
+                                                    </tr>
+                                                    <tr class="hover:bg-zinc-900/50">
+                                                        <td class="px-2 py-1.5"><i class="fa-regular fa-file-lines text-sky-400 mr-1.5"></i><span id="mock-resource-3-name">Scope.md</span></td>
+                                                        <td class="px-2 py-1.5" id="mock-resource-3-type">Markdown</td>
+                                                        <td class="px-2 py-1.5" id="mock-resource-3-modified">Jun 27, 2026</td>
+                                                        <td class="px-2 py-1.5 text-right" id="mock-resource-3-size">24 KB</td>
+                                                    </tr>
+                                                    <tr class="hover:bg-zinc-900/50">
+                                                        <td class="px-2 py-1.5"><i class="fa-regular fa-file-pdf text-rose-400 mr-1.5"></i><span id="mock-resource-4-name">Requirements.pdf</span></td>
+                                                        <td class="px-2 py-1.5" id="mock-resource-4-type">PDF</td>
+                                                        <td class="px-2 py-1.5" id="mock-resource-4-modified">Jun 24, 2026</td>
+                                                        <td class="px-2 py-1.5 text-right" id="mock-resource-4-size">1.2 MB</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Reports View (Hidden by default) -->
+                                <div id="mock-tab-reports" class="hidden space-y-4">
+                                    <div class="flex items-center justify-between border-b border-zinc-800 pb-2">
+                                        <span class="text-xs font-semibold text-white">Professional Client Reporting</span>
+                                        <div class="flex gap-2">
+                                            <button class="text-[10px] bg-emerald-600 hover:bg-emerald-500 text-white px-2 py-1 rounded transition-colors">
+                                                <i class="fa-solid fa-file-excel mr-1"></i> Export Excel
+                                            </button>
+                                            <button class="text-[10px] bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-2 py-1 rounded transition-colors">
+                                                <i class="fa-solid fa-file-csv mr-1"></i> CSV
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <!-- Report Type Selector -->
+                                        <div class="border border-zinc-800 bg-zinc-900/40 p-3 rounded-lg space-y-2">
+                                            <span class="text-xs font-medium text-white">Select Report Category</span>
+                                            <div class="space-y-1">
+                                                <div class="p-1.5 bg-zinc-800 border border-zinc-700/50 rounded text-xs text-white cursor-pointer">
+                                                    Attendance & Overtime
+                                                </div>
+                                                <div class="p-1.5 hover:bg-zinc-800/40 rounded text-xs text-zinc-400 cursor-pointer transition-all">
+                                                    Project Completion Report
+                                                </div>
+                                                <div class="p-1.5 hover:bg-zinc-800/40 rounded text-xs text-zinc-400 cursor-pointer transition-all">
+                                                    Client Invoicing Logs
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Preview Card -->
+                                        <div class="border border-zinc-800 bg-zinc-900/40 p-3 rounded-lg space-y-1">
+                                            <span class="text-xs font-medium text-zinc-400">Active Workspace Summary</span>
+                                            <div class="text-[11px] text-zinc-500"><span id="mock-report-workspace">Acme Agency</span> · <span id="mock-report-period">Current Month (July 2026)</span></div>
+                                            <div class="pt-2 space-y-1.5 text-xs text-zinc-300">
+                                                <div class="flex justify-between"><span>Regular Hours:</span> <span class="font-mono" id="mock-report-regular-hours">152.0 hrs</span></div>
+                                                <div class="flex justify-between"><span>Overtime (1.5x):</span> <span class="font-mono text-indigo-400" id="mock-report-overtime-hours">14.5 hrs</span></div>
+                                                <div class="flex justify-between border-t border-zinc-800 pt-1.5 font-bold text-white">
+                                                    <span>Calculated Earnings:</span>
+                                                    <span class="font-mono text-emerald-400" id="mock-report-earnings">$8,560.00</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Overtime View (Hidden by default) -->
+                                <div id="mock-tab-overtime" class="hidden space-y-4">
+                                    <div class="flex items-center justify-between border-b border-zinc-800 pb-2">
+                                        <span class="text-xs font-semibold text-white">Overtime</span>
+                                        <div class="flex items-center gap-2">
+                                            <div class="px-2 py-1 rounded bg-zinc-800 border border-zinc-700/60 text-[10px] text-zinc-300" id="mock-overtime-month">Jul 2026</div>
+                                            <button class="text-[10px] bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-2 py-1 rounded transition-colors">
+                                                <i class="fa-solid fa-download mr-1"></i> Export report
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="rounded-lg border border-zinc-800/70 bg-zinc-900/40 p-2.5">
+                                        <div class="text-[10px] text-zinc-500 mb-1">Export period</div>
+                                        <div class="grid grid-cols-2 gap-2 text-[10px]">
+                                            <div class="px-2 py-1 rounded bg-zinc-800 border border-zinc-700/60 text-zinc-400">From: <span id="mock-overtime-from" class="text-zinc-300">Jul 01, 2026</span></div>
+                                            <div class="px-2 py-1 rounded bg-zinc-800 border border-zinc-700/60 text-zinc-400">To: <span id="mock-overtime-to" class="text-zinc-300">Jul 31, 2026</span></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-3 gap-3">
+                                        <div class="rounded-lg border border-zinc-800/70 bg-zinc-900/40 p-2.5">
+                                            <div class="text-[10px] text-zinc-500">Daily Overtime</div>
+                                            <div class="text-base font-bold text-indigo-300 mt-1" id="mock-overtime-daily">2.9h</div>
+                                        </div>
+                                        <div class="rounded-lg border border-zinc-800/70 bg-zinc-900/40 p-2.5">
+                                            <div class="text-[10px] text-zinc-500">Weekly Overtime</div>
+                                            <div class="text-base font-bold text-purple-300 mt-1" id="mock-overtime-weekly">8.7h</div>
+                                        </div>
+                                        <div class="rounded-lg border border-zinc-800/70 bg-zinc-900/40 p-2.5">
+                                            <div class="text-[10px] text-zinc-500">Monthly Overtime</div>
+                                            <div class="text-base font-bold text-emerald-300 mt-1" id="mock-overtime-monthly">21.0h</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div class="rounded-lg border border-zinc-800/70 bg-zinc-900/40 p-2.5 space-y-2">
+                                            <div class="text-xs font-medium text-white">Weekly breakdown</div>
+                                            <div class="space-y-2 text-[10px]">
+                                                <div class="space-y-1">
+                                                    <div class="flex justify-between text-zinc-400"><span>Week 1</span><span id="mock-overtime-w1">2.1h</span></div>
+                                                    <div class="h-1.5 rounded-full bg-zinc-800 overflow-hidden"><div id="mock-overtime-w1-bar" class="h-full bg-indigo-500" style="width: 35%"></div></div>
+                                                </div>
+                                                <div class="space-y-1">
+                                                    <div class="flex justify-between text-zinc-400"><span>Week 2</span><span id="mock-overtime-w2">3.4h</span></div>
+                                                    <div class="h-1.5 rounded-full bg-zinc-800 overflow-hidden"><div id="mock-overtime-w2-bar" class="h-full bg-indigo-500" style="width: 56%"></div></div>
+                                                </div>
+                                                <div class="space-y-1">
+                                                    <div class="flex justify-between text-zinc-400"><span>Week 3</span><span id="mock-overtime-w3">1.8h</span></div>
+                                                    <div class="h-1.5 rounded-full bg-zinc-800 overflow-hidden"><div id="mock-overtime-w3-bar" class="h-full bg-indigo-500" style="width: 30%"></div></div>
+                                                </div>
+                                                <div class="space-y-1">
+                                                    <div class="flex justify-between text-zinc-400"><span>Week 4</span><span id="mock-overtime-w4">1.4h</span></div>
+                                                    <div class="h-1.5 rounded-full bg-zinc-800 overflow-hidden"><div id="mock-overtime-w4-bar" class="h-full bg-indigo-500" style="width: 23%"></div></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="rounded-lg border border-zinc-800/70 bg-zinc-900/40 p-2.5">
+                                            <div class="text-xs font-medium text-white mb-2">Daily overtime</div>
+                                            <div class="overflow-hidden rounded border border-zinc-800/70">
+                                                <table class="w-full text-[10px]">
+                                                    <thead class="bg-zinc-900/80 text-zinc-400 uppercase">
+                                                        <tr>
+                                                            <th class="px-2 py-1.5 text-left">Date</th>
+                                                            <th class="px-2 py-1.5 text-right">Worked</th>
+                                                            <th class="px-2 py-1.5 text-right">Overtime</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="divide-y divide-zinc-800/60 text-zinc-300">
+                                                        <tr>
+                                                            <td class="px-2 py-1.5" id="mock-overtime-day-1-date">Jul 01</td>
+                                                            <td class="px-2 py-1.5 text-right font-mono" id="mock-overtime-day-1-worked">9.2h</td>
+                                                            <td class="px-2 py-1.5 text-right font-mono text-indigo-300" id="mock-overtime-day-1-ot">1.2h</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="px-2 py-1.5" id="mock-overtime-day-2-date">Jul 02</td>
+                                                            <td class="px-2 py-1.5 text-right font-mono" id="mock-overtime-day-2-worked">8.7h</td>
+                                                            <td class="px-2 py-1.5 text-right font-mono text-indigo-300" id="mock-overtime-day-2-ot">0.7h</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="px-2 py-1.5" id="mock-overtime-day-3-date">Jul 03</td>
+                                                            <td class="px-2 py-1.5 text-right font-mono" id="mock-overtime-day-3-worked">9.0h</td>
+                                                            <td class="px-2 py-1.5 text-right font-mono text-indigo-300" id="mock-overtime-day-3-ot">1.0h</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mockup Footer Stats bar -->
+                        <div class="flex items-center justify-between px-4 py-2 border-t border-zinc-800/80 bg-zinc-900/30 text-[10px] text-zinc-500">
+                            <div class="flex items-center gap-2">
+                                <span class="flex h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                                <span>One Workspace, Less Noise</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span>No internet syncing required</span>
+                                <span>v1.0.0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Why TaskFlow Section -->
+    <section id="why-taskflow" class="relative py-24 border-y border-zinc-900 bg-[#0d0d10]">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-purple-950/5 to-transparent pointer-events-none"></div>
+        
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">Philosophy First</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mt-2 mb-4">
+                    Why professionals use TaskFlow instead of other apps
+                </h2>
+                <p class="text-zinc-400">
+                    TaskFlow combines context-aware organization with local-first control. You get one focused workspace at a time, plus the full functionality to plan, track, measure, and export your work without tool switching.
+                </p>
+            </div>
+
+            <!-- Philosophy Grid Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Context-Aware by Design -->
+                <div class="p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-zinc-700 transition-all grad-border">
+                    <div class="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-4">
+                        <i class="fa-solid fa-arrows-spin"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Context-Aware by Design</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">
+                        TaskFlow organizes work by real-world context: client, project, task, time, and resources. Switch workspace and instantly see only what belongs to that context.
+                    </p>
+                </div>
+
+                <!-- Local-First Privacy & Control -->
+                <div class="p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-zinc-700 transition-all grad-border">
+                    <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-4">
+                        <i class="fa-solid fa-hard-drive"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Privacy &amp; Control</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">
+                        Sensitive files, work logs, and earnings stay on your machine. Local-first, offline-capable, and no mandatory cloud upload.
+                    </p>
+                </div>
+
+                <!-- Fast Finding, Not Folder Hunting -->
+                <div class="p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-zinc-700 transition-all grad-border">
+                    <div class="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-4">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Fast Finding, Not Hunting</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">
+                        Find the right file, task, or work log faster because everything is already grouped by context. Information is connected, not scattered across tools.
+                    </p>
+                </div>
+
+                <!-- Built for Real Execution -->
+                <div class="p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-zinc-700 transition-all grad-border">
+                    <div class="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-4">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Built for Real Execution</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">
+                        Plan with projects and Kanban tasks, track time and work logs, monitor earnings and overtime, manage resources, and export reports, all in one desktop flow.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid Showcase -->
+    <section id="features" class="py-24 relative overflow-hidden">
+        <!-- Accent circles -->
+        <div class="absolute bottom-1/4 right-0 w-80 h-80 rounded-full bg-indigo-900/5 blur-3xl pointer-events-none"></div>
+        
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">Everything Included</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mt-2 mb-4">
+                    Engineered to streamline your billing & productivity
+                </h2>
+                <p class="text-zinc-400">
+                    A complete toolbelt compiled into one robust desktop container. Skip the subscriptions and third-party SaaS fees.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Workspaces Feature -->
+                <div class="p-6 rounded-2xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/50 transition-all group grad-border grad-border-hover">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-9 h-9 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-cubes"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Workspaces</h3>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-6">
+                        Manage multiple companies, freelance contracts, and personal workspaces. Store unique salary rates, schedule goals, overtime configuration, and files independently.
+                    </p>
+                    <div class="h-28 bg-[#09090b] rounded-lg border border-zinc-800/80 p-3 flex flex-col justify-between">
+                        <div class="flex items-center justify-between text-[11px] text-zinc-500">
+                            <span>Workspace Selection</span>
+                            <span class="text-emerald-400">Isolated environment</span>
+                        </div>
+                        <div class="space-y-1">
+                            <div class="flex items-center justify-between p-1 rounded bg-zinc-900 text-xs">
+                                <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>Acme Agency LLC</span>
+                                <span class="text-zinc-500 text-[10px]">$125/hr</span>
+                            </div>
+                            <div class="flex items-center justify-between p-1 rounded hover:bg-zinc-900/50 text-xs text-zinc-500">
+                                <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Personal Projects</span>
+                                <span class="text-zinc-500 text-[10px]">In-House</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projects Feature -->
+                <div class="p-6 rounded-2xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/50 transition-all group grad-border grad-border-hover">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-9 h-9 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-folder-tree"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Projects</h3>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-6">
+                        Organize nested projects inside workspaces. Track progress milestones and quickly access related files, timesheets, and checklists.
+                    </p>
+                    <div class="h-28 bg-[#09090b] rounded-lg border border-zinc-800/80 p-3">
+                        <span class="text-[10px] uppercase text-zinc-500 font-bold block mb-2">Projects in Acme Agency</span>
+                        <div class="space-y-2 text-xs">
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-zinc-300"><span>Mobile Redesign</span> <span class="font-mono">80%</span></div>
+                                <div class="w-full bg-zinc-900 rounded-full h-1.5"><div class="bg-blue-500 h-1.5 rounded-full" style="width: 80%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kanban Task Management -->
+                <div class="p-6 rounded-2xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/50 transition-all group grad-border grad-border-hover">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-9 h-9 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-table-columns"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Kanban Management</h3>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-6">
+                        Modern Kanban board featuring dynamic drag-and-drop columns, checklists, custom tags, attachments, integrated task timers, and markdown comments.
+                    </p>
+                    <div class="h-28 bg-[#09090b] rounded-lg border border-zinc-800/80 p-3 flex justify-between gap-1.5 text-[10px]">
+                        <div class="flex-1 bg-zinc-900 rounded p-1.5 border border-zinc-800"><span class="font-bold text-zinc-400 block mb-1">TODO</span><div class="p-1 bg-zinc-800 rounded shadow-sm text-zinc-300">Layout setup</div></div>
+                        <div class="flex-1 bg-zinc-900 rounded p-1.5 border border-purple-500/20"><span class="font-bold text-purple-400 block mb-1">DOING</span><div class="p-1 bg-purple-900/10 border border-purple-500/20 rounded text-purple-200">Assets creation</div></div>
+                    </div>
+                </div>
+
+                <!-- Time Tracking -->
+                <div class="p-6 rounded-2xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/50 transition-all group grad-border grad-border-hover">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-9 h-9 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-stopwatch"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Time Tracking</h3>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-6">
+                        Start and stop system-level task timers. Track your sessions down to the second, linking logs instantly back to target workspaces and projects.
+                    </p>
+                    <div class="h-28 bg-[#09090b] rounded-lg border border-zinc-800/80 p-3 flex flex-col justify-center items-center text-center">
+                        <div class="text-xl font-mono font-bold text-amber-400">01:52:19</div>
+                        <span class="text-[10px] text-zinc-500 mt-1">Active: API integration testing</span>
+                    </div>
+                </div>
+
+                <!-- Live Earnings -->
+                <div class="p-6 rounded-2xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/50 transition-all group grad-border grad-border-hover">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-9 h-9 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-dollar-sign"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Live Earnings</h3>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-6">
+                        Watch your earnings update in real-time as your active timer runs. Automatically calculated using your workspace hourly settings.
+                    </p>
+                    <div class="h-28 bg-[#09090b] rounded-lg border border-zinc-800/80 p-3 flex flex-col justify-center items-center">
+                        <span class="text-[10px] uppercase text-zinc-500 font-bold mb-1">Current Session Value</span>
+                        <div class="text-2xl font-bold text-emerald-400 tracking-tight">$345.24</div>
+                    </div>
+                </div>
+
+                <!-- Overtime Dashboard -->
+                <div class="p-6 rounded-2xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/50 transition-all group grad-border grad-border-hover">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-9 h-9 rounded-lg bg-rose-500/10 flex items-center justify-center text-rose-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-business-time"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Overtime Analytics</h3>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-6">
+                        Dedicated dashboard to track daily, weekly, and monthly overtime patterns. Define multiple multipliers (e.g. 1.5x, 2.0x) based on your needs.
+                    </p>
+                    <div class="h-28 bg-[#09090b] rounded-lg border border-zinc-800/80 p-3 flex justify-between items-center">
+                        <div class="space-y-1">
+                            <span class="text-[10px] text-zinc-500">WEEKLY OVERTIME CAP</span>
+                            <div class="text-sm font-semibold text-rose-400">4.5h / 8.0h</div>
+                        </div>
+                        <div class="w-12 h-12 rounded-full border-4 border-zinc-900 border-t-rose-500 flex items-center justify-center text-[10px] text-zinc-300">
+                            56%
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reports Section -->
+                <div class="p-6 rounded-2xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/50 transition-all group grad-border grad-border-hover">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-9 h-9 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-file-invoice"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Reports</h3>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-6">
+                        Generate attendance sheets, timesheets, workspace reports, overtime breakdowns, and raw log exports. Ready for Excel or CSV client delivery.
+                    </p>
+                    <div class="h-28 bg-[#09090b] rounded-lg border border-zinc-800/80 p-3 flex flex-col justify-center gap-2">
+                        <div class="flex justify-between items-center text-xs text-zinc-400">
+                            <span>timesheet_client_july.xlsx</span>
+                            <i class="fa-regular fa-file-excel text-emerald-500 text-lg"></i>
+                        </div>
+                        <div class="w-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-center py-1 rounded text-xs">
+                            Downloaded Successfully
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Privacy by Default Section -->
+                <div class="p-6 rounded-2xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/50 transition-all group grad-border grad-border-hover">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-9 h-9 rounded-lg bg-teal-500/10 flex items-center justify-center text-teal-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Privacy by Default</h3>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-6">
+                        TaskFlow keeps your sensitive work data local to your machine. Client files, work logs, and earnings stay in your control, with no mandatory cloud upload.
+                    </p>
+                    <div class="h-28 bg-[#09090b] rounded-lg border border-zinc-800/80 p-3 flex flex-col justify-center items-center text-center">
+                        <span class="text-[10px] text-zinc-500 uppercase tracking-widest mb-1">Data Model</span>
+                        <span class="text-xs font-semibold text-teal-400 bg-teal-400/10 px-2.5 py-1 rounded-full"><i class="fa-solid fa-shield-halved mr-1"></i> Local Data Ownership</span>
+                    </div>
+                </div>
+
+                <!-- Desktop-First Experience Section -->
+                <div class="p-6 rounded-2xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/50 transition-all group grad-border grad-border-hover">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-9 h-9 rounded-lg bg-pink-500/10 flex items-center justify-center text-pink-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-circle-nodes"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Desktop-First Experience</h3>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-6">
+                        Built as a responsive desktop app for focused daily use. Fast navigation and full feature access for workspaces, tasks, tracking, resources, and reports.
+                    </p>
+                    <div class="h-28 bg-[#09090b] rounded-lg border border-zinc-800/80 p-3 flex justify-around items-center">
+                        <span class="text-xs text-zinc-400"><i class="fa-brands fa-windows text-blue-400 text-lg block text-center mb-1"></i> Windows</span>
+                        <span class="text-xs text-zinc-400"><i class="fa-brands fa-apple text-zinc-400 text-lg block text-center mb-1"></i> macOS</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow Timeline Section -->
+    <section class="py-24 bg-[#0a0a0d] border-y border-zinc-900/80 relative overflow-hidden">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">Workflow</span>
+                <h2 class="text-3xl font-extrabold text-white mt-1">How professionals run work in TaskFlow</h2>
+                <p class="text-zinc-400 mt-4 text-sm leading-relaxed">Start in one workspace with your projects, files, and data at hand. Execute the work, then review time, earnings, and reports in one continuous flow.</p>
+            </div>
+
+            <!-- Horizontal / Stacked Timeline layout -->
+            <div class="relative">
+                <!-- Background Connection Line -->
+                <div class="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 timeline-line -translate-y-1/2 pointer-events-none z-0"></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 relative z-10">
+                    <!-- Step 1 -->
+                    <div class="group relative bg-[#111115] border border-zinc-800 p-5 rounded-2xl text-center flex flex-col items-center hover:bg-[#16161c] transition-all grad-border">
+                        <div class="absolute inset-0 bg-gradient-to-b from-purple-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                        <div class="w-10 h-10 rounded-full bg-purple-500 text-white flex items-center justify-center font-bold text-sm mb-4 shadow-lg shadow-purple-500/20 relative">1</div>
+                        <h4 class="font-bold text-white text-sm mb-1 relative">Choose Workspace</h4>
+                        <p class="text-xs text-zinc-500 relative">Pick client or company context.</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="group relative bg-[#111115] border border-zinc-800 p-5 rounded-2xl text-center flex flex-col items-center hover:bg-[#16161c] transition-all grad-border">
+                        <div class="absolute inset-0 bg-gradient-to-b from-indigo-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                        <div class="w-10 h-10 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold text-sm mb-4 shadow-lg shadow-indigo-500/20 relative">2</div>
+                        <h4 class="font-bold text-white text-sm mb-1 relative">Manage Projects</h4>
+                        <p class="text-xs text-zinc-500 relative">Create goals and milestones.</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="group relative bg-[#111115] border border-zinc-800 p-5 rounded-2xl text-center flex flex-col items-center hover:bg-[#16161c] transition-all grad-border">
+                        <div class="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                        <div class="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-sm mb-4 shadow-lg shadow-blue-500/20 relative">3</div>
+                        <h4 class="font-bold text-white text-sm mb-1 relative">Track Tasks</h4>
+                        <p class="text-xs text-zinc-500 relative">Organize with Kanban boards.</p>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="group relative bg-[#111115] border border-zinc-800 p-5 rounded-2xl text-center flex flex-col items-center hover:bg-[#16161c] transition-all grad-border">
+                        <div class="absolute inset-0 bg-gradient-to-b from-teal-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                        <div class="w-10 h-10 rounded-full bg-teal-500 text-white flex items-center justify-center font-bold text-sm mb-4 shadow-lg shadow-teal-500/20 relative">4</div>
+                        <h4 class="font-bold text-white text-sm mb-1 relative">Track Time</h4>
+                        <p class="text-xs text-zinc-500 relative">Timer on workspace, project, or task.</p>
+                    </div>
+                    <!-- Step 5 -->
+                    <div class="group relative bg-[#111115] border border-zinc-800 p-5 rounded-2xl text-center flex flex-col items-center hover:bg-[#16161c] transition-all grad-border">
+                        <div class="absolute inset-0 bg-gradient-to-b from-emerald-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                        <div class="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm mb-4 shadow-lg shadow-emerald-500/20 relative">5</div>
+                        <h4 class="font-bold text-white text-sm mb-1 relative">Generate Reports</h4>
+                        <p class="text-xs text-zinc-500 relative">Export high quality spreadsheets.</p>
+                    </div>
+                    <!-- Step 6 -->
+                    <div class="group relative bg-[#111115] border border-zinc-800 p-5 rounded-2xl text-center flex flex-col items-center hover:bg-[#16161c] transition-all grad-border">
+                        <div class="absolute inset-0 bg-gradient-to-b from-amber-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                        <div class="w-10 h-10 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold text-sm mb-4 shadow-lg shadow-amber-500/20 relative">6</div>
+                        <h4 class="font-bold text-white text-sm mb-1 relative">Review Earnings</h4>
+                        <p class="text-xs text-zinc-500 relative">See earnings and overtime logs instantly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Built For Section -->
+    <section id="built-for" class="py-24 relative overflow-hidden">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">Target Audience</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-1 mb-3">Built for modern working professionals</h2>
+                <p class="text-zinc-400">Whether you serve multiple clients, employers, or projects, TaskFlow keeps each context separate and your work easy to track.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Freelancers Card -->
+                <div class="group relative rounded-2xl border border-zinc-800 bg-[#0d0d11]/80 p-6 hover:bg-[#121217]/90 transition-all grad-border">
+                    <div class="absolute inset-0 bg-gradient-to-b from-indigo-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <i class="fa-solid fa-laptop-code text-indigo-400 text-2xl mb-4 block"></i>
+                    <h3 class="text-lg font-bold text-white mb-2">Freelancers</h3>
+                    <p class="text-xs text-zinc-400 leading-relaxed mb-4">
+                        Isolate tasks and earnings per client. Export clear, transparent timesheets compiled automatically from your work sessions.
+                    </p>
+                    <span class="text-[10px] uppercase font-bold text-indigo-400">Manage Clients &rarr;</span>
+                </div>
+
+                <!-- Project Professionals Card -->
+                <div class="group relative rounded-2xl border border-zinc-800 bg-[#0d0d11]/80 p-6 hover:bg-[#121217]/90 transition-all grad-border">
+                    <div class="absolute inset-0 bg-gradient-to-b from-purple-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <i class="fa-solid fa-layer-group text-purple-400 text-2xl mb-4 block"></i>
+                    <h3 class="text-lg font-bold text-white mb-2">Project Professionals</h3>
+                    <p class="text-xs text-zinc-400 leading-relaxed mb-4">
+                        Organize deliverables, milestones, and deadlines per project. Keep tasks, files, and time logs together in one workspace.
+                    </p>
+                    <span class="text-[10px] uppercase font-bold text-purple-400 font-semibold">Track By Project &rarr;</span>
+                </div>
+
+                <!-- Consultants Card -->
+                <div class="group relative rounded-2xl border border-zinc-800 bg-[#0d0d11]/80 p-6 hover:bg-[#121217]/90 transition-all grad-border">
+                    <div class="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <i class="fa-solid fa-chart-line text-blue-400 text-2xl mb-4 block"></i>
+                    <h3 class="text-lg font-bold text-white mb-2">Consultants</h3>
+                    <p class="text-xs text-zinc-400 leading-relaxed mb-4">
+                        Separate every client engagement into focused workspaces. Keep sensitive notes and records stored privately on your own machine.
+                    </p>
+                    <span class="text-[10px] uppercase font-bold text-blue-400 font-semibold">Confidential Logs &rarr;</span>
+                </div>
+
+                <!-- Contractors Card -->
+                <div class="group relative rounded-2xl border border-zinc-800 bg-[#0d0d11]/80 p-6 hover:bg-[#121217]/90 transition-all grad-border">
+                    <div class="absolute inset-0 bg-gradient-to-b from-teal-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <i class="fa-solid fa-briefcase text-teal-400 text-2xl mb-4 block"></i>
+                    <h3 class="text-lg font-bold text-white mb-2">Employees & Contractors</h3>
+                    <p class="text-xs text-zinc-400 leading-relaxed mb-4">
+                        Track work hours, clock in daily, monitor contract terms, and review overtime totals ready for payroll approvals.
+                    </p>
+                    <span class="text-[10px] uppercase font-bold text-teal-400 font-semibold">Track Overtime &rarr;</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Integration Stack -->
+    <section class="py-12 bg-zinc-900/20 border-y border-zinc-900">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+            <h3 class="text-xs font-semibold tracking-wider text-zinc-500 uppercase mb-6">BUILT WITH CUTTING-EDGE, INDUSTRY-STANDARD TECHNOLOGIES</h3>
+            <div class="flex flex-wrap justify-center gap-2.5 max-w-3xl mx-auto">
+                <span class="px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900 text-xs font-medium text-zinc-300 flex items-center gap-1.5 hover:text-white transition-colors">
+                    <i class="fa-brands fa-react text-sky-400"></i> React
+                </span>
+                <span class="px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900 text-xs font-medium text-zinc-300 flex items-center gap-1.5 hover:text-white transition-colors">
+                    <i class="fa-solid fa-code text-blue-500"></i> TypeScript
+                </span>
+                <span class="px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900 text-xs font-medium text-zinc-300 flex items-center gap-1.5 hover:text-white transition-colors">
+                    <i class="fa-brands fa-node-js text-emerald-500"></i> Node.js
+                </span>
+                <span class="px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900 text-xs font-medium text-zinc-300 flex items-center gap-1.5 hover:text-white transition-colors">
+                    <i class="fa-solid fa-server text-zinc-400"></i> Express
+                </span>
+                <span class="px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900 text-xs font-medium text-zinc-300 flex items-center gap-1.5 hover:text-white transition-colors">
+                    <i class="fa-solid fa-database text-blue-400"></i> PostgreSQL
+                </span>
+                <span class="px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900 text-xs font-medium text-zinc-300 flex items-center gap-1.5 hover:text-white transition-colors">
+                    <i class="fa-solid fa-feather text-amber-500"></i> Prisma
+                </span>
+                <span class="px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900 text-xs font-medium text-zinc-300 flex items-center gap-1.5 hover:text-white transition-colors">
+                    <i class="fa-solid fa-anchor text-pink-400"></i> Tauri
+                </span>
+                <span class="px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900 text-xs font-medium text-zinc-300 flex items-center gap-1.5 hover:text-white transition-colors">
+                    <i class="fa-solid fa-font text-purple-400"></i> TipTap
+                </span>
+                <span class="px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900 text-xs font-medium text-zinc-300 flex items-center gap-1.5 hover:text-white transition-colors">
+                    <i class="fa-solid fa-desktop text-indigo-400"></i> Desktop App
+                </span>
+                <span class="px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900 text-xs font-medium text-zinc-300 flex items-center gap-1.5 hover:text-white transition-colors">
+                    <i class="devicon-zustand-plain colored text-sm leading-none"></i> Zustand
+                </span>
+                <span class="px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900 text-xs font-medium text-zinc-300 flex items-center gap-1.5 hover:text-white transition-colors">
+                    <img src="https://cdn.simpleicons.org/zod/3068B7" alt="" class="w-3.5 h-3.5" width="14" height="14" aria-hidden="true">
+                    Zod
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Area Section -->
+    <section id="download" class="py-24 relative overflow-hidden bg-gradient-to-b from-[#09090b] to-[#0c0c10]">
+        <div class="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-purple-950/5 to-transparent pointer-events-none"></div>
+
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">Get TaskFlow</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-1">Download TaskFlow for Desktop</h2>
+                <p class="text-zinc-400 mt-2">Take control of your client workspaces and sensitive metrics today.</p>
+                <p class="text-zinc-500 text-sm mt-2">Choose your build based on your device architecture.</p>
+            </div>
+
+            <!-- OS Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-16">
+                <!-- Windows -->
+                <div class="group p-8 rounded-2xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/50 transition-all text-center flex flex-col justify-between relative grad-border grad-border-hover">
+                    <div class="absolute top-4 right-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                        AVAILABLE
+                    </div>
+                    <div>
+                        <i class="fa-brands fa-windows text-blue-400 text-4xl mb-4 block group-hover:scale-110 transition-transform"></i>
+                        <h3 class="text-xl font-bold text-white mb-2">Windows</h3>
+                        <p class="text-xs text-zinc-400 mb-6">Optimized installer setup designed for Windows 10 & 11.</p>
+                    </div>
+                    <button onclick="simulateDownload('Windows')" class="w-full bg-white hover:bg-zinc-200 text-black text-xs font-bold py-3 rounded-xl transition-colors inline-flex justify-center items-center gap-2">
+                        <i class="fa-solid fa-arrow-down"></i> Download (.exe)
+                    </button>
+                </div>
+
+                <!-- macOS Intel -->
+                <div class="group p-8 rounded-2xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/50 transition-all text-center flex flex-col justify-between relative grad-border grad-border-hover">
+                    <div class="absolute top-4 right-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                        AVAILABLE
+                    </div>
+                    <div>
+                        <i class="fa-brands fa-apple text-zinc-300 text-4xl mb-4 block group-hover:scale-110 transition-transform"></i>
+                        <h3 class="text-xl font-bold text-white mb-2">macOS Intel</h3>
+                        <p class="text-xs text-zinc-400 mb-6">For Intel-based Mac devices (x64).</p>
+                    </div>
+                    <button onclick="simulateDownload('macOS-Intel')" class="w-full bg-white hover:bg-zinc-200 text-black text-xs font-bold py-3 rounded-xl transition-colors inline-flex justify-center items-center gap-2">
+                        <i class="fa-solid fa-arrow-down"></i> Download (.dmg)
+                    </button>
+                </div>
+
+                <!-- macOS Apple Silicon -->
+                <div class="group p-8 rounded-2xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/50 transition-all text-center flex flex-col justify-between relative grad-border grad-border-hover">
+                    <div class="absolute top-4 right-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                        AVAILABLE
+                    </div>
+                    <div>
+                        <i class="fa-brands fa-apple text-zinc-300 text-4xl mb-4 block group-hover:scale-110 transition-transform"></i>
+                        <h3 class="text-xl font-bold text-white mb-2">macOS M-series</h3>
+                        <p class="text-xs text-zinc-400 mb-6">For Apple Silicon devices (M1/M2/M3).</p>
+                    </div>
+                    <button onclick="simulateDownload('macOS-M-series')" class="w-full bg-white hover:bg-zinc-200 text-black text-xs font-bold py-3 rounded-xl transition-colors inline-flex justify-center items-center gap-2">
+                        <i class="fa-solid fa-arrow-down"></i> Download (.dmg)
+                    </button>
+                </div>
+            </div>
+            <p class="text-center text-xs text-zinc-500 -mt-10 mb-12">Not sure which Mac chip you have? Check Apple menu → About This Mac.</p>
+
+            <!-- Latest Stable Release Metadata Info -->
+            <div class="max-w-3xl mx-auto border border-zinc-800/80 bg-[#101014] rounded-2xl p-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-4 border-b border-zinc-800">
+                    <div>
+                        <div class="text-xs font-semibold text-zinc-500">LATEST STABLE RELEASE</div>
+                        <div class="text-lg font-bold text-white mt-1">v1.0.0 <span class="text-xs text-indigo-400 font-normal ml-2">(July 2026 Build)</span></div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="copySHA()" class="text-[10px] bg-zinc-900 hover:bg-zinc-850 text-zinc-400 border border-zinc-800 px-3 py-1.5 rounded transition-all inline-flex items-center gap-1.5">
+                            <i class="fa-solid fa-fingerprint"></i> SHA256 Hash
+                        </button>
+                        <a href="#releases" class="text-[10px] bg-zinc-900 hover:bg-zinc-850 text-zinc-400 border border-zinc-800 px-3 py-1.5 rounded transition-all inline-flex items-center gap-1.5">
+                            <i class="fa-solid fa-note-sticky"></i> Release Notes
+                        </a>
+                    </div>
+                </div>
+                <div class="pt-4 text-xs">
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 pb-4 border-b border-zinc-800">
+                        <div>
+                            <span class="text-zinc-500 block">Release Date</span>
+                            <span class="text-zinc-300 font-semibold mt-0.5 block">July 2, 2026</span>
+                        </div>
+                        <div>
+                            <span class="text-zinc-500 block">Platforms</span>
+                            <span class="text-zinc-300 font-semibold mt-0.5 block">Windows · macOS</span>
+                        </div>
+                        <div class="col-span-2 md:col-span-1">
+                            <span class="text-zinc-500 block">Install Type</span>
+                            <span class="text-zinc-300 font-semibold mt-0.5 block">Desktop (.exe / .dmg)</span>
+                        </div>
+                    </div>
+                    <div class="pt-4 overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="text-zinc-500 text-[10px] uppercase tracking-wider">
+                                    <th class="pb-2 pr-4 font-semibold">Build</th>
+                                    <th class="pb-2 pr-4 font-semibold">Minimum OS</th>
+                                    <th class="pb-2 font-semibold text-right">File Size</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-zinc-300">
+                                <tr class="border-t border-zinc-800/80">
+                                    <td class="py-2.5 pr-4 font-semibold text-white">Windows</td>
+                                    <td class="py-2.5 pr-4">Windows 10/11 (x64)</td>
+                                    <td class="py-2.5 text-right font-semibold">54.2 MB (.exe)</td>
+                                </tr>
+                                <tr class="border-t border-zinc-800/80">
+                                    <td class="py-2.5 pr-4 font-semibold text-white">macOS Intel</td>
+                                    <td class="py-2.5 pr-4">macOS 11+ (Intel x64)</td>
+                                    <td class="py-2.5 text-right font-semibold">52.1 MB (.dmg)</td>
+                                </tr>
+                                <tr class="border-t border-zinc-800/80">
+                                    <td class="py-2.5 pr-4 font-semibold text-white">macOS M-series</td>
+                                    <td class="py-2.5 pr-4">macOS 11+ (Apple Silicon)</td>
+                                    <td class="py-2.5 text-right font-semibold">47.8 MB (.dmg)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Release History Section -->
+    <section id="releases" class="py-24 bg-zinc-950/40 border-y border-zinc-900">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">Update Logs</span>
+                <h2 class="text-3xl font-extrabold text-white mt-1">Release History</h2>
+                <p class="text-zinc-400">Track current updates, maintenance fixes, and active changelogs.</p>
+            </div>
+
+            <!-- Table UI -->
+            <div class="max-w-5xl mx-auto overflow-x-auto rounded-xl border border-zinc-800/80 bg-zinc-900/20">
+                <table class="w-full text-left text-xs text-zinc-400 border-collapse">
+                    <thead class="bg-zinc-900/60 text-zinc-300 uppercase tracking-wider text-[10px] font-bold">
+                        <tr>
+                            <th class="p-4 border-b border-zinc-800">Version</th>
+                            <th class="p-4 border-b border-zinc-800">Release Date</th>
+                            <th class="p-4 border-b border-zinc-800">Status</th>
+                            <th class="p-4 border-b border-zinc-800">Highlights</th>
+                            <th class="p-4 border-b border-zinc-800 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-zinc-800">
+                        <tr class="hover:bg-zinc-900/10">
+                            <td class="p-4 font-bold text-white whitespace-nowrap">v1.0.0</td>
+                            <td class="p-4 text-zinc-500 whitespace-nowrap">Jul 2, 2026</td>
+                            <td class="p-4 whitespace-nowrap">
+                                <span class="bg-indigo-500/10 text-indigo-400 text-[10px] font-bold px-2 py-0.5 rounded-full">LATEST STABLE</span>
+                            </td>
+                            <td class="p-4 text-zinc-300 whitespace-nowrap max-w-xs truncate">First public release of TaskFlow</td>
+                            <td class="p-4 text-right whitespace-nowrap">
+                                <button onclick="openReleaseModal('1.0.0')" class="text-white hover:text-indigo-400 font-bold transition-all">View</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Future Roadmap Section -->
+    <section id="roadmap" class="py-24 relative overflow-hidden">
+        <!-- Glow gradient -->
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-purple-900/5 blur-3xl pointer-events-none"></div>
+
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">Vision</span>
+                <h2 class="text-3xl font-extrabold text-white mt-1">Future Roadmap</h2>
+                <p class="text-zinc-400">What we're building next: richer knowledge, connected tools, repeatable processes, and thoughtful AI — all designed to extend your local-first workspace.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <!-- Knowledge Hub -->
+                <div class="group relative p-6 rounded-2xl border border-zinc-800 bg-[#111115] hover:bg-[#16161c] transition-all grad-border space-y-4">
+                    <div class="absolute inset-0 bg-gradient-to-b from-violet-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <span class="relative text-violet-400 font-semibold uppercase text-[9px] bg-violet-500/10 px-1.5 py-0.5 rounded">EXPLORING</span>
+                    <h3 class="relative font-bold text-white text-base">Knowledge Hub</h3>
+                    <div class="relative space-y-2 text-xs text-zinc-400">
+                        <p>Workspace-linked documentation, guides, and reference material.</p>
+                        <p>Local storage with fast, context-aware access inside your work.</p>
+                    </div>
+                </div>
+
+                <!-- Template Community -->
+                <div class="group relative p-6 rounded-2xl border border-zinc-800 bg-[#111115] hover:bg-[#16161c] transition-all grad-border space-y-4">
+                    <div class="absolute inset-0 bg-gradient-to-b from-indigo-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <span class="relative text-violet-400 font-semibold uppercase text-[9px] bg-violet-500/10 px-1.5 py-0.5 rounded">EXPLORING</span>
+                    <h3 class="relative font-bold text-white text-base">Template Community</h3>
+                    <div class="relative space-y-2 text-xs text-zinc-400">
+                        <p>Create and share Knowledge Hub templates with others.</p>
+                        <p>Free community library to browse, import, and publish templates.</p>
+                    </div>
+                </div>
+
+                <!-- Tool Integrations -->
+                <div class="group relative p-6 rounded-2xl border border-zinc-800 bg-[#111115] hover:bg-[#16161c] transition-all grad-border space-y-4">
+                    <div class="absolute inset-0 bg-gradient-to-b from-amber-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <span class="relative text-amber-500 font-semibold uppercase text-[9px] bg-amber-500/10 px-1.5 py-0.5 rounded">PLANNED</span>
+                    <h3 class="relative font-bold text-white text-base">Tool Integrations</h3>
+                    <div class="relative space-y-2 text-xs text-zinc-400">
+                        <p>Calendar, notifications, email, dev platform links, and more.</p>
+                        <p>Optional connectors that keep TaskFlow local-first at the core.</p>
+                    </div>
+                </div>
+
+                <!-- Cloud Integrations -->
+                <div class="group relative p-6 rounded-2xl border border-zinc-800 bg-[#111115] hover:bg-[#16161c] transition-all grad-border space-y-4">
+                    <div class="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <span class="relative text-violet-400 font-semibold uppercase text-[9px] bg-violet-500/10 px-1.5 py-0.5 rounded">EXPLORING</span>
+                    <h3 class="relative font-bold text-white text-base">Cloud Integrations</h3>
+                    <div class="relative space-y-2 text-xs text-zinc-400">
+                        <p>Link cloud files to projects, tasks, and resources.</p>
+                        <p>Upload exports and attachments without replacing local storage.</p>
+                    </div>
+                </div>
+
+                <!-- Work Processes -->
+                <div class="group relative p-6 rounded-2xl border border-zinc-800 bg-[#111115] hover:bg-[#16161c] transition-all grad-border space-y-4">
+                    <div class="absolute inset-0 bg-gradient-to-b from-teal-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <span class="relative text-amber-500 font-semibold uppercase text-[9px] bg-amber-500/10 px-1.5 py-0.5 rounded">PLANNED</span>
+                    <h3 class="relative font-bold text-white text-base">Work Processes</h3>
+                    <div class="relative space-y-2 text-xs text-zinc-400">
+                        <p>Multi-step playbooks for repeatable professional workflows.</p>
+                        <p>Document processes, follow them manually, and review run history.</p>
+                    </div>
+                </div>
+
+                <!-- AI Integrations -->
+                <div class="group relative p-6 rounded-2xl border border-zinc-800 bg-[#111115] hover:bg-[#16161c] transition-all grad-border space-y-4">
+                    <div class="absolute inset-0 bg-gradient-to-b from-purple-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <span class="relative text-violet-400 font-semibold uppercase text-[9px] bg-violet-500/10 px-1.5 py-0.5 rounded">EXPLORING</span>
+                    <h3 class="relative font-bold text-white text-base">AI Integrations</h3>
+                    <div class="relative space-y-2 text-xs text-zinc-400">
+                        <p>Optional AI assistance grounded in your work context.</p>
+                        <p>Privacy-first goals: helpful intelligence without mandatory cloud reliance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive FAQ Section -->
+    <section id="faq" class="py-24 bg-zinc-950/20 border-t border-zinc-900">
+        <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">FAQ</span>
+                <h2 class="text-3xl font-extrabold text-white mt-1">Frequently Asked Questions</h2>
+                <p class="text-zinc-400 mt-3 text-sm">Common questions about privacy, workspaces, exports, and desktop installs.</p>
+            </div>
+
+            <!-- Accordion Items -->
+            <div class="space-y-4">
+                <!-- Q1 -->
+                <div class="border border-zinc-800 bg-[#121216]/50 rounded-xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleFaq(1)" class="w-full flex items-center justify-between p-5 text-left text-sm font-semibold text-white hover:bg-zinc-900/50 transition-colors">
+                        <span>What is TaskFlow?</span>
+                        <i id="faq-icon-1" class="fa-solid fa-chevron-down text-zinc-500 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-body-1" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="p-5 border-t border-zinc-800 text-xs text-zinc-400 leading-relaxed">
+                            TaskFlow is a local-first desktop app for professionals who manage work across clients, employers, or projects. It brings workspaces, projects, Kanban tasks, time tracking, earnings, reports, files, and overtime into one context-aware system on your machine.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="border border-zinc-800 bg-[#121216]/50 rounded-xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleFaq(2)" class="w-full flex items-center justify-between p-5 text-left text-sm font-semibold text-white hover:bg-zinc-900/50 transition-colors">
+                        <span>What is a workspace?</span>
+                        <i id="faq-icon-2" class="fa-solid fa-chevron-down text-zinc-500 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-body-2" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="p-5 border-t border-zinc-800 text-xs text-zinc-400 leading-relaxed">
+                            A workspace is a separate work context: a client, employer, contract, or personal work area. Each workspace has its own salary settings, projects, tasks, files, time logs, earnings, and reports so your work stays organized and easy to find.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="border border-zinc-800 bg-[#121216]/50 rounded-xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleFaq(3)" class="w-full flex items-center justify-between p-5 text-left text-sm font-semibold text-white hover:bg-zinc-900/50 transition-colors">
+                        <span>Can I manage multiple clients or employers?</span>
+                        <i id="faq-icon-3" class="fa-solid fa-chevron-down text-zinc-500 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-body-3" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="p-5 border-t border-zinc-800 text-xs text-zinc-400 leading-relaxed">
+                            Yes. Create one workspace per client, employer, or contract. When you switch workspaces, TaskFlow shows only that context: projects, tasks, files, timers, earnings, and reports stay separated so nothing gets mixed together.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="border border-zinc-800 bg-[#121216]/50 rounded-xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleFaq(4)" class="w-full flex items-center justify-between p-5 text-left text-sm font-semibold text-white hover:bg-zinc-900/50 transition-colors">
+                        <span>Does TaskFlow require an internet connection?</span>
+                        <i id="faq-icon-4" class="fa-solid fa-chevron-down text-zinc-500 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-body-4" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="p-5 border-t border-zinc-800 text-xs text-zinc-400 leading-relaxed">
+                            No. TaskFlow is built to run locally on your desktop. Your workspaces, tasks, time logs, files, and reports stay on your machine. You do not need an active internet connection to track time, manage work, or review earnings.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="border border-zinc-800 bg-[#121216]/50 rounded-xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleFaq(5)" class="w-full flex items-center justify-between p-5 text-left text-sm font-semibold text-white hover:bg-zinc-900/50 transition-colors">
+                        <span>Does TaskFlow upload my private data?</span>
+                        <i id="faq-icon-5" class="fa-solid fa-chevron-down text-zinc-500 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-body-5" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="p-5 border-t border-zinc-800 text-xs text-zinc-400 leading-relaxed">
+                            No. TaskFlow does not require a cloud account and does not upload your work data by default. There is no built-in telemetry or analytics in the core app. Your files, logs, and earnings remain on your computer unless you choose to export or connect an optional integration later.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q6 -->
+                <div class="border border-zinc-800 bg-[#121216]/50 rounded-xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleFaq(6)" class="w-full flex items-center justify-between p-5 text-left text-sm font-semibold text-white hover:bg-zinc-900/50 transition-colors">
+                        <span>Can I track time without linking to a task?</span>
+                        <i id="faq-icon-6" class="fa-solid fa-chevron-down text-zinc-500 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-body-6" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="p-5 border-t border-zinc-800 text-xs text-zinc-400 leading-relaxed">
+                            Yes. You can start a timer at workspace level, link it to a project, or attach it to a specific task. TaskFlow supports all three so you can track time the way your work is actually structured.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q7 -->
+                <div class="border border-zinc-800 bg-[#121216]/50 rounded-xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleFaq(7)" class="w-full flex items-center justify-between p-5 text-left text-sm font-semibold text-white hover:bg-zinc-900/50 transition-colors">
+                        <span>Can I export timesheets and reports?</span>
+                        <i id="faq-icon-7" class="fa-solid fa-chevron-down text-zinc-500 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-body-7" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="p-5 border-t border-zinc-800 text-xs text-zinc-400 leading-relaxed">
+                            Yes. TaskFlow generates reports you can export to Excel and CSV, including timesheets, attendance logs, and overtime summaries. Exports are created from your recorded time logs on your local machine.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q8 -->
+                <div class="border border-zinc-800 bg-[#121216]/50 rounded-xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleFaq(8)" class="w-full flex items-center justify-between p-5 text-left text-sm font-semibold text-white hover:bg-zinc-900/50 transition-colors">
+                        <span>Do I need PostgreSQL or technical setup?</span>
+                        <i id="faq-icon-8" class="fa-solid fa-chevron-down text-zinc-500 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-body-8" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="p-5 border-t border-zinc-800 text-xs text-zinc-400 leading-relaxed">
+                            The desktop installer guides you through setup. Easy mode can bundle PostgreSQL for a local install with minimal configuration. Advanced mode lets you connect your own PostgreSQL instance if you prefer to manage the database yourself.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q9 -->
+                <div class="border border-zinc-800 bg-[#121216]/50 rounded-xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleFaq(9)" class="w-full flex items-center justify-between p-5 text-left text-sm font-semibold text-white hover:bg-zinc-900/50 transition-colors">
+                        <span>Which operating systems are supported?</span>
+                        <i id="faq-icon-9" class="fa-solid fa-chevron-down text-zinc-500 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-body-9" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="p-5 border-t border-zinc-800 text-xs text-zinc-400 leading-relaxed">
+                            TaskFlow is available for Windows 10 and 11 (.exe) and macOS 11 or later on Intel and Apple Silicon Macs (.dmg). Choose the build that matches your device from the download section.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q10 -->
+                <div class="border border-zinc-800 bg-[#121216]/50 rounded-xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleFaq(10)" class="w-full flex items-center justify-between p-5 text-left text-sm font-semibold text-white hover:bg-zinc-900/50 transition-colors">
+                        <span>Is there a subscription or cloud account?</span>
+                        <i id="faq-icon-10" class="fa-solid fa-chevron-down text-zinc-500 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-body-10" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="p-5 border-t border-zinc-800 text-xs text-zinc-400 leading-relaxed">
+                            TaskFlow is a local desktop product. You install it on your machine and run your work locally. There is no required cloud account for core features like workspaces, time tracking, tasks, earnings, and reports.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q11 -->
+                <div class="border border-zinc-800 bg-[#121216]/50 rounded-xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleFaq(11)" class="w-full flex items-center justify-between p-5 text-left text-sm font-semibold text-white hover:bg-zinc-900/50 transition-colors">
+                        <span>Will future integrations require the cloud?</span>
+                        <i id="faq-icon-11" class="fa-solid fa-chevron-down text-zinc-500 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-body-11" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="p-5 border-t border-zinc-800 text-xs text-zinc-400 leading-relaxed">
+                            No. Planned roadmap items such as tool integrations, cloud file links, Knowledge Hub, and AI are designed as optional extensions. Local-first remains the foundation: you choose what to connect, and your core work data stays on your machine.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="border-t border-zinc-900 bg-[#07070a] py-16 text-xs text-zinc-500">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+                <!-- Brand Info Column -->
+                <div class="col-span-2">
+                    <a href="#" class="inline-flex items-center gap-2.5 mb-4">
+                        <img src="brand/mark.svg" alt="" class="h-9 w-9" width="36" height="36" />
+                        <div class="flex flex-col">
+                            <span class="text-sm font-bold text-white tracking-tight">TaskFlow</span>
+                            <span class="text-[9px] font-semibold uppercase tracking-widest text-zinc-500">Context-Aware · Local-First</span>
+                        </div>
+                    </a>
+                    <p class="max-w-sm text-zinc-500 leading-relaxed mb-5">
+                        Work management for professionals who operate across clients, employers, and projects. One desktop app to plan, track, and report, with your workspaces and data stored on your machine.
+                    </p>
+                    <div class="flex items-center gap-3 text-base">
+                        <a href="https://github.com/ShehabSalah" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-lg border border-zinc-800 bg-zinc-900/50 flex items-center justify-center text-zinc-400 hover:text-white hover:border-zinc-700 transition-colors" aria-label="GitHub profile">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/shehabsalah/" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-lg border border-zinc-800 bg-zinc-900/50 flex items-center justify-center text-zinc-400 hover:text-white hover:border-zinc-700 transition-colors" aria-label="LinkedIn profile">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Links Col 1 -->
+                <div>
+                    <h4 class="font-bold text-white mb-4">Product</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#why-taskflow" class="hover:text-white transition-colors">Why TaskFlow</a></li>
+                        <li><a href="#features" class="hover:text-white transition-colors">Features</a></li>
+                        <li><a href="#built-for" class="hover:text-white transition-colors">For Professionals</a></li>
+                        <li><a href="#download" class="hover:text-white transition-colors">Download</a></li>
+                        <li><a href="#releases" class="hover:text-white transition-colors">Releases</a></li>
+                    </ul>
+                </div>
+
+                <!-- Links Col 2 -->
+                <div>
+                    <h4 class="font-bold text-white mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#faq" class="hover:text-white transition-colors">FAQ</a></li>
+                        <li><a href="#roadmap" class="hover:text-white transition-colors">Roadmap</a></li>
+                        <li><a href="#download" class="hover:text-white transition-colors">Installers</a></li>
+                        <li><a href="docs.html" class="hover:text-white transition-colors">Documentation</a></li>
+                    </ul>
+                </div>
+
+                <!-- Links Col 3 -->
+                <div>
+                    <h4 class="font-bold text-white mb-4">Developer</h4>
+                    <ul class="space-y-2">
+                        <li><a href="https://github.com/ShehabSalah" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">GitHub Profile</a></li>
+                        <li><a href="https://www.linkedin.com/in/shehabsalah/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">LinkedIn Profile</a></li>
+                        <li><a href="https://github.com/ShehabSalah/taskflow-dashboard" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Dashboard Repo</a></li>
+                        <li><a href="https://github.com/ShehabSalah/taskflow-backend" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Backend Repo</a></li>
+                        <li><a href="https://github.com/ShehabSalah/taskflow-desktop" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Desktop Repo</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-between items-center pt-8 border-t border-zinc-900 gap-3 text-[0.7rem] leading-snug text-zinc-600">
+                <span>&copy; <span id="footer-year"></span> TaskFlow. All rights reserved.</span>
+                <span>
+                    Designed &amp; developed by
+                    <a href="https://www.linkedin.com/in/shehabsalah/" target="_blank" rel="noopener noreferrer" class="text-zinc-500 hover:text-white transition-colors">Shehab Salah</a>.
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive notification toast element -->
+    <div id="custom-toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-350 bg-[#121217] border border-purple-500/30 text-zinc-100 text-xs rounded-xl shadow-2xl p-4 flex items-center gap-3 max-w-sm pointer-events-none">
+        <div class="w-8 h-8 rounded-full bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 text-sm flex-shrink-0">
+            <i class="fa-solid fa-circle-info"></i>
+        </div>
+        <div>
+            <div class="font-bold text-white" id="toast-title">Notification</div>
+            <p class="text-zinc-400 mt-0.5" id="toast-msg">Action performed successfully.</p>
+        </div>
+    </div>
+
+    <!-- Release notes modal -->
+    <div id="release-modal" class="fixed inset-0 z-[60] hidden" aria-hidden="true">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeReleaseModal()"></div>
+        <div class="relative flex min-h-full items-center justify-center p-4">
+            <div class="w-full max-w-2xl rounded-2xl border border-zinc-800 bg-[#101014] shadow-2xl overflow-hidden" role="dialog" aria-modal="true" aria-labelledby="release-modal-title">
+                <div class="flex items-start justify-between gap-4 border-b border-zinc-800 px-6 py-5">
+                    <div>
+                        <div class="text-[10px] font-bold uppercase tracking-wider text-indigo-400" id="release-modal-version">v1.0.0</div>
+                        <h3 class="text-xl font-bold text-white mt-1" id="release-modal-title">Release Notes</h3>
+                        <p class="text-xs text-zinc-500 mt-1" id="release-modal-meta">Jul 2, 2026 · LATEST STABLE</p>
+                    </div>
+                    <button type="button" onclick="closeReleaseModal()" class="w-8 h-8 rounded-lg border border-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-900 transition-colors" aria-label="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="px-6 py-5 max-h-[70vh] overflow-y-auto">
+                    <p class="text-sm text-zinc-300 mb-4" id="release-modal-summary"></p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-zinc-400" id="release-modal-list"></ul>
+                </div>
+                <div class="border-t border-zinc-800 px-6 py-4 flex justify-end">
+                    <button type="button" onclick="closeReleaseModal()" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 text-xs px-4 py-2 rounded-xl font-bold transition-colors">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Logic scripts -->
+    <script>
+        const footerYearEl = document.getElementById("footer-year");
+        if (footerYearEl) footerYearEl.textContent = String(new Date().getFullYear());
+
+        // Interactive Simulated Workspace List
+        const workspaces = [
+            { name: "Acme Agency", earnings: "$428.50", rate: "$125/hr" },
+            { name: "Global Dev Corp", earnings: "$652.10", rate: "$150/hr" },
+            { name: "Personal Work", earnings: "$0.00", rate: "In-House" }
+        ];
+        const workspaceProjects = {
+            "Acme Agency": [
+                { title: "Client Portal Revamp", status: "In Progress", statusClass: "bg-indigo-500/10 text-indigo-300", progress: 68, tasks: 12, done: 4, earned: "$820", barClass: "bg-indigo-500" },
+                { title: "Billing Automation", status: "Review", statusClass: "bg-amber-500/10 text-amber-300", progress: 82, tasks: 9, done: 7, earned: "$540", barClass: "bg-amber-500" }
+            ],
+            "Global Dev Corp": [
+                { title: "Data Pipeline Upgrade", status: "In Progress", statusClass: "bg-indigo-500/10 text-indigo-300", progress: 54, tasks: 15, done: 6, earned: "$960", barClass: "bg-indigo-500" },
+                { title: "Ops Dashboard", status: "Done", statusClass: "bg-emerald-500/10 text-emerald-300", progress: 100, tasks: 8, done: 8, earned: "$700", barClass: "bg-emerald-500" }
+            ],
+            "Personal Work": [
+                { title: "Product Roadmap", status: "In Progress", statusClass: "bg-indigo-500/10 text-indigo-300", progress: 46, tasks: 10, done: 3, earned: "$0", barClass: "bg-indigo-500" },
+                { title: "Learning Sprint", status: "Backlog", statusClass: "bg-zinc-700/80 text-zinc-300", progress: 15, tasks: 6, done: 1, earned: "$0", barClass: "bg-zinc-500" }
+            ]
+        };
+        const workspaceTasks = {
+            "Acme Agency": {
+                project: "Client Portal Revamp",
+                backlog: [
+                    { title: "Define API validation schema", id: "#TSK-101", tag: "Backend" },
+                    { title: "Draft onboarding checklist", id: "#TSK-104", tag: "Docs" }
+                ],
+                inProgress: { title: "Build workspace switch transition", id: "#TSK-108", tag: "Active" },
+                done: ["Create task labels set", "Set initial kanban columns"]
+            },
+            "Global Dev Corp": {
+                project: "Data Pipeline Upgrade",
+                backlog: [
+                    { title: "Profile slow query batch", id: "#TSK-211", tag: "Data" },
+                    { title: "Prepare rollback plan", id: "#TSK-214", tag: "Ops" }
+                ],
+                inProgress: { title: "Refactor sync worker retries", id: "#TSK-218", tag: "Active" },
+                done: ["Review queue metrics", "Patch ETL timeout handling"]
+            },
+            "Personal Work": {
+                project: "Product Roadmap",
+                backlog: [
+                    { title: "Write Q4 planning draft", id: "#TSK-301", tag: "Plan" },
+                    { title: "Collect feature notes", id: "#TSK-304", tag: "Notes" }
+                ],
+                inProgress: { title: "Organize backlog priorities", id: "#TSK-308", tag: "Active" },
+                done: ["Define MVP milestones", "Archive old roadmap items"]
+            }
+        };
+        const workspaceLogs = {
+            "Acme Agency": {
+                project: "Client Portal Revamp",
+                rows: [
+                    { date: "Jul 01", time: "09:00 - 11:30", duration: "2h 30m", earnings: "$315", project: "Client Portal Revamp", task: "Switch flow" },
+                    { date: "Jul 01", time: "12:15 - 14:00", duration: "1h 45m", earnings: "$220", project: "Client Portal Revamp", task: "Validation schema" }
+                ]
+            },
+            "Global Dev Corp": {
+                project: "Data Pipeline Upgrade",
+                rows: [
+                    { date: "Jul 01", time: "08:30 - 10:20", duration: "1h 50m", earnings: "$275", project: "Data Pipeline Upgrade", task: "Policy refactor" },
+                    { date: "Jul 01", time: "10:45 - 13:15", duration: "2h 30m", earnings: "$377", project: "Data Pipeline Upgrade", task: "Metrics review" }
+                ]
+            },
+            "Personal Work": {
+                project: "Product Roadmap",
+                rows: [
+                    { date: "Jul 01", time: "19:00 - 20:10", duration: "1h 10m", earnings: "$0", project: "Product Roadmap", task: "Milestones planning" },
+                    { date: "Jul 01", time: "20:20 - 21:30", duration: "1h 10m", earnings: "$0", project: "Product Roadmap", task: "Backlog cleanup" }
+                ]
+            }
+        };
+        const workspaceResources = {
+            "Acme Agency": [
+                { name: "Contracts", type: "Folder", modified: "Jul 01, 2026", size: "—" },
+                { name: "API Docs", type: "Folder", modified: "Jun 29, 2026", size: "—" },
+                { name: "Scope.md", type: "Markdown", modified: "Jun 27, 2026", size: "24 KB" },
+                { name: "Requirements.pdf", type: "PDF", modified: "Jun 24, 2026", size: "1.2 MB" }
+            ],
+            "Global Dev Corp": [
+                { name: "Architecture", type: "Folder", modified: "Jul 02, 2026", size: "—" },
+                { name: "Runbooks", type: "Folder", modified: "Jun 30, 2026", size: "—" },
+                { name: "Incident-2026-07-01.md", type: "Markdown", modified: "Jul 01, 2026", size: "18 KB" },
+                { name: "SLA-v3.pdf", type: "PDF", modified: "Jun 28, 2026", size: "860 KB" }
+            ],
+            "Personal Work": [
+                { name: "Notes", type: "Folder", modified: "Jul 01, 2026", size: "—" },
+                { name: "Ideas", type: "Folder", modified: "Jun 30, 2026", size: "—" },
+                { name: "roadmap-draft.md", type: "Markdown", modified: "Jun 29, 2026", size: "9 KB" },
+                { name: "weekly-review.pdf", type: "PDF", modified: "Jun 26, 2026", size: "420 KB" }
+            ]
+        };
+        const workspaceReports = {
+            "Acme Agency": { period: "Current Month (July 2026)", regularHours: "152.0 hrs", overtimeHours: "14.5 hrs", earnings: "$8,560.00" },
+            "Global Dev Corp": { period: "Current Month (July 2026)", regularHours: "138.5 hrs", overtimeHours: "9.0 hrs", earnings: "$9,220.00" },
+            "Personal Work": { period: "Current Month (July 2026)", regularHours: "42.0 hrs", overtimeHours: "0.0 hrs", earnings: "$0.00" }
+        };
+        const workspaceOvertime = {
+            "Acme Agency": {
+                month: "Jul 2026", from: "Jul 01, 2026", to: "Jul 31, 2026",
+                daily: "2.9h", weekly: "8.7h", monthly: "21.0h",
+                weeks: [35, 56, 30, 23], weekLabels: ["2.1h", "3.4h", "1.8h", "1.4h"],
+                days: [
+                    { date: "Jul 01", worked: "9.2h", overtime: "1.2h" },
+                    { date: "Jul 02", worked: "8.7h", overtime: "0.7h" },
+                    { date: "Jul 03", worked: "9.0h", overtime: "1.0h" }
+                ]
+            },
+            "Global Dev Corp": {
+                month: "Jul 2026", from: "Jul 01, 2026", to: "Jul 31, 2026",
+                daily: "1.8h", weekly: "5.1h", monthly: "14.2h",
+                weeks: [28, 42, 33, 19], weekLabels: ["1.6h", "2.4h", "1.9h", "1.1h"],
+                days: [
+                    { date: "Jul 01", worked: "8.8h", overtime: "0.8h" },
+                    { date: "Jul 02", worked: "8.3h", overtime: "0.3h" },
+                    { date: "Jul 03", worked: "9.1h", overtime: "1.1h" }
+                ]
+            },
+            "Personal Work": {
+                month: "Jul 2026", from: "Jul 01, 2026", to: "Jul 31, 2026",
+                daily: "0.0h", weekly: "0.0h", monthly: "0.0h",
+                weeks: [0, 0, 0, 0], weekLabels: ["0.0h", "0.0h", "0.0h", "0.0h"],
+                days: [
+                    { date: "Jul 01", worked: "2.1h", overtime: "0.0h" },
+                    { date: "Jul 02", worked: "1.8h", overtime: "0.0h" },
+                    { date: "Jul 03", worked: "2.3h", overtime: "0.0h" }
+                ]
+            }
+        };
+        let currentWorkspaceIndex = 0;
+
+        function renderMockProjects(workspaceName) {
+            const projects = workspaceProjects[workspaceName] ?? [];
+            const p1 = projects[0];
+            const p2 = projects[1];
+
+            const setProject = (idx, project) => {
+                if (!project) return;
+                document.getElementById(`mock-project-${idx}-title`).innerText = project.title;
+                document.getElementById(`mock-project-${idx}-workspace`).innerText = workspaceName;
+                const statusEl = document.getElementById(`mock-project-${idx}-status`);
+                statusEl.innerText = project.status;
+                statusEl.className = `px-1.5 py-0.5 rounded text-[9px] ${project.statusClass}`;
+                document.getElementById(`mock-project-${idx}-progress-label`).innerText = `${project.progress}%`;
+                const barEl = document.getElementById(`mock-project-${idx}-progress-bar`);
+                barEl.style.width = `${project.progress}%`;
+                barEl.className = `h-full ${project.barClass}`;
+                document.getElementById(`mock-project-${idx}-tasks`).innerText = String(project.tasks);
+                document.getElementById(`mock-project-${idx}-done`).innerText = String(project.done);
+                document.getElementById(`mock-project-${idx}-earned`).innerText = project.earned;
+            };
+
+            setProject(1, p1);
+            setProject(2, p2);
+            document.getElementById('mock-projects-count').innerText = String(projects.length);
+            document.getElementById('mock-projects-active-workspace').innerText = workspaceName;
+        }
+
+        function renderMockTasks(workspaceName) {
+            const data = workspaceTasks[workspaceName];
+            if (!data) return;
+            document.getElementById('mock-tasks-project-name').innerText = data.project;
+
+            document.getElementById('mock-task-backlog-1-title').innerText = data.backlog[0].title;
+            document.getElementById('mock-task-backlog-1-id').innerText = data.backlog[0].id;
+            document.getElementById('mock-task-backlog-1-tag').innerText = data.backlog[0].tag;
+            document.getElementById('mock-task-backlog-2-title').innerText = data.backlog[1].title;
+            document.getElementById('mock-task-backlog-2-id').innerText = data.backlog[1].id;
+            document.getElementById('mock-task-backlog-2-tag').innerText = data.backlog[1].tag;
+
+            document.getElementById('mock-task-progress-title').innerText = data.inProgress.title;
+            document.getElementById('mock-task-progress-id').innerText = data.inProgress.id;
+            document.getElementById('mock-task-progress-tag').innerText = data.inProgress.tag;
+
+            document.getElementById('mock-task-done-1-title').innerText = data.done[0];
+            document.getElementById('mock-task-done-2-title').innerText = data.done[1];
+
+            document.getElementById('mock-task-count-backlog').innerText = String(data.backlog.length);
+            document.getElementById('mock-task-count-progress').innerText = "1";
+            document.getElementById('mock-task-count-done').innerText = String(data.done.length);
+        }
+        function renderMockLogs(workspaceName) {
+            const data = workspaceLogs[workspaceName];
+            if (!data) return;
+            data.rows.forEach((row, i) => {
+                const idx = i + 1;
+                document.getElementById(`mock-log-${idx}-date`).innerText = row.date;
+                document.getElementById(`mock-log-${idx}-time`).innerText = row.time;
+                document.getElementById(`mock-log-${idx}-duration`).innerText = row.duration;
+                document.getElementById(`mock-log-${idx}-earnings`).innerText = row.earnings;
+                document.getElementById(`mock-log-${idx}-project`).innerText = row.project;
+                document.getElementById(`mock-log-${idx}-task`).innerText = row.task;
+            });
+        }
+        function renderMockResources(workspaceName) {
+            const rows = workspaceResources[workspaceName];
+            if (!rows) return;
+            document.getElementById('mock-resources-workspace').innerText = workspaceName;
+            document.getElementById('mock-resources-count').innerText = String(rows.length);
+            rows.forEach((row, i) => {
+                const idx = i + 1;
+                document.getElementById(`mock-resource-${idx}-name`).innerText = row.name;
+                document.getElementById(`mock-resource-${idx}-type`).innerText = row.type;
+                document.getElementById(`mock-resource-${idx}-modified`).innerText = row.modified;
+                document.getElementById(`mock-resource-${idx}-size`).innerText = row.size;
+            });
+        }
+        function renderMockReports(workspaceName) {
+            const data = workspaceReports[workspaceName];
+            if (!data) return;
+            document.getElementById('mock-report-workspace').innerText = workspaceName;
+            document.getElementById('mock-report-period').innerText = data.period;
+            document.getElementById('mock-report-regular-hours').innerText = data.regularHours;
+            document.getElementById('mock-report-overtime-hours').innerText = data.overtimeHours;
+            document.getElementById('mock-report-earnings').innerText = data.earnings;
+        }
+        function renderMockOvertime(workspaceName) {
+            const data = workspaceOvertime[workspaceName];
+            if (!data) return;
+            document.getElementById('mock-overtime-month').innerText = data.month;
+            document.getElementById('mock-overtime-from').innerText = data.from;
+            document.getElementById('mock-overtime-to').innerText = data.to;
+            document.getElementById('mock-overtime-daily').innerText = data.daily;
+            document.getElementById('mock-overtime-weekly').innerText = data.weekly;
+            document.getElementById('mock-overtime-monthly').innerText = data.monthly;
+            for (let i = 0; i < 4; i++) {
+                const idx = i + 1;
+                document.getElementById(`mock-overtime-w${idx}`).innerText = data.weekLabels[i];
+                document.getElementById(`mock-overtime-w${idx}-bar`).style.width = `${data.weeks[i]}%`;
+            }
+            for (let i = 0; i < 3; i++) {
+                const idx = i + 1;
+                document.getElementById(`mock-overtime-day-${idx}-date`).innerText = data.days[i].date;
+                document.getElementById(`mock-overtime-day-${idx}-worked`).innerText = data.days[i].worked;
+                document.getElementById(`mock-overtime-day-${idx}-ot`).innerText = data.days[i].overtime;
+            }
+        }
+
+        function toggleSimulatedWorkspace() {
+            currentWorkspaceIndex = (currentWorkspaceIndex + 1) % workspaces.length;
+            const ws = workspaces[currentWorkspaceIndex];
+            
+            // Apply DOM changes to Simulated App mockup
+            document.getElementById('simulated-workspace-name').innerText = ws.name;
+            document.getElementById('simulated-earnings').innerText = ws.earnings;
+            renderMockProjects(ws.name);
+            renderMockTasks(ws.name);
+            renderMockLogs(ws.name);
+            renderMockResources(ws.name);
+            renderMockReports(ws.name);
+            renderMockOvertime(ws.name);
+            
+            showNotification(`Simulated workspace switched to ${ws.name} (${ws.rate})`);
+        }
+        renderMockProjects(workspaces[currentWorkspaceIndex].name);
+        renderMockTasks(workspaces[currentWorkspaceIndex].name);
+        renderMockLogs(workspaces[currentWorkspaceIndex].name);
+        renderMockResources(workspaces[currentWorkspaceIndex].name);
+        renderMockReports(workspaces[currentWorkspaceIndex].name);
+        renderMockOvertime(workspaces[currentWorkspaceIndex].name);
+
+        // Active Timer Simulation
+        let timerSeconds = 8085; // 02:14:45
+        let timerRunning = true;
+        let originalEarnings = 428.50;
+
+        function updateMockLocalTime() {
+            const el = document.getElementById('mock-local-time');
+            if (!el) return;
+            const now = new Date();
+            el.innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+        }
+        updateMockLocalTime();
+        setInterval(updateMockLocalTime, 30000);
+
+        setInterval(() => {
+            if (timerRunning) {
+                timerSeconds++;
+                // Update time strings
+                const formatted = formatTime(timerSeconds);
+                const elTime = document.getElementById('simulated-time');
+                const elTimeLarge = document.getElementById('simulated-time-large');
+                if (elTime) elTime.innerText = formatted;
+                if (elTimeLarge) elTimeLarge.innerText = formatted;
+
+                // Micro earnings increment (simulate billing in action)
+                originalEarnings += 0.035; // increments live
+                const elEarnings = document.getElementById('simulated-earnings');
+                const elTimerEarnings = document.getElementById('simulated-timer-earnings');
+                if (currentWorkspaceIndex === 0) {
+                    if (elEarnings) elEarnings.innerText = `$${originalEarnings.toFixed(2)}`;
+                    if (elTimerEarnings) elTimerEarnings.innerText = `+$${originalEarnings.toFixed(2)}`;
+                }
+            }
+        }, 1000);
+
+        function formatTime(totalSecs) {
+            const hrs = Math.floor(totalSecs / 3600);
+            const mins = Math.floor((totalSecs % 3600) / 60);
+            const secs = totalSecs % 60;
+            return [
+                hrs.toString().padStart(2, '0'),
+                mins.toString().padStart(2, '0'),
+                secs.toString().padStart(2, '0')
+            ].join(':');
+        }
+
+        function toggleMockTimerState() {
+            timerRunning = !timerRunning;
+            const btn = document.getElementById('mock-timer-btn');
+            const headerBtn = document.getElementById('mock-timer-btn-header');
+            const pingEl = document.getElementById('mock-timer-ping');
+            const dotEl = document.getElementById('mock-timer-dot');
+            if (timerRunning) {
+                if (btn) {
+                    btn.className = "bg-red-500 hover:bg-red-600 text-white text-xs px-4 py-1.5 rounded-lg font-bold transition-colors";
+                    btn.innerHTML = '<i class="fa-solid fa-stop mr-1"></i> Stop Timer';
+                }
+                if (headerBtn) headerBtn.innerHTML = '<i class="fa-solid fa-pause text-[10px]"></i>';
+                if (pingEl) pingEl.classList.remove('hidden');
+                if (dotEl) dotEl.className = 'relative inline-flex rounded-full h-2 w-2 bg-purple-400';
+                showNotification("Simulated workflow session resumed.");
+            } else {
+                if (btn) {
+                    btn.className = "bg-emerald-500 hover:bg-emerald-600 text-white text-xs px-4 py-1.5 rounded-lg font-bold transition-colors";
+                    btn.innerHTML = '<i class="fa-solid fa-play mr-1"></i> Start Timer';
+                }
+                if (headerBtn) headerBtn.innerHTML = '<i class="fa-solid fa-play text-[10px]"></i>';
+                if (pingEl) pingEl.classList.add('hidden');
+                if (dotEl) dotEl.className = 'relative inline-flex rounded-full h-2 w-2 bg-zinc-500';
+                showNotification("Simulated workflow session paused.");
+            }
+        }
+
+        // Sidebar Navigation simulation
+        function switchMockupTab(tabName) {
+            const tabs = ['dashboard', 'workspaces', 'projects', 'kanban', 'time', 'resources', 'reports', 'overtime'];
+            tabs.forEach(t => {
+                const elBody = document.getElementById(`mock-tab-${t}`);
+                const elBtn = document.getElementById(`mock-tab-${t}-btn`);
+                
+                if (t === tabName) {
+                    elBody.classList.remove('hidden');
+                    elBtn.className = "w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium bg-zinc-800/80 text-white transition-all";
+                } else {
+                    elBody.classList.add('hidden');
+                    elBtn.className = "w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium text-zinc-400 hover:bg-zinc-800/40 hover:text-white transition-all";
+                }
+            });
+        }
+
+        // Release notes modal
+        const releaseNotes = {
+            "1.0.0": {
+                version: "v1.0.0",
+                date: "Jul 2, 2026",
+                status: "LATEST STABLE",
+                summary: "First public release of TaskFlow: local-first, context-aware work management for professionals.",
+                items: [
+                    "Workspaces for clients, employers, and contracts with salary, currency, and overtime settings",
+                    "Projects, dynamic Kanban tasks, labels, schedule dates, checklists, custom fields, rich-text descriptions, comments, activity feed, and mark complete",
+                    "Time tracking at workspace, project, or task level; work logs with filters and live active sessions",
+                    "Real-time earnings plus weekly and monthly dashboard progress",
+                    "Reports and exports (Excel/CSV), work insights, and dedicated overtime management",
+                    "Workspace resources, project files, and task attachments on local storage",
+                    "Native desktop app for Windows and macOS (Intel and Apple Silicon) with bundled or bring-your-own PostgreSQL",
+                    "App lock with local authentication, settings, themes, and in-app help"
+                ]
+            }
+        };
+
+        function openReleaseModal(version) {
+            const data = releaseNotes[version];
+            if (!data) return;
+
+            document.getElementById("release-modal-version").textContent = data.version;
+            document.getElementById("release-modal-title").textContent = "Release Notes";
+            document.getElementById("release-modal-meta").textContent = `${data.date} · ${data.status}`;
+            document.getElementById("release-modal-summary").textContent = data.summary;
+            document.getElementById("release-modal-list").innerHTML = data.items
+                .map((item) => `<li>${item}</li>`)
+                .join("");
+
+            const modal = document.getElementById("release-modal");
+            modal.classList.remove("hidden");
+            modal.setAttribute("aria-hidden", "false");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeReleaseModal() {
+            const modal = document.getElementById("release-modal");
+            modal.classList.add("hidden");
+            modal.setAttribute("aria-hidden", "true");
+            document.body.style.overflow = "";
+        }
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") closeReleaseModal();
+        });
+
+        // Custom Notification Controller
+        let toastTimeout;
+        function showNotification(message, title = "TaskFlow Pro") {
+            const toast = document.getElementById('custom-toast');
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-msg').innerText = message;
+            
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 4000);
+        }
+
+        // Clipboard Copy Action
+        function copySHA() {
+            // Simulated action
+            const shaCode = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
+            const tempInput = document.createElement("input");
+            tempInput.value = shaCode;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            
+            showNotification("SHA-256 Checksum copied to your local clipboard!", "Clipboard Success");
+        }
+
+        // Simulation Downloads
+        function simulateDownload(os) {
+            const ext = os === 'Windows' ? 'exe' : 'dmg';
+            showNotification(`Preparing TaskFlow for ${os}. Initiating installer package pipeline...`, "Download Request");
+            setTimeout(() => {
+                showNotification(`TaskFlow_${os}_v1.0.0_stable.${ext} download completed.`, "Download Success");
+            }, 2500);
+        }
+
+        // Accordion Toggle
+        const FAQ_COUNT = 11;
+        function toggleFaq(index) {
+            const body = document.getElementById(`faq-body-${index}`);
+            const icon = document.getElementById(`faq-icon-${index}`);
+            
+            if (body.style.maxHeight && body.style.maxHeight !== '0px') {
+                body.style.maxHeight = '0px';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                for (let i = 1; i <= FAQ_COUNT; i++) {
+                    const otherBody = document.getElementById(`faq-body-${i}`);
+                    const otherIcon = document.getElementById(`faq-icon-${i}`);
+                    if (otherBody) otherBody.style.maxHeight = '0px';
+                    if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+                }
+                body.style.maxHeight = body.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+    </script>
+</body>
+</html>

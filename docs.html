@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow User Guide — Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; background-color: #09090b; color: #f4f4f5; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 9999px; }
+        .docs-nav a.active { color: #fff; background: rgba(139, 92, 246, 0.12); border-color: rgba(139, 92, 246, 0.25); }
+    </style>
+</head>
+<body class="antialiased selection:bg-purple-500/30 selection:text-purple-200">
+
+    <header class="sticky top-0 z-50 w-full border-b border-zinc-800 bg-[#09090b]/90 backdrop-blur-md">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between gap-4">
+                <a href="index.html" class="flex items-center gap-2.5 min-w-0">
+                    <img src="brand/mark.svg" alt="" class="h-9 w-9 flex-shrink-0" width="36" height="36" />
+                    <div class="flex flex-col min-w-0">
+                        <span class="text-base font-bold tracking-tight text-white truncate">TaskFlow</span>
+                        <span class="text-[9px] font-semibold uppercase tracking-widest text-zinc-500">User Guide</span>
+                    </div>
+                </a>
+                <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-zinc-400">
+                    <a href="index.html" class="hover:text-white transition-colors">Home</a>
+                    <a href="index.html#download" class="hover:text-white transition-colors">Download</a>
+                    <a href="index.html#faq" class="hover:text-white transition-colors">FAQ</a>
+                </nav>
+                <a href="index.html#download" class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-xs font-bold text-black hover:bg-zinc-200 transition-all flex-shrink-0">
+                    <i class="fa-solid fa-arrow-down"></i>
+                    Download
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+        <div class="max-w-3xl mb-12">
+            <p class="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-2">Documentation</p>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">TaskFlow User Guide</h1>
+            <p class="text-zinc-400 mt-4 leading-relaxed">
+                Learn how to use TaskFlow on your desktop: workspaces, projects, tasks, time tracking, earnings, reports, and files. This guide describes the application as of version 1.0.0.
+            </p>
+            <p class="text-zinc-500 text-sm mt-3">
+                TaskFlow runs locally on your machine. The same guide is available inside the app under <strong class="text-zinc-400 font-semibold">Help</strong> in the account menu.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
+            <aside class="lg:col-span-3">
+                <nav class="docs-nav lg:sticky lg:top-24 space-y-1 text-sm" aria-label="Table of contents">
+                    <a href="#getting-started" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Getting started</a>
+                    <a href="#workspaces" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Workspaces</a>
+                    <a href="#projects-tasks" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Projects &amp; tasks</a>
+                    <a href="#time-earnings" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Time &amp; earnings</a>
+                    <a href="#dashboard" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Dashboard</a>
+                    <a href="#logs" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Work logs</a>
+                    <a href="#reports" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Reports &amp; insights</a>
+                    <a href="#overtime" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Overtime</a>
+                    <a href="#resources" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Resources &amp; files</a>
+                    <a href="#security" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Account &amp; security</a>
+                    <a href="#shortcuts" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Tips &amp; shortcuts</a>
+                </nav>
+            </aside>
+
+            <main class="lg:col-span-9 space-y-10">
+                <section id="getting-started" class="scroll-mt-24 rounded-2xl border border-zinc-800 bg-zinc-900/20 p-6 sm:p-8">
+                    <h2 class="text-xl font-bold text-white mb-3">Getting started</h2>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+                        TaskFlow helps you track time, earnings, projects, and tasks on your own machine. Your salary, logs, and reports are stored locally and are not uploaded to a cloud service by default.
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-zinc-300 leading-relaxed">
+                        <li>Install TaskFlow for Windows or macOS from the <a href="index.html#download" class="text-indigo-400 hover:text-indigo-300">download page</a>. The installer can set up PostgreSQL for you or connect to your own database.</li>
+                        <li>On first launch, create a username and password to protect your data on this device.</li>
+                        <li>After sign-in, pick a workspace from the top bar. Most pages use the active workspace.</li>
+                        <li>Use the sidebar for Dashboard, Workspaces, Projects, Tasks, Work Logs, Resources, Reports, and Overtime.</li>
+                        <li>Open Settings, Help, Lock, or Logout from your account menu in the top-right corner.</li>
+                    </ul>
+                </section>
+
+                <section id="workspaces" class="scroll-mt-24 rounded-2xl border border-zinc-800 bg-zinc-900/20 p-6 sm:p-8">
+                    <h2 class="text-xl font-bold text-white mb-3">Workspaces</h2>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+                        A workspace represents a job, client, or employer. Salary and hour expectations in that workspace drive earnings calculations.
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-zinc-300 leading-relaxed">
+                        <li>Create a workspace from <strong class="text-zinc-200 font-medium">Workspaces → New workspace</strong>. Set salary, currency, expected monthly and weekly hours, and work type.</li>
+                        <li>Enable overtime and choose a multiplier if your workspace pays extra for overtime hours.</li>
+                        <li>Open a workspace to see overview stats, resources, settings, and statistics.</li>
+                        <li>Start or end work from the workspace header to run the timer for that workspace.</li>
+                        <li>Set a default workspace under Settings so the app opens with your usual context.</li>
+                    </ul>
+                </section>
+
+                <section id="projects-tasks" class="scroll-mt-24 rounded-2xl border border-zinc-800 bg-zinc-900/20 p-6 sm:p-8">
+                    <h2 class="text-xl font-bold text-white mb-3">Projects &amp; tasks</h2>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+                        Organize work under projects, then manage tasks on a Kanban board with lists, labels, dates, checklists, and attachments.
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-zinc-300 leading-relaxed">
+                        <li>Create projects inside a workspace. Each project has its own board lists (columns).</li>
+                        <li>Open Tasks, select a project, and drag cards between lists. Quick-add creates tasks in a list.</li>
+                        <li>Click a task card for the quick drawer, or open the full editor for descriptions, comments, activity, and checklists.</li>
+                        <li>Use labels, start and end dates, custom fields, and attachments from the task editor or drawer.</li>
+                        <li>Mark tasks complete independently of their Kanban list when work is done.</li>
+                        <li>Start the timer from a task card or from the start-work dialog to link time to that task.</li>
+                    </ul>
+                </section>
+
+                <section id="time-earnings" class="scroll-mt-24 rounded-2xl border border-zinc-800 bg-zinc-900/20 p-6 sm:p-8">
+                    <h2 class="text-xl font-bold text-white mb-3">Time tracking &amp; earnings</h2>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+                        Recorded sessions are the source of truth for duration and pay. Earnings update in real time while the timer runs.
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-zinc-300 leading-relaxed">
+                        <li>Start work from a workspace page or the top-bar timer. You can link the session to a project or task, or track at workspace level only.</li>
+                        <li>Stop the timer when you finish. The top bar shows elapsed time and estimated earnings for the active session.</li>
+                        <li>Earnings use your workspace salary divided by expected monthly hours, calculated precisely by the second.</li>
+                        <li>If you lock or log out, the app stops an active timer first so sessions stay accurate.</li>
+                    </ul>
+                </section>
+
+                <section id="dashboard" class="scroll-mt-24 rounded-2xl border border-zinc-800 bg-zinc-900/20 p-6 sm:p-8">
+                    <h2 class="text-xl font-bold text-white mb-3">Dashboard</h2>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+                        The home page summarizes the selected month for your active workspace.
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-zinc-300 leading-relaxed">
+                        <li>Use the month picker to review past months. Current-month views refresh when you start or stop the timer.</li>
+                        <li>Summary cards show worked hours, expected hours, overtime, attendance days, and earnings.</li>
+                        <li>The weekly breakdown lists four weeks with progress toward your weekly target.</li>
+                        <li>The workspace grid shows projects and recent tasks. You can add a task without leaving the dashboard.</li>
+                    </ul>
+                </section>
+
+                <section id="logs" class="scroll-mt-24 rounded-2xl border border-zinc-800 bg-zinc-900/20 p-6 sm:p-8">
+                    <h2 class="text-xl font-bold text-white mb-3">Work logs</h2>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+                        Work logs list completed time sessions with filters for workspace, project, task, and date range.
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-zinc-300 leading-relaxed">
+                        <li>Open <strong class="text-zinc-200 font-medium">Work Logs</strong> from the sidebar to browse and filter historical sessions.</li>
+                        <li>Duration and earnings are shown per row; totals appear for the current page.</li>
+                        <li>Use work logs to verify what was recorded before exporting reports or timesheets.</li>
+                    </ul>
+                </section>
+
+                <section id="reports" class="scroll-mt-24 rounded-2xl border border-zinc-800 bg-zinc-900/20 p-6 sm:p-8">
+                    <h2 class="text-xl font-bold text-white mb-3">Reports &amp; insights</h2>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+                        Generate files for HR, clients, or your own records. Insights show where your time went.
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-zinc-300 leading-relaxed">
+                        <li><strong class="text-zinc-200 font-medium">Reports → Overview:</strong> pick report type, date range, and optional project or task scope.</li>
+                        <li>Preview row counts and sample data before exporting Excel or CSV.</li>
+                        <li>Download past reports again or delete them from the history table.</li>
+                        <li><strong class="text-zinc-200 font-medium">Reports → Insights:</strong> see time allocation by project or task and compare periods.</li>
+                        <li>Exports use recorded time logs only, never estimates.</li>
+                    </ul>
+                </section>
+
+                <section id="overtime" class="scroll-mt-24 rounded-2xl border border-zinc-800 bg-zinc-900/20 p-6 sm:p-8">
+                    <h2 class="text-xl font-bold text-white mb-3">Overtime</h2>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+                        The overtime page breaks down daily, weekly, and monthly overtime against your workspace targets.
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-zinc-300 leading-relaxed">
+                        <li>Open Overtime from the sidebar while a workspace is active.</li>
+                        <li>Review daily overtime hours, weekly bars, and earnings with your workspace multiplier applied.</li>
+                        <li>Export an overtime report for the selected month when you need a file copy.</li>
+                    </ul>
+                </section>
+
+                <section id="resources" class="scroll-mt-24 rounded-2xl border border-zinc-800 bg-zinc-900/20 p-6 sm:p-8">
+                    <h2 class="text-xl font-bold text-white mb-3">Resources &amp; files</h2>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+                        Store documents and attachments alongside your work.
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-zinc-300 leading-relaxed">
+                        <li><strong class="text-zinc-200 font-medium">Workspace → Resources:</strong> browse folders, upload files, import from a folder, and organize with categories.</li>
+                        <li><strong class="text-zinc-200 font-medium">Project → Files:</strong> see project files and task attachments in one place.</li>
+                        <li>The task drawer and full editor include an attachments section for per-task files.</li>
+                    </ul>
+                </section>
+
+                <section id="security" class="scroll-mt-24 rounded-2xl border border-zinc-800 bg-zinc-900/20 p-6 sm:p-8">
+                    <h2 class="text-xl font-bold text-white mb-3">Account &amp; security</h2>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+                        Your login protects earnings and reports if someone else uses this computer.
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-zinc-300 leading-relaxed">
+                        <li><strong class="text-zinc-200 font-medium">Settings → Security:</strong> change username or password (current password required).</li>
+                        <li>Lock from the account menu or press <kbd class="px-1.5 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-xs font-mono text-zinc-300">Ctrl+L</kbd> to require sign-in again without quitting the app.</li>
+                        <li>Enable auto-lock in Settings to lock after idle time (5 to 30 minutes).</li>
+                        <li>Logout ends the session completely. Preferences such as theme are kept on this device.</li>
+                        <li>There is no online password reset. Keep your password safe. If you forget it, you may need to reinstall or clear local app data.</li>
+                    </ul>
+                </section>
+
+                <section id="shortcuts" class="scroll-mt-24 rounded-2xl border border-zinc-800 bg-zinc-900/20 p-6 sm:p-8">
+                    <h2 class="text-xl font-bold text-white mb-3">Tips &amp; shortcuts</h2>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+                        Small habits that make TaskFlow faster to use.
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-zinc-300 leading-relaxed">
+                        <li><kbd class="px-1.5 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-xs font-mono text-zinc-300">Ctrl+L</kbd> — lock the app immediately.</li>
+                        <li><strong class="text-zinc-200 font-medium">Week starts on</strong> — set under Settings → General; affects weekly progress and reports.</li>
+                        <li><strong class="text-zinc-200 font-medium">Default workspace</strong> — set under Settings to open with your usual context each session.</li>
+                    </ul>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <footer class="border-t border-zinc-900 bg-[#07070a] py-10 text-xs text-zinc-500">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="hover:text-white transition-colors">← Back to TaskFlow</a>
+                <span class="hidden sm:inline text-zinc-700">|</span>
+                <span>&copy; <span id="footer-year"></span> TaskFlow. All rights reserved.</span>
+            </div>
+            <span>
+                Designed &amp; developed by
+                <a href="https://www.linkedin.com/in/shehabsalah/" target="_blank" rel="noopener noreferrer" class="text-zinc-500 hover:text-white transition-colors">Shehab Salah</a>.
+            </span>
+        </div>
+    </footer>
+
+    <script>
+        const footerYearEl = document.getElementById("footer-year");
+        if (footerYearEl) footerYearEl.textContent = String(new Date().getFullYear());
+
+        const sections = [...document.querySelectorAll("main section[id]")];
+        const navLinks = [...document.querySelectorAll(".docs-nav a")];
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+                    const id = entry.target.getAttribute("id");
+                    navLinks.forEach((link) => {
+                        link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
+                    });
+                });
+            },
+            { rootMargin: "-20% 0px -70% 0px", threshold: 0 }
+        );
+        sections.forEach((section) => observer.observe(section));
+    </script>
+</body>
+</html>

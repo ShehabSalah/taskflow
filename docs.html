@@ -59,7 +59,7 @@
             <p class="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-2">Documentation</p>
             <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">TaskFlow User Guide</h1>
             <p class="text-zinc-400 mt-4 leading-relaxed">
-                Learn how to use TaskFlow on your desktop: workspaces, projects, tasks, time tracking, earnings, reports, and files. This guide describes the application as of version 1.0.0.
+                Learn how to use TaskFlow on your desktop: workspaces, projects, tasks, time tracking, earnings, reports, files, and encrypted backup. This guide describes the application through version 1.1.0 (desktop).
             </p>
             <p class="text-zinc-500 text-sm mt-3">
                 TaskFlow runs locally on your machine. The same guide is available inside the app under <strong class="text-zinc-400 font-semibold">Help</strong> in the account menu.
@@ -78,6 +78,7 @@
                     <a href="#reports" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Reports &amp; insights</a>
                     <a href="#overtime" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Overtime</a>
                     <a href="#resources" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Resources &amp; files</a>
+                    <a href="#backup-restore" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Backup &amp; restore</a>
                     <a href="#security" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Account &amp; security</a>
                     <a href="#shortcuts" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Tips &amp; shortcuts</a>
                 </nav>
@@ -90,8 +91,9 @@
                         TaskFlow helps you track time, earnings, projects, and tasks on your own machine. Your salary, logs, and reports are stored locally and are not uploaded to a cloud service by default.
                     </p>
                     <ul class="list-disc list-inside space-y-2 text-sm text-zinc-300 leading-relaxed">
-                        <li>Install TaskFlow for Windows or macOS from the <a href="index.html#download" class="text-indigo-400 hover:text-indigo-300">download page</a>. The installer can set up PostgreSQL for you or connect to your own database.</li>
-                        <li>On first launch, create a username and password to protect your data on this device.</li>
+                        <li>Install TaskFlow for Windows or macOS from the <a href="index.html#download" class="text-indigo-400 hover:text-indigo-300">download page</a>. The setup wizard can set up PostgreSQL for you (Easy mode) or connect to your own database (Advanced mode).</li>
+                        <li>On a new computer, the wizard can <a href="#backup-restore" class="text-indigo-400 hover:text-indigo-300">restore from an encrypted backup</a> before you create an account. Skip this step for a fresh start.</li>
+                        <li>On first launch (or after restore without sign-in), create a username and password to protect your data on this device.</li>
                         <li>After sign-in, pick a workspace from the top bar. Most pages use the active workspace.</li>
                         <li>Use the sidebar for Dashboard, Workspaces, Projects, Tasks, Work Logs, Resources, Reports, and Overtime.</li>
                         <li>Open Settings, Help, Lock, or Logout from your account menu in the top-right corner.</li>
@@ -203,6 +205,24 @@
                     </ul>
                 </section>
 
+                <section id="backup-restore" class="scroll-mt-24 rounded-2xl border border-zinc-800 bg-zinc-900/20 p-6 sm:p-8">
+                    <h2 class="text-xl font-bold text-white mb-3">Backup &amp; restore</h2>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+                        Create an encrypted full backup of your database and files on the desktop app. Restore on a new computer or replace data on the same machine. Open <strong class="text-zinc-200 font-medium">Settings → Backup &amp; Restore</strong> (desktop app only — not in the browser dev build).
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-zinc-300 leading-relaxed">
+                        <li>Backups are <strong class="text-zinc-200 font-medium">manual</strong>. Choose a folder and set a <strong class="text-zinc-200 font-medium">backup passphrase</strong> (at least 8 characters). This unlocks the <code class="text-zinc-400">.taskflow-backup</code> file — it is <em>not</em> your app login password.</li>
+                        <li>A backup includes all workspaces, projects, tasks, time logs, report records, and local files. It does not include your database password or other security keys stored on this device.</li>
+                        <li><strong class="text-zinc-200 font-medium">Create backup:</strong> enter and confirm the backup passphrase, then pick a destination folder. TaskFlow writes a timestamped <code class="text-zinc-400">.taskflow-backup</code> file.</li>
+                        <li><strong class="text-zinc-200 font-medium">Restore on this computer:</strong> pick the archive, enter the backup passphrase, and type <code class="text-zinc-400">RESTORE</code> to confirm. This replaces all application data on this install.</li>
+                        <li>If you already have a sign-in on this install, restore <strong class="text-zinc-200 font-medium">keeps your current username and password</strong> — only data and files are replaced.</li>
+                        <li><strong class="text-zinc-200 font-medium">Optional — restore sign-in:</strong> off by default. Only shown when no account exists yet (for example during the first-run wizard on a new PC).</li>
+                        <li><strong class="text-zinc-200 font-medium">New computer:</strong> after database setup, the wizard offers restore from backup. Restore data only, then create a new account; or restore sign-in and log in with your old credentials.</li>
+                        <li><strong class="text-zinc-200 font-medium">Forgot your old app password?</strong> Restore data only (leave sign-in unchecked), then create a new account in Setup. Your workspaces and tasks return with a new login.</li>
+                        <li>Wrong backup passphrase shows an error — nothing is partially restored. Keep your backup passphrase safe; there is no online recovery.</li>
+                    </ul>
+                </section>
+
                 <section id="security" class="scroll-mt-24 rounded-2xl border border-zinc-800 bg-zinc-900/20 p-6 sm:p-8">
                     <h2 class="text-xl font-bold text-white mb-3">Account &amp; security</h2>
                     <p class="text-sm text-zinc-400 leading-relaxed mb-4">
@@ -213,7 +233,7 @@
                         <li>Lock from the account menu or press <kbd class="px-1.5 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-xs font-mono text-zinc-300">Ctrl+L</kbd> to require sign-in again without quitting the app.</li>
                         <li>Enable auto-lock in Settings to lock after idle time (5 to 30 minutes).</li>
                         <li>Logout ends the session completely. Preferences such as theme are kept on this device.</li>
-                        <li>There is no online password reset. Keep your password safe. If you forget it, you may need to reinstall or clear local app data.</li>
+                        <li>There is no online password reset. Keep your password safe. If you forget it, restore from a <a href="#backup-restore" class="text-indigo-400 hover:text-indigo-300">backup without sign-in</a> and create a new account, or reinstall and clear local app data.</li>
                     </ul>
                 </section>
 

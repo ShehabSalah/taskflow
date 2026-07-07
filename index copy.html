@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow — Local-first work management for professionals</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#09090b',
+                        darkCard: '#131316',
+                        darkBorder: '#222226',
+                        accentPurple: '#8b5cf6',
+                        accentBlue: '#3b82f6',
+                        accentGreen: '#10b981',
+                        accentOrange: '#f97316'
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+            background-color: #09090b;
+            color: #f4f4f5;
+            overflow-x: hidden;
+        }
+        /* Custom scrollbar for premium feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #09090b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3f3f46;
+        }
+        /* Subtle glow effects */
+        .glow-indigo {
+            box-shadow: 0 0 50px -10px rgba(99, 102, 241, 0.15);
+        }
+        .glow-purple {
+            box-shadow: 0 0 50px -10px rgba(139, 92, 246, 0.15);
+        }
+        /* Gradient border card effect */
+        .grad-border {
+            position: relative;
+        }
+        .grad-border::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(to bottom right, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .grad-border-hover:hover::after {
+            background: linear-gradient(to bottom right, rgba(139, 92, 246, 0.4), rgba(59, 130, 246, 0.4));
+        }
+        /* Horizontal flow line */
+        .timeline-line {
+            background: linear-gradient(90deg, rgba(139, 92, 246, 0) 0%, rgba(139, 92, 246, 1) 50%, rgba(59, 130, 246, 0) 100%);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-purple-500/30 selection:text-purple-200">
+
+    <!-- Sticky Navigation Bar -->
+    <header class="sticky top-0 z-50 w-full border-b border-darkBorder bg-darkBg/80 backdrop-blur-md transition-all duration-300">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <!-- Logo & Brand Name -->
+                <div class="flex items-center gap-3">
+                    <a href="#" class="flex items-center gap-2">
+                        <div class="relative flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-purple-600 to-blue-600 shadow-md shadow-purple-900/20">
+                            <i class="fa-solid fa-wind text-white text-lg"></i>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-base font-bold tracking-tight text-white">TaskFlow</span>
+                            <span class="text-[9px] font-semibold uppercase tracking-widest text-zinc-500">Kinetic Flow</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-400">
+                    <a href="#why-taskflow" class="hover:text-white transition-colors">Why TaskFlow</a>
+                    <a href="#features" class="hover:text-white transition-colors">Features</a>
+                    <a href="#built-for" class="hover:text-white transition-colors">For Professionals</a>
+                    <a href="#releases" class="hover:text-white transition-colors">Releases</a>
+                    <a href="#roadmap" class="hover:text-white transition-colors">Roadmap</a>
+                    <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+                </nav>
+
+                <!-- Action Buttons -->
+                <div class="flex items-center gap-4">
+                    <a href="#releases" class="hidden sm:inline-flex text-xs font-semibold text-zinc-400 hover:text-white transition-colors py-2 px-3">
+                        View Releases
+                    </a>
+                    <a href="#download" class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-xs font-bold text-black hover:bg-zinc-200 transition-all shadow-lg hover:shadow-white/5">
+                        <i class="fa-solid fa-arrow-down"></i>
+                        Download Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-12 pb-24 lg:pt-20 lg:pb-32 overflow-hidden">
+        <!-- Glow accents in background -->
+        <div class="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-purple-900/10 blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/3 right-1/4 translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-blue-900/10 blur-3xl pointer-events-none"></div>
+
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                
+                <!-- Left Content Area -->
+                <div class="lg:col-span-5 flex flex-col justify-center text-center lg:text-left">
+                    <div class="inline-flex self-center lg:self-start items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-3 py-1 text-xs font-semibold text-purple-300 mb-6">
+                        <span class="flex h-2 w-2 rounded-full bg-purple-400 animate-pulse"></span>
+                        Version 1.3.0 is live with advanced Overtime Analytics
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight mb-6">
+                        Your Work.<br/>
+                        Your Data.<br/>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-indigo-400 to-blue-400">Your Flow.</span>
+                    </h1>
+                    
+                    <p class="text-base sm:text-lg text-zinc-400 leading-relaxed mb-8 max-w-lg mx-auto lg:mx-0">
+                        Manage projects, tasks, time tracking, overtime, earnings, reports, and resources — all in one local-first desktop application. Built for professionals who manage multiple clients, contracts, and personal projects without compromising privacy.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-8">
+                        <a href="#download" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 px-6 py-3 text-sm font-semibold text-white hover:from-purple-500 hover:to-indigo-500 transition-all shadow-lg shadow-purple-500/10">
+                            <i class="fa-solid fa-download"></i>
+                            Download for Windows
+                        </a>
+                        <a href="#releases" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 px-6 py-3 text-sm font-semibold text-zinc-300 hover:text-white transition-all">
+                            <i class="fa-solid fa-list"></i>
+                            View Releases
+                        </a>
+                    </div>
+
+                    <!-- Trust indicators -->
+                    <div class="flex flex-wrap justify-center lg:justify-start items-center gap-6 text-xs text-zinc-500 font-medium">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-shield-halved text-emerald-500"></i>
+                            100% Offline Capable
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-hard-drive text-blue-500"></i>
+                            No Mandatory Cloud
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-bolt text-amber-500"></i>
+                            Tauri Native App
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Beautiful Interactive Application Mockup -->
+                <div class="lg:col-span-7">
+                    <div class="relative rounded-2xl border border-zinc-800 bg-[#0c0c0e] shadow-2xl shadow-black/80 overflow-hidden grad-border">
+                        <!-- Simulated App Title Bar -->
+                        <div class="flex items-center justify-between px-4 py-3 border-b border-zinc-800 bg-zinc-900/50">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+                                <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+                                <span class="text-xs text-zinc-500 font-semibold ml-4">TaskFlow Desktop (Kinetic Flow Pro)</span>
+                            </div>
+                            <!-- Workspace Switcher in App Bar -->
+                            <div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-zinc-800 border border-zinc-700/60 cursor-pointer text-xs" onclick="toggleSimulatedWorkspace()">
+                                <span class="w-2 h-2 rounded bg-purple-500"></span>
+                                <span class="font-medium text-zinc-300" id="simulated-workspace-name">Acme Agency</span>
+                                <i class="fa-solid fa-chevron-down text-[8px] text-zinc-500 ml-1"></i>
+                            </div>
+                        </div>
+
+                        <!-- Main App Mockup Layout -->
+                        <div class="grid grid-cols-12 h-[450px] text-sm text-zinc-300 overflow-hidden">
+                            <!-- Simulated Sidebar -->
+                            <div class="col-span-3 border-r border-zinc-800/80 bg-zinc-900/30 p-3 flex flex-col justify-between">
+                                <div class="space-y-4">
+                                    <!-- Sidebar Quick Nav -->
+                                    <div class="space-y-1">
+                                        <button onclick="switchMockupTab('dashboard')" id="mock-tab-dashboard-btn" class="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium bg-zinc-800/80 text-white transition-all">
+                                            <i class="fa-solid fa-chart-pie text-zinc-400"></i>
+                                            Dashboard
+                                        </button>
+                                        <button onclick="switchMockupTab('kanban')" id="mock-tab-kanban-btn" class="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium text-zinc-400 hover:bg-zinc-800/40 hover:text-white transition-all">
+                                            <i class="fa-solid fa-table-columns text-zinc-400"></i>
+                                            Kanban Board
+                                        </button>
+                                        <button onclick="switchMockupTab('time')" id="mock-tab-time-btn" class="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium text-zinc-400 hover:bg-zinc-800/40 hover:text-white transition-all">
+                                            <i class="fa-solid fa-stopwatch text-zinc-400"></i>
+                                            Time Tracker
+                                        </button>
+                                        <button onclick="switchMockupTab('reports')" id="mock-tab-reports-btn" class="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium text-zinc-400 hover:bg-zinc-800/40 hover:text-white transition-all">
+                                            <i class="fa-solid fa-file-invoice text-zinc-400"></i>
+                                            Reports
+                                        </button>
+                                    </div>
+
+                                    <!-- Projects List -->
+                                    <div>
+                                        <div class="text-[10px] uppercase tracking-wider text-zinc-500 font-bold px-2.5 mb-1.5">Projects</div>
+                                        <div class="space-y-1 text-xs">
+                                            <a href="#" class="flex items-center justify-between px-2.5 py-1 rounded hover:bg-zinc-800/50 text-zinc-300">
+                                                <span class="flex items-center gap-1.5">
+                                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                                    Mobile App
+                                                </span>
+                                                <span class="text-[10px] text-zinc-500">82%</span>
+                                            </a>
+                                            <a href="#" class="flex items-center justify-between px-2.5 py-1 rounded hover:bg-zinc-800/50 text-zinc-300">
+                                                <span class="flex items-center gap-1.5">
+                                                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
+                                                    Cloud Migration
+                                                </span>
+                                                <span class="text-[10px] text-zinc-500">45%</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Timer Overlay in Sidebar -->
+                                <div class="p-2.5 rounded-lg border border-purple-500/20 bg-purple-500/5">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-[10px] font-semibold text-purple-300 uppercase tracking-wider">Active Timer</span>
+                                        <span class="flex h-1.5 w-1.5 rounded-full bg-purple-400 animate-pulse"></span>
+                                    </div>
+                                    <div class="text-xs font-mono font-bold text-white mb-1.5" id="simulated-time">02:14:45</div>
+                                    <div class="text-[10px] text-zinc-400 truncate">Designing UI components</div>
+                                </div>
+                            </div>
+
+                            <!-- Simulated Main App Content Area -->
+                            <div class="col-span-9 p-4 overflow-y-auto" id="mock-tab-content">
+                                <!-- Dashboard View (Default) -->
+                                <div id="mock-tab-dashboard" class="space-y-4">
+                                    <!-- Mini Top Row Stats -->
+                                    <div class="grid grid-cols-3 gap-3">
+                                        <div class="p-3 rounded-lg border border-zinc-800/80 bg-zinc-900/40">
+                                            <span class="text-[10px] text-zinc-400 uppercase tracking-wider">Today's Earnings</span>
+                                            <div class="text-base font-bold text-emerald-400 mt-1" id="simulated-earnings">$428.50</div>
+                                        </div>
+                                        <div class="p-3 rounded-lg border border-zinc-800/80 bg-zinc-900/40">
+                                            <span class="text-[10px] text-zinc-400 uppercase tracking-wider">Overtime (Week)</span>
+                                            <div class="text-base font-bold text-indigo-400 mt-1">4.2 hours</div>
+                                        </div>
+                                        <div class="p-3 rounded-lg border border-zinc-800/80 bg-zinc-900/40">
+                                            <span class="text-[10px] text-zinc-400 uppercase tracking-wider">Daily Goal</span>
+                                            <div class="text-base font-bold text-white mt-1">85% Completed</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Live Mini Charts and Logs -->
+                                    <div class="border border-zinc-800/80 bg-zinc-900/40 rounded-lg p-3">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <span class="text-xs font-semibold text-white">Weekly Productivity Visualizer</span>
+                                            <span class="text-[10px] text-emerald-400"><i class="fa-solid fa-arrow-trend-up"></i> +12.4% vs last week</span>
+                                        </div>
+                                        <div class="flex items-end justify-between h-20 pt-4">
+                                            <div class="w-8 bg-zinc-800 hover:bg-zinc-700 rounded-t h-1/2 cursor-pointer transition-all relative group">
+                                                <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[9px] bg-zinc-800 px-1 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Mon</span>
+                                            </div>
+                                            <div class="w-8 bg-zinc-800 hover:bg-zinc-700 rounded-t h-[65%] cursor-pointer transition-all relative group"></div>
+                                            <div class="w-8 bg-purple-500/80 hover:bg-purple-400 rounded-t h-[85%] cursor-pointer transition-all relative group"></div>
+                                            <div class="w-8 bg-zinc-800 hover:bg-zinc-700 rounded-t h-[40%] cursor-pointer transition-all relative group"></div>
+                                            <div class="w-8 bg-zinc-800 hover:bg-zinc-700 rounded-t h-[75%] cursor-pointer transition-all relative group"></div>
+                                            <div class="w-8 bg-indigo-500/80 hover:bg-indigo-400 rounded-t h-[95%] cursor-pointer transition-all relative group"></div>
+                                            <div class="w-8 bg-zinc-800/50 hover:bg-zinc-700 rounded-t h-[20%] cursor-pointer transition-all relative group"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Recent Active Tasks -->
+                                    <div class="space-y-2">
+                                        <span class="text-xs font-semibold text-white">Active Tasks inside Workspace</span>
+                                        <div class="flex items-center justify-between p-2 rounded-md bg-zinc-900/60 border border-zinc-800/60 text-xs">
+                                            <div class="flex items-center gap-2">
+                                                <i class="fa-solid fa-check-double text-indigo-400"></i>
+                                                <span class="font-medium text-white">Design main landing hero mockup flow</span>
+                                            </div>
+                                            <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-indigo-500/10 text-indigo-300">In Progress</span>
+                                        </div>
+                                        <div class="flex items-center justify-between p-2 rounded-md bg-zinc-900/60 border border-zinc-800/60 text-xs">
+                                            <div class="flex items-center gap-2">
+                                                <i class="fa-solid fa-circle text-zinc-600"></i>
+                                                <span class="text-zinc-400">Write test coverage for client billing exports</span>
+                                            </div>
+                                            <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-zinc-800 text-zinc-500">Todo</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Kanban View (Hidden by default) -->
+                                <div id="mock-tab-kanban" class="hidden space-y-4">
+                                    <div class="flex items-center justify-between border-b border-zinc-800 pb-2">
+                                        <span class="text-xs font-semibold text-white">Interactive Kanban Board</span>
+                                        <button class="text-[11px] text-zinc-400 bg-zinc-800 px-2 py-1 rounded hover:text-white transition-colors">+ Add List</button>
+                                    </div>
+                                    <div class="grid grid-cols-3 gap-3">
+                                        <!-- Column 1: Backlog -->
+                                        <div class="bg-zinc-900/40 border border-zinc-800/60 p-2 rounded-lg space-y-2">
+                                            <div class="flex justify-between items-center text-xs font-medium px-1">
+                                                <span>Backlog</span>
+                                                <span class="bg-zinc-800 px-1.5 py-0.5 rounded text-[10px] text-zinc-500">2</span>
+                                            </div>
+                                            <div class="bg-zinc-800/50 border border-zinc-800 p-2 rounded text-xs space-y-1">
+                                                <div class="font-medium text-zinc-300">Audit database migrations</div>
+                                                <div class="text-[10px] text-zinc-500 flex justify-between">
+                                                    <span>#TSK-89</span>
+                                                    <span>DB</span>
+                                                </div>
+                                            </div>
+                                            <div class="bg-zinc-800/50 border border-zinc-800 p-2 rounded text-xs space-y-1">
+                                                <div class="font-medium text-zinc-300">Translate documentation</div>
+                                                <div class="text-[10px] text-zinc-500 flex justify-between">
+                                                    <span>#TSK-42</span>
+                                                    <span>Docs</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Column 2: In Progress -->
+                                        <div class="bg-zinc-900/40 border border-zinc-800/60 p-2 rounded-lg space-y-2">
+                                            <div class="flex justify-between items-center text-xs font-medium px-1">
+                                                <span>In Progress</span>
+                                                <span class="bg-indigo-500/10 text-indigo-400 px-1.5 py-0.5 rounded text-[10px]">1</span>
+                                            </div>
+                                            <div class="bg-indigo-500/5 border border-purple-500/20 p-2 rounded text-xs space-y-1">
+                                                <div class="font-medium text-white">Design main landing hero mockup flow</div>
+                                                <div class="text-[10px] text-purple-400 flex justify-between">
+                                                    <span>#TSK-95</span>
+                                                    <span>Active</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Column 3: Done -->
+                                        <div class="bg-zinc-900/40 border border-zinc-800/60 p-2 rounded-lg space-y-2">
+                                            <div class="flex justify-between items-center text-xs font-medium px-1">
+                                                <span>Done</span>
+                                                <span class="bg-emerald-500/10 text-emerald-400 px-1.5 py-0.5 rounded text-[10px]">2</span>
+                                            </div>
+                                            <div class="bg-zinc-800/50 border border-zinc-800/40 p-2 rounded text-xs space-y-1 line-through text-zinc-500">
+                                                <div class="font-medium">Setup local PostgreSQL container</div>
+                                            </div>
+                                            <div class="bg-zinc-800/50 border border-zinc-800/40 p-2 rounded text-xs space-y-1 line-through text-zinc-500">
+                                                <div class="font-medium">Design system styleguide</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Time Tracker View (Hidden by default) -->
+                                <div id="mock-tab-time" class="hidden space-y-4">
+                                    <div class="flex items-center justify-between border-b border-zinc-800 pb-2">
+                                        <span class="text-xs font-semibold text-white">Native Time Tracker</span>
+                                        <span class="text-xs text-zinc-500">Local Time: 04:54 AM</span>
+                                    </div>
+                                    <!-- Dynamic Time Tracker Control Panel -->
+                                    <div class="bg-zinc-900/50 border border-zinc-800 p-4 rounded-xl text-center space-y-3">
+                                        <span class="text-xs font-medium text-zinc-400">CURRENT RUNNING SESSION</span>
+                                        <div class="text-3xl font-mono font-bold text-white tracking-wider" id="simulated-time-large">02:14:45</div>
+                                        <div class="text-xs text-zinc-500">Workspace: <span class="text-purple-400">Acme Agency</span> | Task: Designing UI components</div>
+                                        <div class="flex justify-center gap-3">
+                                            <button onclick="toggleMockTimerState()" id="mock-timer-btn" class="bg-red-500 hover:bg-red-600 text-white text-xs px-4 py-1.5 rounded-lg font-bold transition-colors">
+                                                <i class="fa-solid fa-stop mr-1"></i> Stop Timer
+                                            </button>
+                                            <button class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs px-4 py-1.5 rounded-lg font-medium transition-colors">
+                                                <i class="fa-solid fa-pause mr-1"></i> Pause
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- Recent Time Sessions -->
+                                    <div class="space-y-1.5">
+                                        <span class="text-xs font-semibold text-white">Recent Work Logs Today</span>
+                                        <div class="flex items-center justify-between p-2 rounded bg-zinc-900/30 border border-zinc-800/50 text-xs">
+                                            <span class="text-zinc-400">Database optimization session</span>
+                                            <span class="font-mono text-zinc-500">1h 15m</span>
+                                        </div>
+                                        <div class="flex items-center justify-between p-2 rounded bg-zinc-900/30 border border-zinc-800/50 text-xs">
+                                            <span class="text-zinc-400">Client onboarding workshop</span>
+                                            <span class="font-mono text-zinc-500">2h 30m</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Reports View (Hidden by default) -->
+                                <div id="mock-tab-reports" class="hidden space-y-4">
+                                    <div class="flex items-center justify-between border-b border-zinc-800 pb-2">
+                                        <span class="text-xs font-semibold text-white">Professional Client Reporting</span>
+                                        <div class="flex gap-2">
+                                            <button class="text-[10px] bg-emerald-600 hover:bg-emerald-500 text-white px-2 py-1 rounded transition-colors">
+                                                <i class="fa-solid fa-file-excel mr-1"></i> Export Excel
+                                            </button>
+                                            <button class="text-[10px] bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-2 py-1 rounded transition-colors">
+                                                <i class="fa-solid fa-file-csv mr-1"></i> CSV
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <!-- Report Type Selector -->
+                                        <div class="border border-zinc-800 bg-zinc-900/40 p-3 rounded-lg space-y-2">
+                                            <span class="text-xs font-medium text-white">Select Report Category</span>
+                                            <div class="space-y-1">
+                                                <div class="p-1.5 bg-zinc-800 border border-zinc-700/50 rounded text-xs text-white cursor-pointer">
+                                                    Attendance & Overtime
+                                                </div>
+                                                <div class="p-1.5 hover:bg-zinc-800/40 rounded text-xs text-zinc-400 cursor-pointer transition-all">
+                                                    Project Completion Report
+                                                </div>
+                                                <div class="p-1.5 hover:bg-zinc-800/40 rounded text-xs text-zinc-400 cursor-pointer transition-all">
+                                                    Client Invoicing Logs
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Preview Card -->
+                                        <div class="border border-zinc-800 bg-zinc-900/40 p-3 rounded-lg space-y-1">
+                                            <span class="text-xs font-medium text-zinc-400">Active Workspace Summary</span>
+                                            <div class="text-[11px] text-zinc-500">Period: Current Month (July 2026)</div>
+                                            <div class="pt-2 space-y-1.5 text-xs text-zinc-300">
+                                                <div class="flex justify-between"><span>Regular Hours:</span> <span class="font-mono">152.0 hrs</span></div>
+                                                <div class="flex justify-between"><span>Overtime (1.5x):</span> <span class="font-mono text-indigo-400">14.5 hrs</span></div>
+                                                <div class="flex justify-between border-t border-zinc-800 pt-1.5 font-bold text-white">
+                                                    <span>Calculated Earnings:</span>
+                                                    <span class="font-mono text-emerald-400">$8,560.00</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mockup Footer Stats bar -->
+                        <div class="flex items-center justify-between px-4 py-2 border-t border-zinc-800/80 bg-zinc-900/30 text-[10px] text-zinc-500">
+                            <div class="flex items-center gap-2">
+                                <span class="flex h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                                <span>Local SQLite Database Connected</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span>No internet syncing required</span>
+                                <span>v1.3.0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Why TaskFlow Section -->
+    <section id="why-taskflow" class="relative py-24 border-y border-zinc-900 bg-[#0d0d10]">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-purple-950/5 to-transparent pointer-events-none"></div>
+        
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">Philosophy First</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mt-2 mb-4">
+                    Why professionals use TaskFlow instead of web apps
+                </h2>
+                <p class="text-zinc-400">
+                    SaaS platforms lock your data in foreign servers and slow down with high latency. TaskFlow runs natively on your machine, giving you true local ownership of your workflow data.
+                </p>
+            </div>
+
+            <!-- Philosophy Grid Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Local First -->
+                <div class="p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-zinc-700 transition-all grad-border">
+                    <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-4">
+                        <i class="fa-solid fa-hard-drive"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Local First</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">
+                        Your work stays on your computer. No mandatory cloud, no forced lock-ins. Fast, private, and endlessly reliable.
+                    </p>
+                </div>
+
+                <!-- Workspace Centric -->
+                <div class="p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-zinc-700 transition-all grad-border">
+                    <div class="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-4">
+                        <i class="fa-solid fa-arrows-spin"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Workspace-Centric</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">
+                        Switch between companies, freelance clients, contracts, or personal tasks with a single click. Everything automatically changes context.
+                    </p>
+                </div>
+
+                <!-- Built for Professionals -->
+                <div class="p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-zinc-700 transition-all grad-border">
+                    <div class="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-4">
+                        <i class="fa-solid fa-user-tie"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Built for Professionals</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">
+                        Designed with freelancers, consultants, contractors, and engineers in mind. Handle multiple clients without crossed data.
+                    </p>
+                </div>
+
+                <!-- Desktop Native -->
+                <div class="p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-zinc-700 transition-all grad-border">
+                    <div class="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-4">
+                        <i class="fa-solid fa-rocket"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Desktop Native</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">
+                        Runs seamlessly as an optimized, local Tauri app. Offline capable by default, using light background processes.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid Showcase -->
+    <section id="features" class="py-24 relative overflow-hidden">
+        <!-- Accent circles -->
+        <div class="absolute bottom-1/4 right-0 w-80 h-80 rounded-full bg-indigo-900/5 blur-3xl pointer-events-none"></div>
+        
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">Everything Included</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mt-2 mb-4">
+                    Engineered to streamline your billing & productivity
+                </h2>
+                <p class="text-zinc-400">
+                    A complete toolbelt compiled into one robust desktop container. Skip the subscriptions and third-party SaaS fees.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Workspaces Feature -->
+                <div class="p-6 rounded-2xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/50 transition-all group grad-border grad-border-hover">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-9 h-9 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-cubes"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Workspaces</h3>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-6">
+                        Manage multiple companies, freelance contracts, and personal workspaces. Store unique salary rates, schedule goals, overtime configuration, and files independently.
+                    </p>
+                    <div class="h-28 bg-[#09090b] rounded-lg border border-zinc-800/80 p-3 flex flex-col justify-between">
+                        <div class="flex items-center justify-between text-[11px] text-zinc-500">
+                            <span>Workspace Selection</span>
+                            <span class="text-emerald-400">Isolated environment</span>
+                        </div>
+                        <div class="space-y-1">
+                            <div class="flex items-center justify-between p-1 rounded bg-zinc-900 text-xs">
+                                <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>Acme Agency LLC</span>
+                                <span class="text-zinc-500 text-[10px]">$125/hr</span>
+                            </div>
+                            <div class="flex items-center justify-between p-1 rounded hover:bg-zinc-900/50 text-xs text-zinc-500">
+                                <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Personal Projects</span>
+                                <span class="text-zinc-500 text-[10px]">In-House</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projects Feature -->
+                <div class="p-6 rounded-2xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/50 transition-all group grad-border grad-border-hover">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-9 h-9 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-folder-tree"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Projects</h3>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-6">
+                        Organize nested projects inside workspaces. Track progress milestones and quickly access related files, timesheets, and checklists.
+                    </p>
+                    <div class="h-28 bg-[#09090b] rounded-lg border border-zinc-800/80 p-3">
+                        <span class="text-[10px] uppercase text-zinc-500 font-bold block mb-2">Projects in Acme Agency</span>
+                        <div class="space-y-2 text-xs">
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-zinc-300"><span>Mobile Redesign</span> <span class="font-mono">80%</span></div>
+                                <div class="w-full bg-zinc-900 rounded-full h-1.5"><div class="bg-blue-500 h-1.5 rounded-full" style="width: 80%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kanban Task Management -->
+                <div class="p-6 rounded-2xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/50 transition-all group grad-border grad-border-hover">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-9 h-9 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-table-columns"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Kanban Management</h3>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-6">
+                        Modern Kanban board featuring dynamic drag-and-drop columns, checklists, custom tags, attachments, integrated task timers, and markdown comments.
+                    </p>
+                    <div class="h-28 bg-[#09090b] rounded-lg border border-zinc-800/80 p-3 flex justify-between gap-1.5 text-[10px]">
+                        <div class="flex-1 bg-zinc-900 rounded p-1.5 border border-zinc-800"><span class="font-bold text-zinc-400 block mb-1">TODO</span><div class="p-1 bg-zinc-800 rounded shadow-sm text-zinc-300">Layout setup</div></div>
+                        <div class="flex-1 bg-zinc-900 rounded p-1.5 border border-purple-500/20"><span class="font-bold text-purple-400 block mb-1">DOING</span><div class="p-1 bg-purple-900/10 border border-purple-500/20 rounded text-purple-200">Assets creation</div></div>
+                    </div>
+                </div>
+
+                <!-- Time Tracking -->
+                <div class="p-6 rounded-2xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/50 transition-all group grad-border grad-border-hover">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-9 h-9 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-stopwatch"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Time Tracking</h3>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-6">
+                        Start and stop system-level task timers. Track your sessions down to the second, linking logs instantly back to target workspaces and projects.
+                    </p>
+                    <div class="h-28 bg-[#09090b] rounded-lg border border-zinc-800/80 p-3 flex flex-col justify-center items-center text-center">
+                        <div class="text-xl font-mono font-bold text-amber-400">01:52:19</div>
+                        <span class="text-[10px] text-zinc-500 mt-1">Active: API integration testing</span>
+                    </div>
+                </div>
+
+                <!-- Live Earnings -->
+                <div class="p-6 rounded-2xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/50 transition-all group grad-border grad-border-hover">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-9 h-9 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-dollar-sign"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Live Earnings</h3>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-6">
+                        Watch your earnings update in real-time as your active timer runs. Automatically calculated using your workspace hourly settings.
+                    </p>
+                    <div class="h-28 bg-[#09090b] rounded-lg border border-zinc-800/80 p-3 flex flex-col justify-center items-center">
+                        <span class="text-[10px] uppercase text-zinc-500 font-bold mb-1">Current Session Value</span>
+                        <div class="text-2xl font-bold text-emerald-400 tracking-tight">$345.24</div>
+                    </div>
+                </div>
+
+                <!-- Overtime Dashboard -->
+                <div class="p-6 rounded-2xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/50 transition-all group grad-border grad-border-hover">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-9 h-9 rounded-lg bg-rose-500/10 flex items-center justify-center text-rose-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-business-time"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Overtime Analytics</h3>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-6">
+                        Dedicated dashboard to track daily, weekly, and monthly overtime patterns. Define multiple multipliers (e.g. 1.5x, 2.0x) based on your needs.
+                    </p>
+                    <div class="h-28 bg-[#09090b] rounded-lg border border-zinc-800/80 p-3 flex justify-between items-center">
+                        <div class="space-y-1">
+                            <span class="text-[10px] text-zinc-500">WEEKLY OVERTIME CAP</span>
+                            <div class="text-sm font-semibold text-rose-400">4.5h / 8.0h</div>
+                        </div>
+                        <div class="w-12 h-12 rounded-full border-4 border-zinc-900 border-t-rose-500 flex items-center justify-center text-[10px] text-zinc-300">
+                            56%
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reports Section -->
+                <div class="p-6 rounded-2xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/50 transition-all group grad-border grad-border-hover">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-9 h-9 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-file-invoice"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Reports</h3>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-6">
+                        Generate attendance sheets, timesheets, workspace reports, overtime breakdowns, and raw log exports. Ready for Excel or CSV client delivery.
+                    </p>
+                    <div class="h-28 bg-[#09090b] rounded-lg border border-zinc-800/80 p-3 flex flex-col justify-center gap-2">
+                        <div class="flex justify-between items-center text-xs text-zinc-400">
+                            <span>timesheet_client_july.xlsx</span>
+                            <i class="fa-regular fa-file-excel text-emerald-500 text-lg"></i>
+                        </div>
+                        <div class="w-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-center py-1 rounded text-xs">
+                            Downloaded Successfully
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Section -->
+                <div class="p-6 rounded-2xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/50 transition-all group grad-border grad-border-hover">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-9 h-9 rounded-lg bg-teal-500/10 flex items-center justify-center text-teal-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Security</h3>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-6">
+                        Local cryptographic storage, auto-locking screens, JWT protected API endpoints, password protection, and automated database rotation backup controls.
+                    </p>
+                    <div class="h-28 bg-[#09090b] rounded-lg border border-zinc-800/80 p-3 flex flex-col justify-center items-center text-center">
+                        <span class="text-[10px] text-zinc-500 uppercase tracking-widest mb-1">State</span>
+                        <span class="text-xs font-semibold text-teal-400 bg-teal-400/10 px-2.5 py-1 rounded-full"><i class="fa-solid fa-shield-halved mr-1"></i> Data Fully Encrypted</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Experience Section -->
+                <div class="p-6 rounded-2xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/50 transition-all group grad-border grad-border-hover">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-9 h-9 rounded-lg bg-pink-500/10 flex items-center justify-center text-pink-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-circle-nodes"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Desktop Experience</h3>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-6">
+                        Built with Tauri and React to assure a light, zero-dependency footprint. Packaged with optional bundled PostgreSQL/SQLite integrations.
+                    </p>
+                    <div class="h-28 bg-[#09090b] rounded-lg border border-zinc-800/80 p-3 flex justify-around items-center">
+                        <span class="text-xs text-zinc-400"><i class="fa-brands fa-windows text-blue-400 text-lg block text-center mb-1"></i> Windows</span>
+                        <span class="text-xs text-zinc-400"><i class="fa-brands fa-apple text-zinc-400 text-lg block text-center mb-1"></i> macOS</span>
+                        <span class="text-xs text-zinc-400"><i class="fa-brands fa-linux text-orange-400 text-lg block text-center mb-1"></i> Linux</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow Timeline Section -->
+    <section class="py-24 bg-[#0a0a0d] border-y border-zinc-900/80 relative overflow-hidden">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">Workflow</span>
+                <h2 class="text-3xl font-extrabold text-white mt-1">From onboarding to client delivery</h2>
+            </div>
+
+            <!-- Horizontal / Stacked Timeline layout -->
+            <div class="relative">
+                <!-- Background Connection Line -->
+                <div class="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 timeline-line -translate-y-1/2 pointer-events-none z-0"></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 relative z-10">
+                    <!-- Step 1 -->
+                    <div class="bg-[#111115] border border-zinc-800/80 p-5 rounded-2xl text-center relative flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full bg-purple-500 text-white flex items-center justify-center font-bold text-sm mb-4 shadow-lg shadow-purple-500/20">1</div>
+                        <h4 class="font-bold text-white text-sm mb-1">Choose Workspace</h4>
+                        <p class="text-xs text-zinc-500">Pick client or company context.</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="bg-[#111115] border border-zinc-800/80 p-5 rounded-2xl text-center relative flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold text-sm mb-4 shadow-lg shadow-indigo-500/20">2</div>
+                        <h4 class="font-bold text-white text-sm mb-1">Manage Projects</h4>
+                        <p class="text-xs text-zinc-500">Create goals and milestones.</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="bg-[#111115] border border-zinc-800/80 p-5 rounded-2xl text-center relative flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-sm mb-4 shadow-lg shadow-blue-500/20">3</div>
+                        <h4 class="font-bold text-white text-sm mb-1">Track Tasks</h4>
+                        <p class="text-xs text-zinc-500">Organize with Kanban boards.</p>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="bg-[#111115] border border-zinc-800/80 p-5 rounded-2xl text-center relative flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full bg-teal-500 text-white flex items-center justify-center font-bold text-sm mb-4 shadow-lg shadow-teal-500/20">4</div>
+                        <h4 class="font-bold text-white text-sm mb-1">Track Time</h4>
+                        <p class="text-xs text-zinc-500">Run native, low-latency timers.</p>
+                    </div>
+                    <!-- Step 5 -->
+                    <div class="bg-[#111115] border border-zinc-800/80 p-5 rounded-2xl text-center relative flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm mb-4 shadow-lg shadow-emerald-500/20">5</div>
+                        <h4 class="font-bold text-white text-sm mb-1">Generate Reports</h4>
+                        <p class="text-xs text-zinc-500">Export high quality spreadsheets.</p>
+                    </div>
+                    <!-- Step 6 -->
+                    <div class="bg-[#111115] border border-zinc-800/80 p-5 rounded-2xl text-center relative flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold text-sm mb-4 shadow-lg shadow-amber-500/20">6</div>
+                        <h4 class="font-bold text-white text-sm mb-1">Review Earnings</h4>
+                        <p class="text-xs text-zinc-500">Evaluate overtime logs instantly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Built For Section -->
+    <section id="built-for" class="py-24 relative overflow-hidden">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">Target Audience</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-1 mb-3">Tailored for modern remote professions</h2>
+                <p class="text-zinc-400">Whether billing multiple agencies or tracking personal software side-projects, we have you covered.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Freelancers Card -->
+                <div class="group relative rounded-2xl border border-zinc-800 bg-[#0d0d11]/80 p-6 hover:bg-[#121217]/90 transition-all grad-border">
+                    <div class="absolute inset-0 bg-gradient-to-b from-indigo-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <i class="fa-solid fa-laptop-code text-indigo-400 text-2xl mb-4 block"></i>
+                    <h3 class="text-lg font-bold text-white mb-2">Freelancers</h3>
+                    <p class="text-xs text-zinc-400 leading-relaxed mb-4">
+                        Isolate tasks and earnings per client. Deliver clear, transparent invoices compiled automatically from your work sessions.
+                    </p>
+                    <span class="text-[10px] uppercase font-bold text-indigo-400">Manage Clients &rarr;</span>
+                </div>
+
+                <!-- Software Developers Card -->
+                <div class="group relative rounded-2xl border border-zinc-800 bg-[#0d0d11]/80 p-6 hover:bg-[#121217]/90 transition-all grad-border">
+                    <div class="absolute inset-0 bg-gradient-to-b from-purple-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <i class="fa-solid fa-code text-purple-400 text-2xl mb-4 block"></i>
+                    <h3 class="text-lg font-bold text-white mb-2">Software Developers</h3>
+                    <p class="text-xs text-zinc-400 leading-relaxed mb-4">
+                        Keep track of coding sessions, deployment times, and feature tickets entirely on your local development machine.
+                    </p>
+                    <span class="text-[10px] uppercase font-bold text-purple-400 font-semibold">Integrate Local DBs &rarr;</span>
+                </div>
+
+                <!-- Consultants Card -->
+                <div class="group relative rounded-2xl border border-zinc-800 bg-[#0d0d11]/80 p-6 hover:bg-[#121217]/90 transition-all grad-border">
+                    <div class="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <i class="fa-solid fa-chart-line text-blue-400 text-2xl mb-4 block"></i>
+                    <h3 class="text-lg font-bold text-white mb-2">Consultants</h3>
+                    <p class="text-xs text-zinc-400 leading-relaxed mb-4">
+                        Split every consultancy project into distinct workspaces. Keep client confidentiality protected behind hardware-level local storage.
+                    </p>
+                    <span class="text-[10px] uppercase font-bold text-blue-400 font-semibold">Confidential Logs &rarr;</span>
+                </div>
+
+                <!-- Contractors Card -->
+                <div class="group relative rounded-2xl border border-zinc-800 bg-[#0d0d11]/80 p-6 hover:bg-[#121217]/90 transition-all grad-border">
+                    <div class="absolute inset-0 bg-gradient-to-b from-teal-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <i class="fa-solid fa-briefcase text-teal-400 text-2xl mb-4 block"></i>
+                    <h3 class="text-lg font-bold text-white mb-2">Employees & Contractors</h3>
+                    <p class="text-xs text-zinc-400 leading-relaxed mb-4">
+                        Audit work hours, daily clock-ins, contract structures, and accumulated overtime multiplier sheets for payment approvals.
+                    </p>
+                    <span class="text-[10px] uppercase font-bold text-teal-400 font-semibold">Track Overtime &rarr;</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+      <!-- Technology Integration Stack -->
+      <section class="py-12 bg-zinc-900/20 border-y border-zinc-900">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+            <h3 class="text-xs font-semibold tracking-wider text-zinc-500 uppercase mb-6">BUILT WITH CUTTING-EDGE, INDUSTRY-STANDARD TECHNOLOGIES</h3>
+            <div class="flex flex-wrap justify-center gap-2.5 max-w-3xl mx-auto">
+                <span class="px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900 text-xs font-medium text-zinc-300 flex items-center gap-1.5 hover:text-white transition-colors">
+                    <i class="fa-brands fa-react text-sky-400"></i> React
+                </span>
+                <span class="px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900 text-xs font-medium text-zinc-300 flex items-center gap-1.5 hover:text-white transition-colors">
+                    <i class="fa-solid fa-code text-blue-500"></i> TypeScript
+                </span>
+                <span class="px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900 text-xs font-medium text-zinc-300 flex items-center gap-1.5 hover:text-white transition-colors">
+                    <i class="fa-brands fa-node-js text-emerald-500"></i> Node.js
+                </span>
+                <span class="px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900 text-xs font-medium text-zinc-300 flex items-center gap-1.5 hover:text-white transition-colors">
+                    <i class="fa-solid fa-server text-zinc-400"></i> Express
+                </span>
+                <span class="px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900 text-xs font-medium text-zinc-300 flex items-center gap-1.5 hover:text-white transition-colors">
+                    <i class="fa-solid fa-database text-blue-400"></i> PostgreSQL
+                </span>
+                <span class="px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900 text-xs font-medium text-zinc-300 flex items-center gap-1.5 hover:text-white transition-colors">
+                    <i class="fa-solid fa-feather text-amber-500"></i> Prisma
+                </span>
+                <span class="px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900 text-xs font-medium text-zinc-300 flex items-center gap-1.5 hover:text-white transition-colors">
+                    <i class="fa-solid fa-anchor text-pink-400"></i> Tauri
+                </span>
+                <span class="px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900 text-xs font-medium text-zinc-300 flex items-center gap-1.5 hover:text-white transition-colors">
+                    <i class="fa-solid fa-font text-purple-400"></i> TipTap
+                </span>
+                <span class="px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900 text-xs font-medium text-zinc-300 flex items-center gap-1.5 hover:text-white transition-colors">
+                    <i class="fa-solid fa-desktop text-indigo-400"></i> Desktop App
+                </span>
+                <span class="px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900 text-xs font-medium text-zinc-300 flex items-center gap-1.5 hover:text-white transition-colors">
+                    <i class="devicon-zustand-plain colored text-sm leading-none"></i> Zustand
+                </span>
+                <span class="px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900 text-xs font-medium text-zinc-300 flex items-center gap-1.5 hover:text-white transition-colors">
+                    <img src="https://cdn.simpleicons.org/zod/3068B7" alt="" class="w-3.5 h-3.5" width="14" height="14" aria-hidden="true">
+                    Zod
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Area Section -->
+    <section id="download" class="py-24 relative overflow-hidden bg-gradient-to-b from-[#09090b] to-[#0c0c10]">
+        <div class="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-purple-950/5 to-transparent pointer-events-none"></div>
+
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">Get TaskFlow</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-1">Download TaskFlow for Desktop</h2>
+                <p class="text-zinc-400 mt-2">Take control of your client workspaces and sensitive metrics today.</p>
+            </div>
+
+            <!-- OS Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-16">
+                <!-- Windows -->
+                <div class="p-8 rounded-2xl border border-zinc-800 bg-zinc-900/40 hover:bg-zinc-900/60 transition-all text-center flex flex-col justify-between relative grad-border">
+                    <div class="absolute top-4 right-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                        AVAILABLE
+                    </div>
+                    <div>
+                        <i class="fa-brands fa-windows text-blue-400 text-4xl mb-4 block"></i>
+                        <h3 class="text-xl font-bold text-white mb-2">Windows</h3>
+                        <p class="text-xs text-zinc-400 mb-6">Optimized installer setup designed for Windows 10 & 11.</p>
+                    </div>
+                    <button onclick="simulateDownload('Windows')" class="w-full bg-white hover:bg-zinc-200 text-black text-xs font-bold py-3 rounded-xl transition-colors inline-flex justify-center items-center gap-2">
+                        <i class="fa-solid fa-arrow-down"></i> Download (.exe)
+                    </button>
+                </div>
+
+                <!-- macOS -->
+                <div class="p-8 rounded-2xl border border-zinc-800 bg-zinc-900/20 text-center flex flex-col justify-between relative">
+                    <div class="absolute top-4 right-4 bg-purple-500/10 border border-purple-500/20 text-purple-300 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                        COMING SOON
+                    </div>
+                    <div>
+                        <i class="fa-brands fa-apple text-zinc-500 text-4xl mb-4 block"></i>
+                        <h3 class="text-xl font-bold text-zinc-400 mb-2">macOS</h3>
+                        <p class="text-xs text-zinc-500 mb-6">Native Apple Silicon and Intel universal binaries in pipeline.</p>
+                    </div>
+                    <button onclick="showNotification('macOS notified! We will let you know once build is live.')" class="w-full bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-bold py-3 rounded-xl transition-colors">
+                        Notify Me
+                    </button>
+                </div>
+
+                <!-- Linux -->
+                <div class="p-8 rounded-2xl border border-zinc-800 bg-zinc-900/20 text-center flex flex-col justify-between relative">
+                    <div class="absolute top-4 right-4 bg-zinc-800 text-zinc-500 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                        PLANNED
+                    </div>
+                    <div>
+                        <i class="fa-brands fa-linux text-zinc-500 text-4xl mb-4 block"></i>
+                        <h3 class="text-xl font-bold text-zinc-400 mb-2">Linux</h3>
+                        <p class="text-xs text-zinc-500 mb-6">AppImage and Flatpak configurations for popular distributions.</p>
+                    </div>
+                    <button disabled class="w-full bg-zinc-900 text-zinc-600 text-xs font-bold py-3 rounded-xl cursor-not-allowed">
+                        Planned
+                    </button>
+                </div>
+            </div>
+
+            <!-- Latest Stable Release Metadata Info -->
+            <div class="max-w-3xl mx-auto border border-zinc-800/80 bg-[#101014] rounded-2xl p-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-4 border-b border-zinc-800">
+                    <div>
+                        <div class="text-xs font-semibold text-zinc-500">LATEST STABLE RELEASE</div>
+                        <div class="text-lg font-bold text-white mt-1">v1.3.0 <span class="text-xs text-indigo-400 font-normal ml-2">(July 2026 Build)</span></div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="copySHA()" class="text-[10px] bg-zinc-900 hover:bg-zinc-850 text-zinc-400 border border-zinc-800 px-3 py-1.5 rounded transition-all inline-flex items-center gap-1.5">
+                            <i class="fa-solid fa-fingerprint"></i> SHA256 Hash
+                        </button>
+                        <a href="#releases" class="text-[10px] bg-zinc-900 hover:bg-zinc-850 text-zinc-400 border border-zinc-800 px-3 py-1.5 rounded transition-all inline-flex items-center gap-1.5">
+                            <i class="fa-solid fa-note-sticky"></i> Release Notes
+                        </a>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 text-xs">
+                    <div>
+                        <span class="text-zinc-500 block">Release Date</span>
+                        <span class="text-zinc-300 font-semibold mt-0.5 block">July 1, 2026</span>
+                    </div>
+                    <div>
+                        <span class="text-zinc-500 block">File Size</span>
+                        <span class="text-zinc-300 font-semibold mt-0.5 block">54.2 MB (.exe)</span>
+                    </div>
+                    <div>
+                        <span class="text-zinc-500 block">Minimum OS</span>
+                        <span class="text-zinc-300 font-semibold mt-0.5 block">Windows 10 x64</span>
+                    </div>
+                    <div>
+                        <span class="text-zinc-500 block">Database</span>
+                        <span class="text-zinc-300 font-semibold mt-0.5 block">SQLite / PostgreSQL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Release History Section -->
+    <section id="releases" class="py-24 bg-zinc-950/40 border-y border-zinc-900">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">Update Logs</span>
+                <h2 class="text-3xl font-extrabold text-white mt-1">Release History</h2>
+                <p class="text-zinc-400">Track current updates, maintenance fixes, and active changelogs.</p>
+            </div>
+
+            <!-- Table UI -->
+            <div class="max-w-5xl mx-auto overflow-x-auto rounded-xl border border-zinc-800/80 bg-zinc-900/20">
+                <table class="w-full text-left text-xs text-zinc-400 border-collapse">
+                    <thead class="bg-zinc-900/60 text-zinc-300 uppercase tracking-wider text-[10px] font-bold">
+                        <tr>
+                            <th class="p-4 border-b border-zinc-800">Version</th>
+                            <th class="p-4 border-b border-zinc-800">Release Date</th>
+                            <th class="p-4 border-b border-zinc-800">Status</th>
+                            <th class="p-4 border-b border-zinc-800">Highlights</th>
+                            <th class="p-4 border-b border-zinc-800 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-zinc-800">
+                        <!-- v1.3.0 -->
+                        <tr class="hover:bg-zinc-900/10">
+                            <td class="p-4 font-bold text-white">v1.3.0</td>
+                            <td class="p-4 text-zinc-500">Jul 1, 2026</td>
+                            <td class="p-4">
+                                <span class="bg-indigo-500/10 text-indigo-400 text-[10px] font-bold px-2 py-0.5 rounded-full">LATEST STABLE</span>
+                            </td>
+                            <td class="p-4 text-zinc-300">Improved overtime dashboard, dynamic reporting sheets, live session tracker visualization.</td>
+                            <td class="p-4 text-right space-x-2">
+                                <button onclick="simulateDownload('Windows')" class="text-white hover:text-indigo-400 font-bold transition-all">Download</button>
+                                <span class="text-zinc-750">|</span>
+                                <button onclick="showNotification('Release Notes v1.3.0: Added multi-workspace salary calculators and responsive app layout patches.')" class="text-zinc-500 hover:text-white transition-all">Notes</button>
+                            </td>
+                        </tr>
+                        <!-- v1.2.0 -->
+                        <tr class="hover:bg-zinc-900/10">
+                            <td class="p-4 font-bold text-white">v1.2.0</td>
+                            <td class="p-4 text-zinc-500">May 12, 2026</td>
+                            <td class="p-4">
+                                <span class="bg-zinc-800 text-zinc-400 text-[10px] font-bold px-2 py-0.5 rounded-full">MAINTENANCE</span>
+                            </td>
+                            <td class="p-4 text-zinc-300">General performance optimizations, local backup auto-locks, and layout polishing.</td>
+                            <td class="p-4 text-right space-x-2">
+                                <button onclick="simulateDownload('Windows')" class="text-zinc-400 hover:text-indigo-400 transition-all">Download</button>
+                                <span class="text-zinc-750">|</span>
+                                <button onclick="showNotification('Release Notes v1.2.0: Patched SQLite race conditions and solved multi-monitor timer sleep glitches.')" class="text-zinc-500 hover:text-white transition-all">Notes</button>
+                            </td>
+                        </tr>
+                        <!-- v1.1.0 -->
+                        <tr class="hover:bg-zinc-900/10">
+                            <td class="p-4 font-bold text-white">v1.1.0</td>
+                            <td class="p-4 text-zinc-500">Mar 20, 2026</td>
+                            <td class="p-4">
+                                <span class="bg-zinc-800 text-zinc-400 text-[10px] font-bold px-2 py-0.5 rounded-full">MAJOR UPDATE</span>
+                            </td>
+                            <td class="p-4 text-zinc-300">Added comprehensive Overtime multi-tier calculator, system tray integrations.</td>
+                            <td class="p-4 text-right space-x-2">
+                                <button onclick="simulateDownload('Windows')" class="text-zinc-400 hover:text-indigo-400 transition-all">Download</button>
+                                <span class="text-zinc-750">|</span>
+                                <button onclick="showNotification('Release Notes v1.1.0: First iteration of overtime dashboards and client PDF summary exports.')" class="text-zinc-500 hover:text-white transition-all">Notes</button>
+                            </td>
+                        </tr>
+                        <!-- v1.0.0 -->
+                        <tr class="hover:bg-zinc-900/10">
+                            <td class="p-4 font-bold text-white">v1.0.0</td>
+                            <td class="p-4 text-zinc-500">Jan 15, 2026</td>
+                            <td class="p-4">
+                                <span class="bg-zinc-800 text-zinc-400 text-[10px] font-bold px-2 py-0.5 rounded-full">INITIAL RELEASE</span>
+                            </td>
+                            <td class="p-4 text-zinc-300">Initial stable release including Workspace context switcher, local DB controls, and Kanban.</td>
+                            <td class="p-4 text-right space-x-2">
+                                <button onclick="simulateDownload('Windows')" class="text-zinc-400 hover:text-indigo-400 transition-all">Download</button>
+                                <span class="text-zinc-750">|</span>
+                                <button onclick="showNotification('Release Notes v1.0.0: Initial core release architecture containing workspace isolators, Kanban boards, and timesheet records.')" class="text-zinc-500 hover:text-white transition-all">Notes</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="text-center mt-8">
+                <button onclick="showNotification('You are currently viewing all public stable releases.')" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 text-xs px-6 py-2.5 rounded-xl font-bold transition-colors">
+                    View All Releases
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Future Roadmap Section -->
+    <section id="roadmap" class="py-24 relative overflow-hidden">
+        <!-- Glow gradient -->
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-purple-900/5 blur-3xl pointer-events-none"></div>
+
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">Vision</span>
+                <h2 class="text-3xl font-extrabold text-white mt-1">Future Roadmap</h2>
+                <p class="text-zinc-400">Planned extensions engineered to expand your localized workflow utility.</p>
+            </div>
+
+            <!-- Timeline Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                <!-- Q3 2026 -->
+                <div class="p-6 rounded-2xl border border-zinc-800/80 bg-zinc-900/20 space-y-4">
+                    <div class="text-xs font-bold text-indigo-400">Q3 2026</div>
+                    <h3 class="font-bold text-white text-base">Knowledge Hub & AI</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-start gap-2 text-xs">
+                            <span class="text-amber-500 font-semibold uppercase text-[9px] bg-amber-500/10 px-1.5 py-0.5 rounded mt-0.5">PLANNED</span>
+                            <span class="text-zinc-400">Local document wiki storage</span>
+                        </div>
+                        <div class="flex items-start gap-2 text-xs">
+                            <span class="text-amber-500 font-semibold uppercase text-[9px] bg-amber-500/10 px-1.5 py-0.5 rounded mt-0.5">PLANNED</span>
+                            <span class="text-zinc-400">Local Llama-based AI context helper</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q4 2026 -->
+                <div class="p-6 rounded-2xl border border-zinc-800/80 bg-zinc-900/20 space-y-4">
+                    <div class="text-xs font-bold text-indigo-400">Q4 2026</div>
+                    <h3 class="font-bold text-white text-base">Integrations</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-start gap-2 text-xs">
+                            <span class="text-amber-500 font-semibold uppercase text-[9px] bg-amber-500/10 px-1.5 py-0.5 rounded mt-0.5">PLANNED</span>
+                            <span class="text-zinc-400">iCal calendar integration & sync</span>
+                        </div>
+                        <div class="flex items-start gap-2 text-xs">
+                            <span class="text-amber-500 font-semibold uppercase text-[9px] bg-amber-500/10 px-1.5 py-0.5 rounded mt-0.5">PLANNED</span>
+                            <span class="text-zinc-400">Mobile companion connection client</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q1 2027 -->
+                <div class="p-6 rounded-2xl border border-zinc-800/80 bg-zinc-900/20 space-y-4">
+                    <div class="text-xs font-bold text-indigo-400">Q1 2027</div>
+                    <h3 class="font-bold text-white text-base">Synchronization</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-start gap-2 text-xs">
+                            <span class="text-amber-500 font-semibold uppercase text-[9px] bg-amber-500/10 px-1.5 py-0.5 rounded mt-0.5">PLANNED</span>
+                            <span class="text-zinc-400">E2EE Cloud sync backup options</span>
+                        </div>
+                        <div class="flex items-start gap-2 text-xs">
+                            <span class="text-amber-500 font-semibold uppercase text-[9px] bg-amber-500/10 px-1.5 py-0.5 rounded mt-0.5">PLANNED</span>
+                            <span class="text-zinc-400">WebDAV and custom self-host targets</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q2 2027 -->
+                <div class="p-6 rounded-2xl border border-zinc-800/80 bg-zinc-900/20 space-y-4">
+                    <div class="text-xs font-bold text-indigo-400">Q2 2027</div>
+                    <h3 class="font-bold text-white text-base">Extensibility</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-start gap-2 text-xs">
+                            <span class="text-amber-500 font-semibold uppercase text-[9px] bg-amber-500/10 px-1.5 py-0.5 rounded mt-0.5">PLANNED</span>
+                            <span class="text-zinc-400">WASM plugin extension system</span>
+                        </div>
+                        <div class="flex items-start gap-2 text-xs">
+                            <span class="text-amber-500 font-semibold uppercase text-[9px] bg-amber-500/10 px-1.5 py-0.5 rounded mt-0.5">PLANNED</span>
+                            <span class="text-zinc-400">Custom user-defined automation scripts</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive FAQ Section -->
+    <section id="faq" class="py-24 bg-zinc-950/20 border-t border-zinc-900">
+        <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">Frequently Asked Questions</span>
+                <h2 class="text-3xl font-extrabold text-white mt-1">Frequently Asked Questions</h2>
+            </div>
+
+            <!-- Accordion Items -->
+            <div class="space-y-4">
+                <!-- Q1 -->
+                <div class="border border-zinc-800 bg-[#121216]/50 rounded-xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleFaq(1)" class="w-full flex items-center justify-between p-5 text-left text-sm font-semibold text-white hover:bg-zinc-900/50 transition-colors">
+                        <span>Does TaskFlow require an internet connection?</span>
+                        <i id="faq-icon-1" class="fa-solid fa-chevron-down text-zinc-500 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-body-1" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="p-5 border-t border-zinc-800 text-xs text-zinc-400 leading-relaxed">
+                            No. TaskFlow is designed from the ground up to operate completely offline. Your workspaces, task configurations, timesheets, database setups, and resources remain stored securely on your local hard drive. No active connection required to start timers or execute calculations.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="border border-zinc-800 bg-[#121216]/50 rounded-xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleFaq(2)" class="w-full flex items-center justify-between p-5 text-left text-sm font-semibold text-white hover:bg-zinc-900/50 transition-colors">
+                        <span>Does TaskFlow upload my raw metrics or private data?</span>
+                        <i id="faq-icon-2" class="fa-solid fa-chevron-down text-zinc-500 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-body-2" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="p-5 border-t border-zinc-800 text-xs text-zinc-400 leading-relaxed">
+                            Never. We respect absolute developer and consultant privacy. No analytics tracking, telemetry, or remote logging are built into the Core application. Your files, logs, and sensitive figures are yours alone unless you decide to manually export them as files.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="border border-zinc-800 bg-[#121216]/50 rounded-xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleFaq(3)" class="w-full flex items-center justify-between p-5 text-left text-sm font-semibold text-white hover:bg-zinc-900/50 transition-colors">
+                        <span>Can I manage multiple businesses or client contexts independently?</span>
+                        <i id="faq-icon-3" class="fa-solid fa-chevron-down text-zinc-500 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-body-3" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="p-5 border-t border-zinc-800 text-xs text-zinc-400 leading-relaxed">
+                            Yes. TaskFlow handles isolation naturally using modular Workspace architectures. When you swap active workspaces via the sidebar navigation, the target billing configurations, default rates, document systems, and active boards pivot instantly without leakage risk.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="border border-zinc-800 bg-[#121216]/50 rounded-xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleFaq(4)" class="w-full flex items-center justify-between p-5 text-left text-sm font-semibold text-white hover:bg-zinc-900/50 transition-colors">
+                        <span>Can I export generated timesheets directly to Microsoft Excel?</span>
+                        <i id="faq-icon-4" class="fa-solid fa-chevron-down text-zinc-500 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-body-4" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="p-5 border-t border-zinc-800 text-xs text-zinc-400 leading-relaxed">
+                            Yes. TaskFlow comes with standard built-in spreadsheet compilation features. You can generate clean, structured .xlsx files containing regular hours, overtime schedules, and client billing logs formatted perfectly for seamless business delivery.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="border border-zinc-800 bg-[#121216]/50 rounded-xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleFaq(5)" class="w-full flex items-center justify-between p-5 text-left text-sm font-semibold text-white hover:bg-zinc-900/50 transition-colors">
+                        <span>Which desktop operating systems are supported?</span>
+                        <i id="faq-icon-5" class="fa-solid fa-chevron-down text-zinc-500 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-body-5" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="p-5 border-t border-zinc-800 text-xs text-zinc-400 leading-relaxed">
+                            TaskFlow is currently optimized for Windows 10 and 11 environments. macOS Universal build versions and Linux flatpaks are currently in actively configured pipelines, scheduled for upcoming release cycles during Q4 2026.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="border-t border-zinc-900 bg-[#07070a] py-16 text-xs text-zinc-500">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+                <!-- Brand Info Column -->
+                <div class="col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="flex h-8 w-8 items-center justify-center rounded bg-gradient-to-br from-purple-600 to-blue-600 text-white font-bold text-sm">
+                            <i class="fa-solid fa-wind"></i>
+                        </div>
+                        <span class="text-sm font-bold text-white tracking-tight">TaskFlow</span>
+                    </div>
+                    <p class="max-w-xs text-zinc-500 leading-relaxed mb-4">
+                        Premium local-first productivity tools built exclusively for high-performing developers, contractors, and specialized consultants.
+                    </p>
+                    <div class="flex gap-4 text-base">
+                        <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-github"></i></a>
+                        <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-discord"></i></a>
+                    </div>
+                </div>
+
+                <!-- Links Col 1 -->
+                <div>
+                    <h4 class="font-bold text-white mb-4">Product</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#features" class="hover:text-white transition-colors">Features</a></li>
+                        <li><a href="#why-taskflow" class="hover:text-white transition-colors">Why TaskFlow</a></li>
+                        <li><a href="#download" class="hover:text-white transition-colors">Downloads</a></li>
+                        <li><a href="#releases" class="hover:text-white transition-colors">Releases</a></li>
+                    </ul>
+                </div>
+
+                <!-- Links Col 2 -->
+                <div>
+                    <h4 class="font-bold text-white mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#faq" class="hover:text-white transition-colors">FAQ</a></li>
+                        <li><a href="#roadmap" class="hover:text-white transition-colors">Roadmap</a></li>
+                        <li><a href="#" onclick="showNotification('Local Documentation and Wiki setup is currently packaged inside the Desktop Client.')" class="hover:text-white transition-colors">Documentation</a></li>
+                    </ul>
+                </div>
+
+                <!-- Links Col 3 -->
+                <div>
+                    <h4 class="font-bold text-white mb-4">Legal & Privacy</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" onclick="showNotification('Privacy Policy: All data is stored locally. We track zero remote usage metrics.')" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" onclick="showNotification('License: Proprietary local license framework.')" class="hover:text-white transition-colors">License Agreement</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">GitHub Repository</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-zinc-900 gap-4 text-zinc-600">
+                <span>&copy; 2026 TaskFlow Desktop Application. All rights reserved.</span>
+                <span class="flex items-center gap-1">Designed with <i class="fa-solid fa-heart text-red-500/80"></i> in Al Obour City</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive notification toast element -->
+    <div id="custom-toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-350 bg-[#121217] border border-purple-500/30 text-zinc-100 text-xs rounded-xl shadow-2xl p-4 flex items-center gap-3 max-w-sm pointer-events-none">
+        <div class="w-8 h-8 rounded-full bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 text-sm flex-shrink-0">
+            <i class="fa-solid fa-circle-info"></i>
+        </div>
+        <div>
+            <div class="font-bold text-white" id="toast-title">Notification</div>
+            <p class="text-zinc-400 mt-0.5" id="toast-msg">Action performed successfully.</p>
+        </div>
+    </div>
+
+    <!-- Interactive Logic scripts -->
+    <script>
+        // Interactive Simulated Workspace List
+        const workspaces = [
+            { name: "Acme Agency", earnings: "$428.50", rate: "$125/hr" },
+            { name: "Global Dev Corp", earnings: "$652.10", rate: "$150/hr" },
+            { name: "Personal Work", earnings: "$0.00", rate: "In-House" }
+        ];
+        let currentWorkspaceIndex = 0;
+
+        function toggleSimulatedWorkspace() {
+            currentWorkspaceIndex = (currentWorkspaceIndex + 1) % workspaces.length;
+            const ws = workspaces[currentWorkspaceIndex];
+            
+            // Apply DOM changes to Simulated App mockup
+            document.getElementById('simulated-workspace-name').innerText = ws.name;
+            document.getElementById('simulated-earnings').innerText = ws.earnings;
+            
+            showNotification(`Simulated workspace switched to ${ws.name} (${ws.rate})`);
+        }
+
+        // Active Timer Simulation
+        let timerSeconds = 8085; // 02:14:45
+        let timerRunning = true;
+        let originalEarnings = 428.50;
+
+        setInterval(() => {
+            if (timerRunning) {
+                timerSeconds++;
+                // Update time strings
+                const formatted = formatTime(timerSeconds);
+                const elTime = document.getElementById('simulated-time');
+                const elTimeLarge = document.getElementById('simulated-time-large');
+                if (elTime) elTime.innerText = formatted;
+                if (elTimeLarge) elTimeLarge.innerText = formatted;
+
+                // Micro earnings increment (simulate billing in action)
+                originalEarnings += 0.035; // increments live
+                const elEarnings = document.getElementById('simulated-earnings');
+                if (elEarnings && currentWorkspaceIndex === 0) {
+                    elEarnings.innerText = `$${originalEarnings.toFixed(2)}`;
+                }
+            }
+        }, 1000);
+
+        function formatTime(totalSecs) {
+            const hrs = Math.floor(totalSecs / 3600);
+            const mins = Math.floor((totalSecs % 3600) / 60);
+            const secs = totalSecs % 60;
+            return [
+                hrs.toString().padStart(2, '0'),
+                mins.toString().padStart(2, '0'),
+                secs.toString().padStart(2, '0')
+            ].join(':');
+        }
+
+        function toggleMockTimerState() {
+            timerRunning = !timerRunning;
+            const btn = document.getElementById('mock-timer-btn');
+            if (timerRunning) {
+                btn.className = "bg-red-500 hover:bg-red-600 text-white text-xs px-4 py-1.5 rounded-lg font-bold transition-colors";
+                btn.innerHTML = '<i class="fa-solid fa-stop mr-1"></i> Stop Timer';
+                showNotification("Simulated workflow session resumed.");
+            } else {
+                btn.className = "bg-emerald-500 hover:bg-emerald-600 text-white text-xs px-4 py-1.5 rounded-lg font-bold transition-colors";
+                btn.innerHTML = '<i class="fa-solid fa-play mr-1"></i> Start Timer';
+                showNotification("Simulated workflow session paused.");
+            }
+        }
+
+        // Sidebar Navigation simulation
+        function switchMockupTab(tabName) {
+            const tabs = ['dashboard', 'kanban', 'time', 'reports'];
+            tabs.forEach(t => {
+                const elBody = document.getElementById(`mock-tab-${t}`);
+                const elBtn = document.getElementById(`mock-tab-${t}-btn`);
+                
+                if (t === tabName) {
+                    elBody.classList.remove('hidden');
+                    elBtn.className = "w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium bg-zinc-800/80 text-white transition-all";
+                } else {
+                    elBody.classList.add('hidden');
+                    elBtn.className = "w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium text-zinc-400 hover:bg-zinc-800/40 hover:text-white transition-all";
+                }
+            });
+        }
+
+        // Custom Notification Controller
+        let toastTimeout;
+        function showNotification(message, title = "TaskFlow Pro") {
+            const toast = document.getElementById('custom-toast');
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-msg').innerText = message;
+            
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 4000);
+        }
+
+        // Clipboard Copy Action
+        function copySHA() {
+            // Simulated action
+            const shaCode = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
+            const tempInput = document.createElement("input");
+            tempInput.value = shaCode;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            
+            showNotification("SHA-256 Checksum copied to your local clipboard!", "Clipboard Success");
+        }
+
+        // Simulation Downloads
+        function simulateDownload(os) {
+            showNotification(`Preparing TaskFlow for ${os}. Initiating installer package pipeline...`, "Download Request");
+            setTimeout(() => {
+                showNotification(`TaskFlow_${os}_v1.3.0_stable.exe download completed.`, "Download Success");
+            }, 2500);
+        }
+
+        // Accordion Toggle
+        function toggleFaq(index) {
+            const body = document.getElementById(`faq-body-${index}`);
+            const icon = document.getElementById(`faq-icon-${index}`);
+            
+            if (body.style.maxHeight && body.style.maxHeight !== '0px') {
+                body.style.maxHeight = '0px';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                // close other accordions
+                for(let i=1; i<=5; i++){
+                    const otherBody = document.getElementById(`faq-body-${i}`);
+                    const otherIcon = document.getElementById(`faq-icon-${i}`);
+                    if (otherBody) otherBody.style.maxHeight = '0px';
+                    if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+                }
+                body.style.maxHeight = body.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+    </script>
+</body>
+</html>

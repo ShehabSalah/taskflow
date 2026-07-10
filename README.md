@@ -117,15 +117,18 @@ TaskFlow replaces that patchwork with **one context-aware desktop app**: switch 
 | **Projects & tasks** | Trello-style Kanban, labels, checklists, custom-fields, attachments, comments, timers from cards |
 | **Time tracking** | Start/stop at workspace, project, or task level; filtered work logs |
 | **Reports** | Timesheets, attendance, overtime — export to Excel or CSV |
-| **Resources** | Local files and folders tied to workspaces and projects |
+| **Resources** | Local files and folders tied to workspaces and projects; custom categories with your own colors |
+| **Backup & restore** | Encrypted `.tfbackup` archives (database + files) from Settings — restore with your passphrase |
+| **Notifications** | In-app and OS alerts for timers, overdue tasks, and reminders |
+| **Updates** | Soft update check — optional banner when a newer desktop release is available |
 | **Desktop** | Native Windows & macOS installers; bundled or bring-your-own PostgreSQL |
 
 <br/>
 
-## Latest release · v1.0.0
+## Latest release · v1.1.0
 
-> **First public release** — Jul 3, 2026  
-> Local-first work management: workspaces, Kanban tasks, time tracking, real-time earnings, overtime views, Excel/CSV reports, app lock, and a setup wizard with Easy (bundled Postgres) or Advanced (BYO database) mode.
+> **Published** — Jul 10, 2026  
+> Encrypted backup & restore, in-app and OS notifications, custom resource categories, desktop soft update check, and post–v1.0.0 fixes.
 
 <br/>
 
@@ -135,7 +138,7 @@ TaskFlow replaces that patchwork with **one context-aware desktop app**: switch 
 
 | | |
 |---|---|
-| **File** | `TaskFlow_1.0.0_x64-setup.exe` |
+| **File** | `TaskFlow_1.1.0_x64-setup.exe` |
 | **Requires** | Windows 10 / 11 (64-bit) |
 | **Download** | [**Latest release →**](https://github.com/ShehabSalah/taskflow/releases/latest) |
 
@@ -145,8 +148,8 @@ Run the installer. If SmartScreen warns on first run: **More info → Run anyway
 
 | Build | File | Download |
 |---|---|---|
-| **Apple Silicon** (M1–M4) | `TaskFlow_1.0.0_aarch64.dmg` | [**Latest release →**](https://github.com/ShehabSalah/taskflow/releases/latest) |
-| **Intel** | `TaskFlow_1.0.0_x64.dmg` | [**Latest release →**](https://github.com/ShehabSalah/taskflow/releases/latest) |
+| **Apple Silicon** (M1–M4) | `TaskFlow_1.1.0_aarch64.dmg` | [**Latest release →**](https://github.com/ShehabSalah/taskflow/releases/latest) |
+| **Intel** | `TaskFlow_1.1.0_x64.dmg` | [**Latest release →**](https://github.com/ShehabSalah/taskflow/releases/latest) |
 
 Open the `.dmg`, drag **TaskFlow** to **Applications**. If Gatekeeper blocks launch: **right-click → Open**.
 
@@ -164,6 +167,8 @@ Download  →  Run installer  →  Setup wizard (Easy or Advanced DB)  →  Crea
 <br/>
 
 ## Upgrading
+
+Before a major upgrade, optionally create an encrypted backup from **Settings → Backup** (recommended).
 
 <details>
 <summary><b>Windows</b> — in-place update or clean reinstall</summary>
@@ -215,7 +220,7 @@ xattr -dr com.apple.quarantine /Applications/TaskFlow.app
 <details>
 <summary><b>What is TaskFlow?</b></summary>
 <br/>
-A local-first desktop app for professionals who manage work across clients, employers, or projects — workspaces, Kanban tasks, time tracking, earnings, reports, files, and overtime in one system on your machine.
+A local-first desktop app for professionals who manage work across clients, employers, or projects — workspaces, Kanban tasks, time tracking, earnings, reports, files, overtime, encrypted backup, and notifications in one system on your machine.
 </details>
 
 <details>

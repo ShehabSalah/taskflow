@@ -1,0 +1,61 @@
+body {
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    background-color: #09090b;
+    color: #f4f4f5;
+    overflow-x: hidden;
+}
+
+/* Custom scrollbar for premium feel */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #09090b;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #27272a;
+    border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #3f3f46;
+}
+
+/* Subtle glow effects */
+.glow-indigo {
+    box-shadow: 0 0 50px -10px rgba(99, 102, 241, 0.15);
+}
+
+.glow-purple {
+    box-shadow: 0 0 50px -10px rgba(139, 92, 246, 0.15);
+}
+
+/* Gradient border card effect */
+.grad-border {
+    position: relative;
+}
+
+.grad-border::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+.grad-border-hover:hover::after {
+    background: linear-gradient(to bottom right, rgba(139, 92, 246, 0.4), rgba(59, 130, 246, 0.4));
+}
+
+/* Horizontal flow line */
+.timeline-line {
+    background: linear-gradient(90deg, rgba(139, 92, 246, 0) 0%, rgba(139, 92, 246, 1) 50%, rgba(59, 130, 246, 0) 100%);
+}

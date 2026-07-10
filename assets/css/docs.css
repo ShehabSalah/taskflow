@@ -1,0 +1,5 @@
+.docs-nav a.active {
+    color: #fff;
+    background: rgba(139, 92, 246, 0.12);
+    border-color: rgba(139, 92, 246, 0.25);
+}

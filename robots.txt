@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Draft / unused landing copies
+Disallow: /index%20copy.html
+Disallow: /index copy.html
+Disallow: /taskflow_premium_landing_page.html
+
+Sitemap: https://shehabsalah.github.io/taskflow/sitemap.xml

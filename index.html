@@ -4,6 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TaskFlow — Local-first work management for professionals</title>
+    <meta name="description" content="TaskFlow is a free local-first desktop app for Windows and macOS. Manage workspaces, Kanban tasks, time tracking, earnings, overtime, reports, and encrypted backups — offline, on your machine.">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="author" content="Shehab Salah">
+    <meta name="theme-color" content="#09090b">
+    <meta name="color-scheme" content="dark">
+    <meta name="application-name" content="TaskFlow">
+    <link rel="canonical" href="https://shehabsalah.github.io/taskflow/">
+    <link rel="alternate" hreflang="en" href="https://shehabsalah.github.io/taskflow/">
+    <link rel="alternate" hreflang="x-default" href="https://shehabsalah.github.io/taskflow/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="TaskFlow">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:url" content="https://shehabsalah.github.io/taskflow/">
+    <meta property="og:title" content="TaskFlow — Local-first work management for professionals">
+    <meta property="og:description" content="Track time, earnings, projects, and tasks across clients and employers — offline on your desktop. Free for Windows and macOS.">
+    <meta property="og:image" content="https://shehabsalah.github.io/taskflow/brand/og-image.png">
+    <meta property="og:image:alt" content="TaskFlow dashboard showing workspaces and active work">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="TaskFlow — Local-first work management">
+    <meta name="twitter:description" content="Free desktop app for workspaces, Kanban tasks, time tracking, earnings, and reports. Your data stays on your machine.">
+    <meta name="twitter:image" content="https://shehabsalah.github.io/taskflow/brand/og-image.png">
+    <meta name="twitter:image:alt" content="TaskFlow dashboard showing workspaces and active work">
+
+    <!-- Icons & manifest -->
+    <link rel="icon" href="brand/mark.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="brand/apple-touch-icon.png" sizes="180x180">
+    <link rel="manifest" href="site.webmanifest">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="assets/js/tailwind-config.js"></script>
@@ -16,8 +50,162 @@
     <!-- Devicon (Zustand brand icon) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
     <link rel="stylesheet" href="assets/css/site.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://shehabsalah.github.io/taskflow/#website",
+          "url": "https://shehabsalah.github.io/taskflow/",
+          "name": "TaskFlow",
+          "description": "Local-first desktop work management for professionals.",
+          "inLanguage": "en",
+          "publisher": { "@id": "https://shehabsalah.github.io/taskflow/#person" }
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://shehabsalah.github.io/taskflow/#webpage",
+          "url": "https://shehabsalah.github.io/taskflow/",
+          "name": "TaskFlow — Local-first work management for professionals",
+          "isPartOf": { "@id": "https://shehabsalah.github.io/taskflow/#website" },
+          "about": { "@id": "https://shehabsalah.github.io/taskflow/#app" },
+          "description": "TaskFlow is a free local-first desktop app for Windows and macOS. Manage workspaces, Kanban tasks, time tracking, earnings, overtime, reports, and encrypted backups offline.",
+          "inLanguage": "en",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://shehabsalah.github.io/taskflow/brand/og-image.png"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://shehabsalah.github.io/taskflow/#app",
+          "name": "TaskFlow",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Windows 10, Windows 11, macOS 11+",
+          "softwareVersion": "1.1.0",
+          "url": "https://shehabsalah.github.io/taskflow/",
+          "downloadUrl": "https://github.com/ShehabSalah/taskflow/releases/latest",
+          "image": "https://shehabsalah.github.io/taskflow/brand/og-image.png",
+          "description": "Local-first desktop app for workspaces, projects, Kanban tasks, time tracking, real-time earnings, overtime, reports, resources, notifications, and encrypted backup.",
+          "author": { "@id": "https://shehabsalah.github.io/taskflow/#person" },
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://shehabsalah.github.io/taskflow/#person",
+          "name": "Shehab Salah",
+          "url": "https://github.com/ShehabSalah",
+          "sameAs": [
+            "https://github.com/ShehabSalah",
+            "https://www.linkedin.com/in/shehabsalah/"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://shehabsalah.github.io/taskflow/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is TaskFlow?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "TaskFlow is a local-first desktop app for professionals who manage work across clients, employers, or projects. It brings workspaces, projects, Kanban tasks, time tracking, earnings, reports, files, and overtime into one context-aware system on your machine."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is a workspace?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A workspace is a separate work context: a client, employer, contract, or personal work area. Each workspace has its own salary settings, projects, tasks, files, time logs, earnings, and reports so your work stays organized and easy to find."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I manage multiple clients or employers?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Create one workspace per client, employer, or contract. When you switch workspaces, TaskFlow shows only that context: projects, tasks, files, timers, earnings, and reports stay separated so nothing gets mixed together."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does TaskFlow require an internet connection?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. TaskFlow is built to run locally on your desktop. Your workspaces, tasks, time logs, files, and reports stay on your machine. You do not need an active internet connection to track time, manage work, or review earnings."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does TaskFlow upload my private data?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. TaskFlow does not require a cloud account and does not upload your work data by default. There is no built-in telemetry or analytics in the core app. Your files, logs, and earnings remain on your computer unless you choose to export or connect an optional integration later."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I track time without linking to a task?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. You can start a timer at workspace level, link it to a project, or attach it to a specific task. TaskFlow supports all three so you can track time the way your work is actually structured."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I export timesheets and reports?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. TaskFlow generates reports you can export to Excel and CSV, including timesheets, attendance logs, and overtime summaries. Exports are created from your recorded time logs on your local machine."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do I need PostgreSQL or technical setup?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The desktop installer guides you through setup. Easy mode can bundle PostgreSQL for a local install with minimal configuration. Advanced mode lets you connect your own PostgreSQL instance if you prefer to manage the database yourself."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Which operating systems are supported?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "TaskFlow is available for Windows 10 and 11 (.exe) and macOS 11 or later on Intel and Apple Silicon Macs (.dmg). Choose the build that matches your device from the download section."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is there a subscription or cloud account?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "TaskFlow is a local desktop product. You install it on your machine and run your work locally. There is no required cloud account for core features like workspaces, time tracking, tasks, earnings, and reports."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Will future integrations require the cloud?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Planned roadmap items such as tool integrations, cloud file links, Knowledge Hub, and AI are designed as optional extensions. Local-first remains the foundation: you choose what to connect, and your core work data stays on your machine."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 <body class="antialiased selection:bg-purple-500/30 selection:text-purple-200">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-black">Skip to content</a>
 
     <!-- Sticky Navigation Bar -->
     <header class="sticky top-0 z-50 w-full border-b border-darkBorder bg-darkBg/80 backdrop-blur-md transition-all duration-300">
@@ -25,8 +213,8 @@
             <div class="flex h-16 items-center justify-between">
                 <!-- Logo & Brand Name -->
                 <div class="flex items-center gap-3">
-                    <a href="#" class="flex items-center gap-2.5">
-                        <img src="brand/mark.svg" alt="" class="h-9 w-9" width="36" height="36" />
+                    <a href="./" class="flex items-center gap-2.5" aria-label="TaskFlow home">
+                        <img src="brand/mark.svg" alt="TaskFlow logo" class="h-9 w-9" width="36" height="36" />
                         <div class="flex flex-col">
                             <span class="text-base font-bold tracking-tight text-white">TaskFlow</span>
                             <span class="text-[9px] font-semibold uppercase tracking-widest text-zinc-500">Context-Aware · Local-First</span>
@@ -60,7 +248,8 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="relative pt-12 pb-24 lg:pt-20 lg:pb-32 overflow-hidden">
+    <main id="main-content">
+    <section class="relative pt-12 pb-24 lg:pt-20 lg:pb-32 overflow-hidden" aria-label="Introduction">
         <!-- Glow accents in background -->
         <div class="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-purple-900/10 blur-3xl pointer-events-none"></div>
         <div class="absolute top-1/3 right-1/4 translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-blue-900/10 blur-3xl pointer-events-none"></div>
@@ -1663,14 +1852,16 @@
         </div>
     </section>
 
+    </main>
+
     <!-- Footer Section -->
     <footer class="border-t border-zinc-900 bg-[#07070a] py-16 text-xs text-zinc-500">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
                 <!-- Brand Info Column -->
                 <div class="col-span-2">
-                    <a href="#" class="inline-flex items-center gap-2.5 mb-4">
-                        <img src="brand/mark.svg" alt="" class="h-9 w-9" width="36" height="36" />
+                    <a href="./" class="inline-flex items-center gap-2.5 mb-4" aria-label="TaskFlow home">
+                        <img src="brand/mark.svg" alt="TaskFlow logo" class="h-9 w-9" width="36" height="36" />
                         <div class="flex flex-col">
                             <span class="text-sm font-bold text-white tracking-tight">TaskFlow</span>
                             <span class="text-[9px] font-semibold uppercase tracking-widest text-zinc-500">Context-Aware · Local-First</span>

@@ -1,0 +1,24 @@
+{
+  "name": "TaskFlow",
+  "short_name": "TaskFlow",
+  "description": "Local-first desktop work management for professionals — workspaces, tasks, time tracking, earnings, and reports.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "brand/mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "brand/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

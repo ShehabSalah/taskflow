@@ -354,11 +354,85 @@ function switchMockupTab(tabName) {
 
 // Release notes modal — update manually on new releases (copy from context/tracking/releases.md)
 const releaseNotes = {
+    "1.2.0": {
+        version: "v1.2.0",
+        title: "TaskFlow v1.2.0",
+        date: "Jul 13, 2026",
+        status: "LATEST STABLE",
+        body: `
+            <p class="text-zinc-300 mb-6"><strong class="text-white">New in this release:</strong> project collections with dependencies, task dependencies, milestones, in-app releases, Help updates, and Kanban/task UI polish.</p>
+
+            <h4 class="text-base font-bold text-white mt-6 mb-3">Downloads</h4>
+            <div class="overflow-x-auto rounded-lg border border-zinc-800 mb-4">
+                <table class="w-full text-left text-xs border-collapse">
+                    <thead class="bg-zinc-900/60 text-zinc-400 uppercase tracking-wider text-[10px]">
+                        <tr>
+                            <th class="p-3 border-b border-zinc-800 font-semibold">Platform</th>
+                            <th class="p-3 border-b border-zinc-800 font-semibold">File</th>
+                            <th class="p-3 border-b border-zinc-800 font-semibold">Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-zinc-300 divide-y divide-zinc-800">
+                        <tr>
+                            <td class="p-3 font-semibold text-white">Windows (64-bit)</td>
+                            <td class="p-3 font-mono text-[11px]">TaskFlow_1.2.0_x64-setup.exe</td>
+                            <td class="p-3">Recommended installer (NSIS)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-semibold text-white">macOS (Apple Silicon)</td>
+                            <td class="p-3 font-mono text-[11px]">TaskFlow_1.2.0_aarch64.dmg</td>
+                            <td class="p-3">M-series Macs</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-semibold text-white">macOS (Intel)</td>
+                            <td class="p-3 font-mono text-[11px]">TaskFlow_1.2.0_x64.dmg</td>
+                            <td class="p-3">Intel-based Macs</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4 class="text-base font-bold text-white mt-6 mb-3">What's new</h4>
+            <ul class="list-disc list-inside space-y-1.5 text-zinc-400 mb-6">
+                <li><strong class="text-zinc-300">Collections</strong> — group related work inside a project; General holds unassigned tasks; sidebar by status with Kanban per collection</li>
+                <li><strong class="text-zinc-300">Collection &amp; task dependencies</strong> — plan what blocks what (collections across the project; tasks within a collection)</li>
+                <li><strong class="text-zinc-300">Milestones</strong> — planning targets that group collections; progress derived from collection status</li>
+                <li><strong class="text-zinc-300">Releases</strong> — draft → publish with notes, optional milestone link, and product-agnostic build assets</li>
+            </ul>
+
+            <h4 class="text-base font-bold text-white mt-6 mb-3">Fixes</h4>
+            <ul class="list-disc list-inside space-y-1.5 text-zinc-400 mb-6">
+                <li>Workspace switcher no longer flashes the Tasks board</li>
+                <li>Kanban rename, within-list card order, and list height polish</li>
+                <li>Task drawer / full editor layout and confirm dialogs</li>
+            </ul>
+
+            <h4 class="text-base font-bold text-white mt-6 mb-3">Upgrade notes</h4>
+            <ul class="list-disc list-inside space-y-1.5 text-zinc-400 mb-6">
+                <li>Install over an existing install; database and settings are preserved</li>
+                <li>Migrations add collections, dependencies, milestones, and releases automatically on desktop launch</li>
+                <li>Existing tasks remain on General until you assign a collection</li>
+                <li>Encrypted backup available before upgrading (Settings → Backup &amp; Restore, desktop only)</li>
+                <li>Newer versions: Settings → Desktop → Updates, or download from <a href="https://github.com/ShehabSalah/taskflow/releases/latest" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:text-indigo-300 transition-colors">Releases</a></li>
+            </ul>
+
+            <h4 class="text-base font-bold text-white mt-6 mb-3">Links</h4>
+            <ul class="list-disc list-inside space-y-1.5 text-zinc-400 mb-6">
+                <li><a href="https://shehabsalah.github.io/taskflow/" class="text-indigo-400 hover:text-indigo-300 transition-colors">Website</a></li>
+                <li><a href="https://shehabsalah.github.io/taskflow/docs.html" class="text-indigo-400 hover:text-indigo-300 transition-colors">User guide</a></li>
+            </ul>
+
+            <h4 class="text-base font-bold text-white mt-6 mb-3">Support</h4>
+            <p class="text-zinc-400 mb-6">Questions, bug reports, or feedback? Contact <strong class="text-zinc-300">Shehab Salah</strong> on <a href="https://www.linkedin.com/in/shehabsalah/" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:text-indigo-300 transition-colors">LinkedIn</a>.</p>
+
+            <p class="text-zinc-500 text-xs pt-4 border-t border-zinc-800"><strong class="text-zinc-400">TaskFlow v1.2.0</strong> — Track time. Manage work. Measure progress.</p>
+        `
+    },
     "1.1.0": {
         version: "v1.1.0",
         title: "TaskFlow v1.1.0",
         date: "Jul 10, 2026",
-        status: "LATEST STABLE",
+        status: "PREVIOUS",
         body: `
             <p class="text-zinc-300 mb-6"><strong class="text-white">New in this release:</strong> encrypted backup &amp; restore, in-app and OS notifications, custom resource categories, desktop soft update check, and post–v1.0.0 fixes.</p>
 

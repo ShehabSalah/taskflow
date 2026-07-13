@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/ShehabSalah/taskflow/releases/latest"><img src="https://img.shields.io/github/v/release/ShehabSalah/taskflow?label=release&color=8b5cf6&logo=github" alt="Latest release"></a>
+  <a href="https://github.com/ShehabSalah/taskflow/releases/latest"><img src="https://img.shields.io/github/v/release/ShehabSalah/taskflow?label=release&color=22c55e&logo=github" alt="Latest release"></a>
   <a href="#requirements"><img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS-6366f1" alt="Platform"></a>
   <a href="#get-taskflow"><img src="https://img.shields.io/badge/price-Free-2563eb" alt="Price"></a>
   <a href="https://github.com/ShehabSalah/taskflow/releases/latest"><img src="https://img.shields.io/badge/download-latest%20release-2dd4aa" alt="Download"></a>
@@ -115,6 +115,8 @@ TaskFlow replaces that patchwork with **one context-aware desktop app**: switch 
 |---|---|
 | **Workspaces** | Full-time, part-time, freelance, project-based — each with its own salary & overtime settings |
 | **Projects & tasks** | Trello-style Kanban, labels, checklists, custom-fields, attachments, comments, timers from cards |
+| **Collections** | Group related work inside a project; General board for unassigned tasks; collection & task dependencies |
+| **Milestones & releases** | Plan ship targets from collections; draft → publish with notes and build assets |
 | **Time tracking** | Start/stop at workspace, project, or task level; filtered work logs |
 | **Reports** | Timesheets, attendance, overtime — export to Excel or CSV |
 | **Resources** | Local files and folders tied to workspaces and projects; custom categories with your own colors |
@@ -125,10 +127,10 @@ TaskFlow replaces that patchwork with **one context-aware desktop app**: switch 
 
 <br/>
 
-## Latest release · v1.1.0
+## Latest release · v1.2.0
 
-> **Published** — Jul 10, 2026  
-> Encrypted backup & restore, in-app and OS notifications, custom resource categories, desktop soft update check, and post–v1.0.0 fixes.
+> **Published** — Jul 13, 2026  
+> Project collections with dependencies, task dependencies, milestones, in-app releases, Help updates, and Kanban/task UI polish.
 
 <br/>
 
@@ -138,7 +140,7 @@ TaskFlow replaces that patchwork with **one context-aware desktop app**: switch 
 
 | | |
 |---|---|
-| **File** | `TaskFlow_1.1.0_x64-setup.exe` |
+| **File** | `TaskFlow_1.2.0_x64-setup.exe` |
 | **Requires** | Windows 10 / 11 (64-bit) |
 | **Download** | [**Latest release →**](https://github.com/ShehabSalah/taskflow/releases/latest) |
 
@@ -148,8 +150,8 @@ Run the installer. If SmartScreen warns on first run: **More info → Run anyway
 
 | Build | File | Download |
 |---|---|---|
-| **Apple Silicon** (M1–M4) | `TaskFlow_1.1.0_aarch64.dmg` | [**Latest release →**](https://github.com/ShehabSalah/taskflow/releases/latest) |
-| **Intel** | `TaskFlow_1.1.0_x64.dmg` | [**Latest release →**](https://github.com/ShehabSalah/taskflow/releases/latest) |
+| **Apple Silicon** (M1–M4) | `TaskFlow_1.2.0_aarch64.dmg` | [**Latest release →**](https://github.com/ShehabSalah/taskflow/releases/latest) |
+| **Intel** | `TaskFlow_1.2.0_x64.dmg` | [**Latest release →**](https://github.com/ShehabSalah/taskflow/releases/latest) |
 
 Open the `.dmg`, drag **TaskFlow** to **Applications**. If Gatekeeper blocks launch: **right-click → Open**.
 

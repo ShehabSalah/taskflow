@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TaskFlow User Guide — Documentation</title>
-    <meta name="description" content="Learn TaskFlow: workspaces, projects, Kanban tasks, time tracking, earnings, reports, resources, notifications, and encrypted backup. Desktop user guide for Windows and macOS.">
+    <meta name="description" content="Learn TaskFlow: workspaces, collections, milestones, releases, projects, Kanban tasks, time tracking, earnings, reports, resources, notifications, and encrypted backup. Desktop user guide for Windows and macOS.">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="author" content="Shehab Salah">
     <meta name="theme-color" content="#09090b">
@@ -18,7 +18,7 @@
     <meta property="og:locale" content="en_US">
     <meta property="og:url" content="https://shehabsalah.github.io/taskflow/docs.html">
     <meta property="og:title" content="TaskFlow User Guide — Documentation">
-    <meta property="og:description" content="How to use TaskFlow on your desktop: workspaces, tasks, time tracking, earnings, reports, files, and encrypted backup.">
+    <meta property="og:description" content="How to use TaskFlow on your desktop: workspaces, collections, milestones, releases, tasks, time tracking, earnings, reports, files, and encrypted backup.">
     <meta property="og:image" content="https://shehabsalah.github.io/taskflow/brand/og-image.png">
     <meta property="og:image:alt" content="TaskFlow dashboard showing workspaces and active work">
 
@@ -46,7 +46,7 @@
       "@type": "TechArticle",
       "headline": "TaskFlow User Guide",
       "name": "TaskFlow User Guide — Documentation",
-      "description": "Learn how to use TaskFlow on your desktop: workspaces, projects, tasks, time tracking, earnings, reports, files, and encrypted backup.",
+      "description": "Learn how to use TaskFlow on your desktop: workspaces, collections, milestones, releases, projects, tasks, time tracking, earnings, reports, files, and encrypted backup.",
       "inLanguage": "en",
       "url": "https://shehabsalah.github.io/taskflow/docs.html",
       "image": "https://shehabsalah.github.io/taskflow/brand/og-image.png",
@@ -65,7 +65,7 @@
         "name": "TaskFlow",
         "applicationCategory": "BusinessApplication",
         "operatingSystem": "Windows, macOS",
-        "softwareVersion": "1.1.0"
+        "softwareVersion": "1.2.0"
       }
     }
     </script>
@@ -101,7 +101,7 @@
             <p class="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-2">Documentation</p>
             <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">TaskFlow User Guide</h1>
             <p class="text-zinc-400 mt-4 leading-relaxed">
-                Learn how to use TaskFlow on your desktop: workspaces, projects, tasks, time tracking, earnings, reports, files, and encrypted backup. This guide describes the application through version 1.1.0 (desktop).
+                Learn how TaskFlow works — workspaces, collections, milestones, releases, time tracking, and reports. This guide mirrors the in-app Help and describes the application through version 1.2.0 (desktop).
             </p>
             <p class="text-zinc-500 text-sm mt-3">
                 TaskFlow runs locally on your machine. The same guide is available inside the app under <strong class="text-zinc-400 font-semibold">Help</strong> in the account menu.
@@ -114,6 +114,9 @@
                     <a href="#getting-started" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Getting started</a>
                     <a href="#workspaces" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Workspaces</a>
                     <a href="#projects-tasks" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Projects &amp; tasks</a>
+                    <a href="#collections" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Collections</a>
+                    <a href="#milestones" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Milestones</a>
+                    <a href="#releases" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Releases</a>
                     <a href="#time-earnings" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Time &amp; earnings</a>
                     <a href="#dashboard" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Dashboard</a>
                     <a href="#logs" class="block px-3 py-2 rounded-lg border border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-colors">Work logs</a>
@@ -131,28 +134,29 @@
                 <section id="getting-started" class="scroll-mt-24 rounded-2xl border border-zinc-800 bg-zinc-900/20 p-6 sm:p-8">
                     <h2 class="text-xl font-bold text-white mb-3">Getting started</h2>
                     <p class="text-sm text-zinc-400 leading-relaxed mb-4">
-                        TaskFlow helps you track time, earnings, projects, and tasks on your own machine. Your salary, logs, and reports are stored locally and are not uploaded to a cloud service by default.
+                        TaskFlow helps you track time, earnings, projects, and tasks on your own machine. Data stays local — your salary and reports are not sent to the cloud.
                     </p>
                     <ul class="list-disc list-inside space-y-2 text-sm text-zinc-300 leading-relaxed">
                         <li>Install TaskFlow for Windows or macOS from the <a href="index.html#download" class="text-indigo-400 hover:text-indigo-300">download page</a>. The setup wizard can set up PostgreSQL for you (Easy mode) or connect to your own database (Advanced mode).</li>
-                        <li>On a new computer, the wizard can <a href="#backup-restore" class="text-indigo-400 hover:text-indigo-300">restore from an encrypted backup</a> before you create an account. Skip this step for a fresh start.</li>
+                        <li>Desktop updates are manual: open Settings → Desktop → Updates, check for a newer version, then run the new installer over your current app.</li>
+                        <li>On a new computer, the wizard can <a href="#backup-restore" class="text-indigo-400 hover:text-indigo-300">restore from an encrypted backup</a> before you create an account — skip if this is a fresh start.</li>
                         <li>On first launch (or after restore without sign-in), create a username and password to protect your data on this device.</li>
                         <li>After sign-in, pick a workspace from the top bar. Most pages use the active workspace.</li>
-                        <li>Use the sidebar for Dashboard, Workspaces, Projects, Tasks, Work Logs, Resources, Reports, and Overtime.</li>
-                        <li>Open Settings, Help, Lock, or Logout from your account menu in the top-right corner.</li>
+                        <li>Use the sidebar for Dashboard, Workspaces, Projects, Tasks, Logs, Reports, and Overtime.</li>
+                        <li>Open Settings, Help, Lock, or Logout from your avatar menu (top right).</li>
                     </ul>
                 </section>
 
                 <section id="workspaces" class="scroll-mt-24 rounded-2xl border border-zinc-800 bg-zinc-900/20 p-6 sm:p-8">
                     <h2 class="text-xl font-bold text-white mb-3">Workspaces</h2>
                     <p class="text-sm text-zinc-400 leading-relaxed mb-4">
-                        A workspace represents a job, client, or employer. Salary and hour expectations in that workspace drive earnings calculations.
+                        A workspace represents a job, client, or employer. Salary and hour expectations drive earnings calculations.
                     </p>
                     <ul class="list-disc list-inside space-y-2 text-sm text-zinc-300 leading-relaxed">
-                        <li>Create a workspace from <strong class="text-zinc-200 font-medium">Workspaces → New workspace</strong>. Set salary, currency, expected monthly and weekly hours, and work type.</li>
+                        <li>Create a workspace from <strong class="text-zinc-200 font-medium">Workspaces → New workspace</strong>. Set salary, currency, expected monthly/weekly hours, and work type.</li>
                         <li>Enable overtime and choose a multiplier if your workspace pays extra for overtime hours.</li>
-                        <li>Open a workspace to see overview stats, resources, settings, and statistics.</li>
-                        <li>Start or end work from the workspace header to run the timer for that workspace.</li>
+                        <li>Open a workspace to see overview stats, resources, settings, and statistics tabs.</li>
+                        <li>Start or end work from the workspace header — this runs the timer for that workspace.</li>
                         <li>Set a default workspace under Settings so the app opens with your usual context.</li>
                     </ul>
                 </section>
@@ -160,15 +164,62 @@
                 <section id="projects-tasks" class="scroll-mt-24 rounded-2xl border border-zinc-800 bg-zinc-900/20 p-6 sm:p-8">
                     <h2 class="text-xl font-bold text-white mb-3">Projects &amp; tasks</h2>
                     <p class="text-sm text-zinc-400 leading-relaxed mb-4">
-                        Organize work under projects, then manage tasks on a Kanban board with lists, labels, dates, checklists, and attachments.
+                        Organize work under projects, then manage tasks on a Kanban board with lists, labels, dates, checklists, and attachments. Use collections to group related work inside a project.
                     </p>
                     <ul class="list-disc list-inside space-y-2 text-sm text-zinc-300 leading-relaxed">
-                        <li>Create projects inside a workspace. Each project has its own board lists (columns).</li>
-                        <li>Open Tasks, select a project, and drag cards between lists. Quick-add creates tasks in a list.</li>
+                        <li>Create projects inside a workspace. Each project gets its own board lists (columns).</li>
+                        <li>Open Tasks, pick a project, then choose a collection (or General) in the second sidebar — the Kanban shows that slice of work.</li>
+                        <li>Drag cards between lists. Quick-add creates tasks in the current list and collection.</li>
                         <li>Click a task card for the quick drawer, or open the full editor for descriptions, comments, activity, and checklists.</li>
-                        <li>Use labels, start and end dates, custom fields, and attachments from the task editor or drawer.</li>
-                        <li>Mark tasks complete independently of their Kanban list when work is done.</li>
+                        <li>Use labels, start/end dates, custom fields, attachments, and task dependencies from the task editor or drawer where available.</li>
                         <li>Start the timer from a task card or from the start-work dialog to link time to that task.</li>
+                        <li>On a project detail page, use the Milestones and Releases tabs for planning targets and shipped versions (see sections below).</li>
+                    </ul>
+                </section>
+
+                <section id="collections" class="scroll-mt-24 rounded-2xl border border-zinc-800 bg-zinc-900/20 p-6 sm:p-8">
+                    <h2 class="text-xl font-bold text-white mb-3">Collections</h2>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+                        A collection is a planning container for related work inside one project — for example a feature area or workstream. Kanban stays the execution board; collections decide which tasks you are looking at.
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-zinc-300 leading-relaxed">
+                        <li>Collections belong to a project (not the whole workspace). Switching projects shows a different collection list.</li>
+                        <li>On Tasks, the second sidebar lists General plus your collections, grouped by status: In progress, Planned, Complete.</li>
+                        <li>General holds tasks with no collection — existing work stays there after upgrade. You cannot delete or reorder General.</li>
+                        <li>Create or edit a collection from the sidebar (New collection). Set name, optional description and vision, status, and optional dependencies on other collections in the same project.</li>
+                        <li>New tasks inherit the collection you have selected. You can change collection when creating or editing a task (same project only).</li>
+                        <li>Collection dependencies show precedence (this work waits on that area). The Collection Dependencies panel under the board is informational — it does not auto-change status.</li>
+                        <li>Within a collection, tasks can depend on each other (blocked by / blocks). Moving a task to another collection clears those task links.</li>
+                        <li>Optionally link a collection to a milestone when planning toward a ship target.</li>
+                    </ul>
+                </section>
+
+                <section id="milestones" class="scroll-mt-24 rounded-2xl border border-zinc-800 bg-zinc-900/20 p-6 sm:p-8">
+                    <h2 class="text-xl font-bold text-white mb-3">Milestones</h2>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+                        A milestone is a planning target for a project — a version or delivery goal you are working toward. It groups collections so you can see progress toward that target before anything is published.
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-zinc-300 leading-relaxed">
+                        <li>Open a project → Milestones tab to list, create, and edit milestones (separate from the Releases tab).</li>
+                        <li>Link collections to a milestone from milestone detail or when creating/editing a collection (same project only).</li>
+                        <li>Status and progress are derived from linked collection statuses — you do not set milestone status by hand.</li>
+                        <li>Optional start and end dates support planning; the timeline view shows milestones with progress and status on hover.</li>
+                        <li>A milestone can exist for a long time as an unreleased target. Publishing a release (below) is a separate step.</li>
+                    </ul>
+                </section>
+
+                <section id="releases" class="scroll-mt-24 rounded-2xl border border-zinc-800 bg-zinc-900/20 p-6 sm:p-8">
+                    <h2 class="text-xl font-bold text-white mb-3">Releases</h2>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+                        A release is the ship record for a project: version tag, title, release notes, and optional build files. Think of it as publishing what you planned in a milestone.
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-zinc-300 leading-relaxed">
+                        <li>Open a project → Releases tab (separate from Milestones) to create drafts and publish.</li>
+                        <li>Each release has a unique tag per project (for example v1.2.0), a title, markdown notes, and Draft or Published status.</li>
+                        <li>Optionally link one milestone from the same project so the release points at the work that shipped.</li>
+                        <li>Attach build assets with a platform label and optional channel (any product — installers, APKs, web builds). Manage platform and channel names on the project as needed.</li>
+                        <li>Publish when ready — that sets Published and the publish date. It does not auto-complete the linked milestone; finish collections separately.</li>
+                        <li>Project overview shows release count and the latest published tag.</li>
                     </ul>
                 </section>
 
@@ -178,10 +229,10 @@
                         Recorded sessions are the source of truth for duration and pay. Earnings update in real time while the timer runs.
                     </p>
                     <ul class="list-disc list-inside space-y-2 text-sm text-zinc-300 leading-relaxed">
-                        <li>Start work from a workspace page or the top-bar timer. You can link the session to a project or task, or track at workspace level only.</li>
-                        <li>Stop the timer when you finish. The top bar shows elapsed time and estimated earnings for the active session.</li>
-                        <li>Earnings use your workspace salary divided by expected monthly hours, calculated precisely by the second.</li>
-                        <li>If you lock or log out, the app stops an active timer first so sessions stay accurate.</li>
+                        <li>Start work from a workspace detail page or the top-bar timer area. Stop when you finish.</li>
+                        <li>The top bar shows elapsed time and estimated earnings for the active session.</li>
+                        <li>Earnings use your workspace salary divided by expected monthly hours — stored precisely by the second.</li>
+                        <li>If you lock or log out, the app tries to stop an active timer first so sessions stay accurate.</li>
                     </ul>
                 </section>
 
@@ -303,7 +354,8 @@
                     <ul class="list-disc list-inside space-y-2 text-sm text-zinc-300 leading-relaxed">
                         <li><kbd class="px-1.5 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-xs font-mono text-zinc-300">Ctrl+L</kbd> — lock the app immediately.</li>
                         <li><strong class="text-zinc-200 font-medium">Week starts on</strong> — set under Settings → General; affects weekly progress and reports.</li>
-                        <li><strong class="text-zinc-200 font-medium">Default workspace</strong> — set under Settings to open with your usual context each session.</li>
+                        <li><strong class="text-zinc-200 font-medium">Default workspace</strong> — set under Settings to skip picking one each session.</li>
+                        <li>Tasks URL accepts <code class="text-zinc-400">?projectId=</code> and <code class="text-zinc-400">?collectionId=</code> to open a project board (and collection) directly.</li>
                     </ul>
                 </section>
             </main>

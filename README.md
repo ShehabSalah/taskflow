@@ -16,10 +16,10 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/ShehabSalah/taskflow/releases/latest"><img src="https://img.shields.io/github/v/release/ShehabSalah/taskflow?label=release&color=22c55e&logo=github" alt="Latest release"></a>
+  <a href="https://shehabsalah.github.io/taskflow/index.html#releases"><img src="https://img.shields.io/github/v/release/ShehabSalah/taskflow?label=release&color=22c55e&logo=github" alt="Latest release"></a>
   <a href="#requirements"><img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS-6366f1" alt="Platform"></a>
   <a href="#get-taskflow"><img src="https://img.shields.io/badge/price-Free-2563eb" alt="Price"></a>
-  <a href="https://github.com/ShehabSalah/taskflow/releases/latest"><img src="https://img.shields.io/badge/download-latest%20release-2dd4aa" alt="Download"></a>
+  <a href="https://shehabsalah.github.io/taskflow/index.html#releases"><img src="https://img.shields.io/badge/download-latest%20release-2dd4aa" alt="Download"></a>
   <a href="https://shehabsalah.github.io/taskflow/"><img src="https://img.shields.io/badge/website-shehabsalah.github.io%2Ftaskflow-2dd4aa" alt="Website"></a>
 </p>
 
@@ -142,7 +142,7 @@ TaskFlow replaces that patchwork with **one context-aware desktop app**: switch 
 |---|---|
 | **File** | `TaskFlow_1.2.0_x64-setup.exe` |
 | **Requires** | Windows 10 / 11 (64-bit) |
-| **Download** | [**Latest release →**](https://github.com/ShehabSalah/taskflow/releases/latest) |
+| **Download** | [**Latest release →**](https://shehabsalah.github.io/taskflow/index.html#releases) |
 
 Run the installer. If SmartScreen warns on first run: **More info → Run anyway**.
 
@@ -150,8 +150,8 @@ Run the installer. If SmartScreen warns on first run: **More info → Run anyway
 
 | Build | File | Download |
 |---|---|---|
-| **Apple Silicon** (M1–M4) | `TaskFlow_1.2.0_aarch64.dmg` | [**Latest release →**](https://github.com/ShehabSalah/taskflow/releases/latest) |
-| **Intel** | `TaskFlow_1.2.0_x64.dmg` | [**Latest release →**](https://github.com/ShehabSalah/taskflow/releases/latest) |
+| **Apple Silicon** (M1–M4) | `TaskFlow_1.2.0_aarch64.dmg` | [**Latest release →**](https://shehabsalah.github.io/taskflow/index.html#releases) |
+| **Intel** | `TaskFlow_1.2.0_x64.dmg` | [**Latest release →**](https://shehabsalah.github.io/taskflow/index.html#releases) |
 
 Open the `.dmg`, drag **TaskFlow** to **Applications**. If Gatekeeper blocks launch: **right-click → Open**.
 
@@ -184,7 +184,7 @@ Before a major upgrade, optionally create an encrypted backup from **Settings �
 1. Close TaskFlow completely.
 2. Uninstall via **Settings → Apps** (or **Add or remove programs**).
 3. ⚠️ **When prompted about application data, leave “Remove data from disk” unchecked** (choose **Keep data**). Your workspaces, logs, and database live on your machine — checking that box deletes them permanently.
-4. Install the latest release from [**Releases**](https://github.com/ShehabSalah/taskflow/releases/latest).
+4. Install the latest release from [**Releases**](https://shehabsalah.github.io/taskflow/index.html#releases).
 
 </details>
 
@@ -193,7 +193,7 @@ Before a major upgrade, optionally create an encrypted backup from **Settings �
 
 <br/>
 
-1. Download the latest `.dmg` from [**Releases**](https://github.com/ShehabSalah/taskflow/releases/latest).
+1. Download the latest `.dmg` from [**Releases**](https://shehabsalah.github.io/taskflow/index.html#releases).
 2. Drag **TaskFlow** to **Applications**, replacing the existing app.
 3. Launch — data is kept; migrations run on startup.
 
